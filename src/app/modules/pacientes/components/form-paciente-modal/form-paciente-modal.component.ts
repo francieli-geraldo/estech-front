@@ -1,0 +1,147 @@
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { of, Subscription } from 'rxjs';
+import { catchError, finalize, first, tap } from 'rxjs/operators';
+import { Paciente } from '../../_models/paciente.model';
+import { PacientesService } from '../../_services/pacientes.service';
+import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../../../../_metronic/core';
+
+const EMPTY_CUSTOMER: Paciente = {
+  id: undefined,
+  nome: '',
+  dt_nascimento: '',
+  sexo: '',
+  email: '',
+  celular: ''
+};
+
+@Component({
+  selector: 'app-form-paciente-modal',
+  templateUrl: './form-paciente-modal.component.html',
+  styleUrls: ['./form-paciente-modal.component.scss'],
+  // NOTE: For this example we are only providing current component, but probably
+  // NOTE: you will w  ant to provide your main App Module
+  providers: [
+    {provide: NgbDateAdapter, useClass: CustomAdapter},
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
+  ]
+})
+export class FormPacienteModalComponent implements OnInit, OnDestroy {
+  
+  @Input() id: number;
+  isLoading$;
+  register: Paciente;
+  formGroup: FormGroup;
+  private subscriptions: Subscription[] = [];
+  constructor(
+    private registersService: PacientesService,
+    private fb: FormBuilder, 
+    public modal: NgbActiveModal
+    ) { }
+
+  ngOnInit(): void {
+    this.isLoading$ = this.registersService.isLoading$;
+    this.loadRegister();
+  }
+
+  loadRegister() {
+    if (!this.id) {
+      this.register = EMPTY_CUSTOMER;
+      this.loadForm();
+    } else {
+      const sb = this.registersService.getItemById(this.id).pipe(
+        first(),
+        catchError((errorMessage) => {
+          this.modal.dismiss(errorMessage);
+          return of(EMPTY_CUSTOMER);
+        })
+      ).subscribe((register: Paciente) => {
+        this.register = register;
+        this.loadForm();
+      });
+      this.subscriptions.push(sb);
+    }
+  }
+
+  loadForm() {
+    this.formGroup = this.fb.group({
+      nome: [this.register.nome, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+      dt_nascimento: [this.register.dt_nascimento, Validators.compose([Validators.nullValidator])],
+      sexo: [this.register.sexo, Validators.compose([Validators.required])],
+      email: [this.register.email, Validators.compose([Validators.required, Validators.email])],
+      celular: [this.register.celular, Validators.compose([Validators.required])]
+    });
+  }
+
+  save() {
+    this.prepareRegister();
+    if (this.register.id) {
+      this.edit();
+    } else {
+      this.create();
+    }
+  }
+
+  edit() {
+    const sbUpdate = this.registersService.update(this.register).pipe(
+      tap(() => {
+        this.modal.close();
+      }),
+      catchError((errorMessage) => {
+        this.modal.dismiss(errorMessage);
+        return of(this.register);
+      }),
+    ).subscribe(res => this.register = res);
+    console.log(sbUpdate);
+    
+    this.subscriptions.push(sbUpdate);
+  }
+
+  create() {
+    const sbCreate = this.registersService.create(this.register).pipe(
+      tap(() => {
+        this.modal.close();
+      }),
+      catchError((errorMessage) => {
+        this.modal.dismiss(errorMessage);
+        return of(this.register);
+      }),
+    ).subscribe((res: Paciente) => this.register = res);
+    this.subscriptions.push(sbCreate);
+  }
+
+  private prepareRegister() {
+    const formData = this.formGroup.value;
+    this.register.nome =  formData.nome;
+    this.register.dt_nascimento =  formData.dt_nascimento;
+    this.register.sexo =  formData.sexo;
+    this.register.email =  formData.email;
+    this.register.celular =  formData.celular;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sb => sb.unsubscribe());
+  }
+
+  // helpers for View
+  isControlValid(controlName: string): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.valid && (control.dirty || control.touched);
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.invalid && (control.dirty || control.touched);
+  }
+
+  controlHasError(validation, controlName): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.hasError(validation) && (control.dirty || control.touched);
+  }
+
+  isControlTouched(controlName): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.dirty || control.touched;
+  }
+}
