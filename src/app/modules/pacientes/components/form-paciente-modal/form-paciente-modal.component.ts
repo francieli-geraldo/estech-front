@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { of, Subscription } from 'rxjs';
 import { catchError, finalize, first, tap } from 'rxjs/operators';
-import { Paciente } from '../../_models/paciente.model';
-import { PacientesService } from '../../_services/pacientes.service';
+import { Paciente } from '../../../../models/paciente.model';
+import { PacientesService } from '../../../../services/pacientes.service';
 import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../../../../_metronic/core';
 
 const EMPTY_CUSTOMER: Paciente = {

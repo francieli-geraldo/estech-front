@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of, Subscription } from 'rxjs';
 import { catchError, delay, finalize, tap } from 'rxjs/operators';
-import { PacientesService } from '../../_services/pacientes.service';
+import { PacientesService } from '../../../../services/pacientes.service';
 
 @Component({
   selector: 'app-delete-paciente-modal',

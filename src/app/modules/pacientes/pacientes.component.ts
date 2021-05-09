@@ -19,7 +19,7 @@ import {
   IGroupingView,
   ISearchView,
 } from '../../_metronic/shared/crud-table';
-import { PacientesService } from './_services/pacientes.service';
+import { PacientesService } from '../../services/pacientes.service';
 import { FormPacienteModalComponent } from './components/form-paciente-modal/form-paciente-modal.component';
 import { DeletePacienteModalComponent } from './components/delete-paciente-modal/delete-paciente-modal.component';
 // import { EditPacienteModalComponent } from '../pacientes/components/edit-pacientes-modal/edit-paciente-modal.component';
