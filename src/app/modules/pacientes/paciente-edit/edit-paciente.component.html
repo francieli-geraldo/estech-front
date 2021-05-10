@@ -16,32 +16,32 @@
     </div>
     <div class="card-toolbar">
       <a type="button" class="btn btn-light" routerLink="/pacientes">
-        <i class="fa fa-arrow-left"></i>Back
+        <i class="fa fa-arrow-left"></i>Voltar
       </a>
       <button class="btn btn-secondary ml-2" (click)="reset()">
-        <i class="fa fa-redo"></i>Reset
+        <i class="fa fa-redo"></i>Redefinir
       </button>
     </div>
   </div>
   <div class="card-body">
     <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.BASIC_TAB)">
-        <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.BASIC_TAB"
-          [class.active]="activeTabId === tabs.BASIC_TAB">
+      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.INFOMACOES_PACIENTE_TAB)">
+        <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.INFOMACOES_PACIENTE_TAB"
+          [class.active]="activeTabId === tabs.INFOMACOES_PACIENTE_TAB">
           Informações do Paciente
         </a>
       </li>
-      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.REMARKS_TAB)">
-        <a class="nav-link" data-toggle="tab" role="button" [attr.aria-selected]="activeTabId === tabs.REMARKS_TAB"
-          [class.active]="activeTabId === tabs.REMARKS_TAB"> Contratos</a>
+      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.CONTRATOS_TAB)">
+        <a class="nav-link" data-toggle="tab" role="button" [attr.aria-selected]="activeTabId === tabs.CONTRATOS_TAB"
+          [class.active]="activeTabId === tabs.CONTRATOS_TAB"> Contratos</a>
       </li>
-      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.SPECIFICATIONS_TAB)">
-        <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.SPECIFICATIONS_TAB"
-          [class.active]="activeTabId === tabs.SPECIFICATIONS_TAB">Lançamentos diários</a>
+      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.LANCAMENTOS_TAB)">
+        <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.LANCAMENTOS_TAB"
+          [class.active]="activeTabId === tabs.LANCAMENTOS_TAB">Lançamentos diários</a>
       </li>
     </ul>
 
-    <ng-container *ngIf="activeTabId === tabs.BASIC_TAB">
+    <ng-container *ngIf="activeTabId === tabs.INFOMACOES_PACIENTE_TAB">
       <div class="mt-5" *ngIf="paciente">
         <form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
           <div class="form-group row">
@@ -125,19 +125,19 @@
             </div>
           </div>
           <div class="float-right">
-            <a class="btn btn-default font-weight-bold mr-2" routerLink="/ecommerce/pacientes">Cancel</a>
+            <a class="btn btn-default font-weight-bold mr-2" routerLink="/ecommerce/pacientes">Cancelar</a>
             <button type="submit" class="btn btn-primary font-weight-bold mr-2"
-              [disabled]="formGroup.invalid">Save</button>
+              [disabled]="formGroup.invalid">Salvar</button>          
           </div>
         </form>
       </div>
     </ng-container>
 
-    <!-- <ng-container *ngIf="activeTabId === tabs.REMARKS_TAB && paciente && paciente.id">
-      <app-remarks [pacienteId]="paciente.id"></app-remarks>
+    <ng-container *ngIf="activeTabId === tabs.CONTRATOS_TAB">
+      <app-contratos></app-contratos>
     </ng-container>
 
-    <ng-container *ngIf="activeTabId === tabs.SPECIFICATIONS_TAB && paciente && paciente.id">
+    <!-- <ng-container *ngIf="activeTabId === tabs.LANCAMENTOS_TAB && paciente && paciente.id">
       <app-specifications [pacienteId]="paciente.id"></app-specifications>
     </ng-container> -->
 

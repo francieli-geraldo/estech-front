@@ -28,11 +28,11 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   errorMessage = '';
   tabs = {
-    BASIC_TAB: 0,
-    REMARKS_TAB: 1,
-    SPECIFICATIONS_TAB: 2
+    INFOMACOES_PACIENTE_TAB: 0,
+    CONTRATOS_TAB: 1,
+    LANCAMENTOS_TAB: 2
   };
-  activeTabId = this.tabs.BASIC_TAB; // 0 => Basic info | 1 => Remarks | 2 => Specifications
+  activeTabId = this.tabs.INFOMACOES_PACIENTE_TAB; // 0 => Basic info | 1 => Remarks | 2 => Specifications
   private subscriptions: Subscription[] = [];
 
   constructor(

@@ -15,6 +15,7 @@ import { EditPacienteComponent } from './paciente-edit/edit-paciente.component';
 import { ContratosComponent } from './paciente-edit/contratos/contratos.component';
 import { FormContratoModalComponent } from './paciente-edit/contratos/components/form-contrato-modal/form-contrato-modal.component';
 import { DeleteContratoModalComponent } from './paciente-edit/contratos/components/delete-contrato-modal/delete-contrato-modal.component';
+import { CancelContratoModalComponent } from './paciente-edit/contratos/components/cancel-contrato-modal/cancel-contrato-modal.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { DeleteContratoModalComponent } from './paciente-edit/contratos/componen
     EditPacienteComponent,
     ContratosComponent,
     FormContratoModalComponent,
-    DeleteContratoModalComponent,    
+    DeleteContratoModalComponent,
+    CancelContratoModalComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,7 @@ import { DeleteContratoModalComponent } from './paciente-edit/contratos/componen
     DeletePacienteModalComponent,
     FormContratoModalComponent,
     DeleteContratoModalComponent,
+    CancelContratoModalComponent
   ]
 })
 export class PacientesModule {}

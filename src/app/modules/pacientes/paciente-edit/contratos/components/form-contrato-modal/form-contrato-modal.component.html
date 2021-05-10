@@ -4,9 +4,9 @@
       <ng-container *ngIf="register">
         <ng-container *ngIf="register.id">Editar</ng-container>
         <ng-container *ngIf="!register.id">Cadastrar</ng-container>
-        paciente
+        contrato 
         <ng-container *ngIf="register.id"
-          >'{{ register.nome }}'</ng-container
+          >'{{ register.id }}'</ng-container
         >
       </ng-container>
     </div>
@@ -106,7 +106,14 @@
       </form>
     </ng-container>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer">      
+    <button
+      type="button"
+      class="btn btn-danger btn-elevate mr-2"
+      (click)="modal.dismiss()"
+    >
+    Deletar
+    </button>
     <button
       type="button"
       class="btn btn-light btn-elevate mr-2"
