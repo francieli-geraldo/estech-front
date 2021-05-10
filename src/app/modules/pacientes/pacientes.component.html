@@ -4,7 +4,7 @@
       <h3 class="card-label">Lista de Pacientes</h3>
     </div>
     <div class="card-toolbar">
-      <button type="button" class="btn btn-primary" (click)="create()">Novo Paciente</button>
+      <button type="button" class="btn btn-primary" routerLink="/pacientes/add">Novo Paciente</button>
     </div>
   </div>
   <div class="card-body">
@@ -107,7 +107,7 @@
             <td>
 
               <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                (click)="edit(register.id)">
+              [routerLink]="'/pacientes/edit/' + register.id">
                 <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
                 </span>

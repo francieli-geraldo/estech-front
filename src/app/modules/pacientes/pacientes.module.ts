@@ -11,12 +11,21 @@ import { PacientesComponent } from './pacientes.component';
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { FormPacienteModalComponent } from './components/form-paciente-modal/form-paciente-modal.component';
 import { DeletePacienteModalComponent } from './components/delete-paciente-modal/delete-paciente-modal.component';
+import { EditPacienteComponent } from './paciente-edit/edit-paciente.component';
+import { ContratosComponent } from './paciente-edit/contratos/contratos.component';
+import { FormContratoModalComponent } from './paciente-edit/contratos/components/form-contrato-modal/form-contrato-modal.component';
+import { DeleteContratoModalComponent } from './paciente-edit/contratos/components/delete-contrato-modal/delete-contrato-modal.component';
+
 
 @NgModule({
   declarations: [
     PacientesComponent,
     FormPacienteModalComponent,
-    DeletePacienteModalComponent
+    DeletePacienteModalComponent,
+    EditPacienteComponent,
+    ContratosComponent,
+    FormContratoModalComponent,
+    DeleteContratoModalComponent,    
   ],
   imports: [
     CommonModule,
@@ -31,7 +40,9 @@ import { DeletePacienteModalComponent } from './components/delete-paciente-modal
   ],
   entryComponents: [
     FormPacienteModalComponent,
-    DeletePacienteModalComponent
+    DeletePacienteModalComponent,
+    FormContratoModalComponent,
+    DeleteContratoModalComponent,
   ]
 })
 export class PacientesModule {}
