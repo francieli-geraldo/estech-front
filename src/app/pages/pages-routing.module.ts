@@ -18,6 +18,11 @@ const routes: Routes = [
           import('../modules/pacientes/pacientes.module').then((m) => m.PacientesModule),
       },      
       {
+        path: 'programas',
+        loadChildren: () =>
+          import('../modules/programas/programas.module').then((m) => m.ProgramasModule),
+      },
+      {
         path: 'builder',
         loadChildren: () =>
           import('./builder/builder.module').then((m) => m.BuilderModule),
