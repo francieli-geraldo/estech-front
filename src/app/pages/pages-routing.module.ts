@@ -21,6 +21,11 @@ const routes: Routes = [
         path: 'programas',
         loadChildren: () =>
           import('../modules/programas/programas.module').then((m) => m.ProgramasModule),
+      },      
+      {
+        path: 'grupos',
+        loadChildren: () =>
+          import('../modules/grupos/grupos.module').then((m) => m.GruposModule),
       },
       {
         path: 'builder',
