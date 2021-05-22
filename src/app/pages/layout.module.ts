@@ -16,7 +16,6 @@ import { HeaderComponent } from './_layout/components/header/header.component';
 import { HeaderMenuComponent } from './_layout/components/header/header-menu/header-menu.component';
 import { TopbarComponent } from './_layout/components/topbar/topbar.component';
 import { ExtrasModule } from '../_metronic/partials/layout/extras/extras.module';
-import { LanguageSelectorComponent } from './_layout/components/topbar/language-selector/language-selector.component';
 import { CoreModule } from '../_metronic/core';
 import { SubheaderModule } from '../_metronic/partials/layout/subheader/subheader.module';
 import { AsideDynamicComponent } from './_layout/components/aside-dynamic/aside-dynamic.component';
@@ -32,7 +31,6 @@ import { HeaderMenuDynamicComponent } from './_layout/components/header/header-m
     HeaderComponent,
     HeaderMenuComponent,
     TopbarComponent,
-    LanguageSelectorComponent,
     AsideDynamicComponent,
     HeaderMenuDynamicComponent,
   ],
