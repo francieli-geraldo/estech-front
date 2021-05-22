@@ -6,7 +6,7 @@ export interface Contrato extends BaseModel {
   grupo: number;
   dt_inicio: string;
   dt_conclusao: string;
-  status: string;
+  status: number;
   peso_inicial: number;
   meta: number;
   objetivo: number;

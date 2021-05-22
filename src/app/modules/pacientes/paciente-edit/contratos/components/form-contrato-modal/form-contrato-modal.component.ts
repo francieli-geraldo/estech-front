@@ -13,7 +13,7 @@ const EMPTY_CONTRATO: Contrato = {
   grupo: 0,
   dt_inicio: '',
   dt_conclusao: '',
-  status: '',
+  status: 0,
   peso_inicial: 0,
   meta: 0,
   objetivo: 0,

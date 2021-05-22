@@ -16,15 +16,17 @@ import { ContratosComponent } from './paciente-edit/contratos/contratos.componen
 import { FormContratoModalComponent } from './paciente-edit/contratos/components/form-contrato-modal/form-contrato-modal.component';
 import { DeleteContratoModalComponent } from './paciente-edit/contratos/components/delete-contrato-modal/delete-contrato-modal.component';
 import { CancelContratoModalComponent } from './paciente-edit/contratos/components/cancel-contrato-modal/cancel-contrato-modal.component';
+import { LancamentosComponent } from './paciente-edit/lancamentos/lancamentos.component';
 
 
 @NgModule({
   declarations: [
     PacientesComponent,
+    ContratosComponent,
+    LancamentosComponent,
     FormPacienteModalComponent,
     DeletePacienteModalComponent,
     EditPacienteComponent,
-    ContratosComponent,
     FormContratoModalComponent,
     DeleteContratoModalComponent,
     CancelContratoModalComponent,

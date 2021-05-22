@@ -23,8 +23,8 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
         const filteredResult = baseFilter(response, tableState);
         const result: TableResponseModel<Contrato> = {
           items: [
-            { id: 1,programa: 1,grupo: 1,dt_inicio: '30/05/2020',dt_conclusao: '30/05/2021',status: '',peso_inicial: 120.500, meta: 64,objetivo: 60, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''},
-            { id: 2,programa: 1,grupo: 1,dt_inicio: '20/04/2020',dt_conclusao: '20/04/2021',status: '',peso_inicial: 150.500, meta: 100,objetivo: 50.500, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''  }           
+            { id: 1,programa: 1,grupo: 1,dt_inicio: '30/05/2020',dt_conclusao: '30/05/2021',status: 1,peso_inicial: 120.500, meta: 64,objetivo: 60, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''},
+            { id: 2,programa: 1,grupo: 1,dt_inicio: '20/04/2020',dt_conclusao: '20/04/2021',status: 2,peso_inicial: 150.500, meta: 100,objetivo: 50.500, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''  }           
           ],
           total: 100
         }; 

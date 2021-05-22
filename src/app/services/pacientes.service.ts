@@ -37,7 +37,6 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
           ],
           total: 100
         };
-        console.log(result);
  
         return result;
       })
