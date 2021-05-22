@@ -3,8 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Programa } from 'src/app/models/programa.model';
 import { ProgramasService } from 'src/app/services/programas.service';
-import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from 'src/app/_metronic/shared/crud-table';
+import { GroupingState, ICreateAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from 'src/app/_metronic/shared/crud-table';
+import { DeleteProgramasModalComponent } from './components/delete-programas-modal/delete-programas-modal.component';
+import { FormProgramasModalComponent } from './components/form-programas-modal/form-programas-modal.component';
 
 @Component({
   selector: 'app-programas',
@@ -16,7 +19,6 @@ implements
 OnInit,
 OnDestroy,
 ICreateAction,
-IEditAction,
 ISortView,
 IFilterView,
 IGroupingView,
@@ -127,37 +129,42 @@ private subscriptions: Subscription[] = [];
 
   // // form actions
   create() {
-    this.edit(undefined);
+    this.editRegister(undefined, undefined);
   }
 
   edit(id: number) {
-    // const modalRef = this.modalService.open(FormContratoModalComponent, {
-    //   size: "xl",
-    // });
-    // modalRef.componentInstance.id = id;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+    const modalRef = this.modalService.open(FormProgramasModalComponent, {
+      size: "xl",
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.register = id;
+    modalRef.result.then(
+      () => this.service.fetch(),
+      () => {}
+    );
+  }
+
+  editRegister(id: number, register: Programa) {
+    const modalRef = this.modalService.open(FormProgramasModalComponent, {
+      size: "xl",
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.register = register;
+    modalRef.result.then(
+      () => this.service.fetch(),
+      () => {}
+    );
   }
 
   delete(id: number) {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.id = id;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+    const modalRef = this.modalService.open(DeleteProgramasModalComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(
+      () => this.service.fetch(),
+      () => {}
+    );
   }
 
-  cancelContrato(id: number) {
-    // const modalRef = this.modalService.open(CancelContratoModalComponent);
-    // modalRef.componentInstance.id = id;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
-  }
 
   deleteSelected() {
     // const modalRef = this.modalService.open(DeleteContratoModalComponent);

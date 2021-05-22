@@ -7,12 +7,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CRUDTableModule } from 'src/app/_metronic/shared/crud-table';
 import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormProgramasModalComponent } from './components/form-programas-modal/form-programas-modal.component';
+import { DeleteProgramasModalComponent } from './components/delete-programas-modal/delete-programas-modal.component';
 
 
 
 @NgModule({
   declarations: [
     ProgramasComponent,
+    FormProgramasModalComponent,
+    DeleteProgramasModalComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +30,8 @@ import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap'
     NgbDatepickerModule
   ],
   entryComponents: [
+    FormProgramasModalComponent,
+    DeleteProgramasModalComponent
   ]
 })
 export class ProgramasModule { }

@@ -4,7 +4,7 @@
         <h3 class="card-label">Lista de Programas</h3>
       </div>
       <div class="card-toolbar">
-        <button type="button" class="btn btn-primary" routerLink="/pacientes/add">Novo Programa</button>
+        <button type="button" class="btn btn-primary" (click)="create()">Novo Programa</button>
       </div>
     </div>
     <div class="card-body">
@@ -74,7 +74,7 @@
               <td>{{ register.descricao }}</td>
               <td>  
                 <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                  (click)="delete(register.id)">
+                  (click)="editRegister(register.id, register)">
                   <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
                   </span>
