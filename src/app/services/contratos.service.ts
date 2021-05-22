@@ -20,14 +20,16 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
   find(tableState: ITableState): Observable<TableResponseModel<Contrato>> {
     return this.http.get<Contrato[]>(this.API_URL).pipe(
       map((response: Contrato[]) => {
-        const filteredResult = baseFilter(response, tableState);
+
+        const filteredResult = baseFilter([
+          { id: 1,programa: 1,grupo: 1,dt_inicio: '30/05/2020',dt_conclusao: '30/05/2021',status: 1,peso_inicial: 120.500, meta: 64,objetivo: 60, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''},
+          { id: 2,programa: 1,grupo: 1,dt_inicio: '20/04/2020',dt_conclusao: '20/04/2021',status: 2,peso_inicial: 150.500, meta: 100,objetivo: 50.500, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''  }           
+        ] , tableState);
+          
         const result: TableResponseModel<Contrato> = {
-          items: [
-            { id: 1,programa: 1,grupo: 1,dt_inicio: '30/05/2020',dt_conclusao: '30/05/2021',status: 1,peso_inicial: 120.500, meta: 64,objetivo: 60, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''},
-            { id: 2,programa: 1,grupo: 1,dt_inicio: '20/04/2020',dt_conclusao: '20/04/2021',status: 2,peso_inicial: 150.500, meta: 100,objetivo: 50.500, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''  }           
-          ],
-          total: 100
-        }; 
+          items: filteredResult.items,
+          total: filteredResult.total
+        };
         return result;
       })
     );

@@ -29,25 +29,19 @@ export class LancamentosService extends TableService<Lancamento> implements OnDe
             { id: 1, data: new Date('05/10/2021').toLocaleDateString(), cm: true,  lm: false, al: true, lt: true, jt: true, exercicio: false,  balanca: false, peso_anterior: 100, peso_atual: 99.800, evolucao: .200, evolucao_acumulada: 50.20, editable: false },
             { id: 2, data: new Date('05/09/2021').toLocaleDateString(), cm: true,  lm: false, al: false, lt: false, jt: true, exercicio: false,  balanca: false, peso_anterior: 100, peso_atual: 99.800, evolucao: .200, evolucao_acumulada: 50.20, editable: false}          
           ];
-          const filteredResult = baseFilter(response, tableState);
-
           let valuesInPeriod = this._lancamentosByPeriod(new Date('02/05/2021'), new Date());
           console.log(valuesInPeriod);
-          
           lancamentos_data_base.map(el => { valuesInPeriod[el.data] = el; })
-
           Object.keys(valuesInPeriod).forEach((element) => {
             lancamentos.push(valuesInPeriod[element]);            
           });          
 
+          const filteredResult = baseFilter(lancamentos, tableState);
           
-  
-
           const result: TableResponseModel<Lancamento> = {
-            items: lancamentos,
-            total: 100
-          }; 
-          
+            items: filteredResult.items,
+            total: filteredResult.total
+          };
           return result;
         })
       );

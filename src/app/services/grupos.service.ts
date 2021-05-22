@@ -20,15 +20,16 @@ export class GruposService extends TableService<Grupo> implements OnDestroy {
   find(tableState: ITableState): Observable<TableResponseModel<Grupo>> {
     return this.http.get<Grupo[]>(this.API_URL).pipe(
       map((response: Grupo[]) => {
-        const filteredResult = baseFilter(response, tableState);
+        const filteredResult = baseFilter([
+          { id: 1,nome: 'teste 1',descricao: 'teste descricao 1'},
+          { id: 2,nome: 'teste 2',descricao: 'teste descricao 2'},
+          { id: 3,nome: 'teste 3',descricao: 'teste descricao 3'}
+        ], tableState);
+          
         const result: TableResponseModel<Grupo> = {
-          items: [
-            { id: 1,nome: 'teste 1',descricao: 'teste descricao 1'},
-            { id: 2,nome: 'teste 2',descricao: 'teste descricao 2'},
-            { id: 3,nome: 'teste 3',descricao: 'teste descricao 3'}
-          ],
-          total: 100
-        }; 
+          items: filteredResult.items,
+          total: filteredResult.total
+        };
         return result;
       })
     );

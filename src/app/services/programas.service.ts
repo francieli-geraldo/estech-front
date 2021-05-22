@@ -20,15 +20,15 @@ export class ProgramasService extends TableService<Programa> implements OnDestro
   find(tableState: ITableState): Observable<TableResponseModel<Programa>> {
     return this.http.get<Programa[]>(this.API_URL).pipe(
       map((response: Programa[]) => {
-        const filteredResult = baseFilter(response, tableState);
+        const filteredResult = baseFilter([
+          { id: 1,nome: 'teste 1',descricao: 'teste descricao 1'},
+          { id: 2,nome: 'teste 2',descricao: 'teste descricao 2'},
+          { id: 3,nome: 'teste 3',descricao: 'teste descricao 3'}
+        ], tableState);
         const result: TableResponseModel<Programa> = {
-          items: [
-            { id: 1,nome: 'teste 1',descricao: 'teste descricao 1'},
-            { id: 2,nome: 'teste 2',descricao: 'teste descricao 2'},
-            { id: 3,nome: 'teste 3',descricao: 'teste descricao 3'}
-          ],
-          total: 100
-        }; 
+          items: filteredResult.items,
+          total: filteredResult.total
+        };
         return result;
       })
     );
