@@ -159,16 +159,16 @@
 
                         <!--begin: Form Wizard Step 5-->
                         <div class="pb-5" data-wizard-type="step-content">
-                            <ng-container *ngIf="this.model.relatorio == '1'">
-                                <div>teste 1</div>
+                            <ng-container *ngIf="generateRelatorio && model.relatorio == '1'">
+                                <app-relatorio-semanal [data]="data"></app-relatorio-semanal>
                             </ng-container>
 
-                            <ng-container *ngIf="this.model.relatorio == '2'">
-                                <div>teste 2</div>
+                            <ng-container *ngIf="generateRelatorio && model.relatorio == '2'">
+                                <app-relatorio-evolucao [data]="data"></app-relatorio-evolucao>
                             </ng-container>
 
-                            <ng-container *ngIf="this.model.relatorio == '3'">                                
-                                <div>teste 3</div>
+                            <ng-container *ngIf="generateRelatorio && model.relatorio == '3'">   
+                                <app-relatorio-concluido [data]="data"></app-relatorio-concluido>
                             </ng-container>
                         </div>
                         <!--end: Form Wizard Step 5-->
@@ -177,7 +177,7 @@
                         <div class="d-flex justify-content-between border-top pt-10">
                             <div class="mr-2">
                                 <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
-                                    data-wizard-type="action-prev">
+                                    data-wizard-type="action-prev" (click)="setgenerateRelatorioFalse()">
                                     Voltar
                                 </div>
                             </div>

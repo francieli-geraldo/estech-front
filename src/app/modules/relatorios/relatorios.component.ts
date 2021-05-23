@@ -27,9 +27,12 @@ export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
   submitted = false;
   wizard: any;
 
+  data: any;
   model: Relatorio;
   relatorio: Relatorio;
   previous: Relatorio;  
+  generateRelatorio = false;
+
 
   formGroup: FormGroup;
   errorMessage = '';
@@ -48,20 +51,13 @@ export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Initialize form wizard
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1
-    });
+    });  
+  }
 
-    // Validation before going to next page
-    this.wizard.on('beforeNext', (wizardObj) => {
-      // https://angular.io/guide/forms
-      // https://angular.io/guide/form-validation
-
-      // validate the form and use below function to stop the wizard's step
-      // wizardObj.stop();
-    });
-   
+  setgenerateRelatorioFalse() {    
+    this.generateRelatorio = false;
   }
 
   onSubmit() {
@@ -93,6 +89,24 @@ export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
     const formValues = this.formGroup.value;
     this.model = Object.assign(this.model, formValues);
     
+    this.data = [{
+      grupo: 4,
+      pacientes: [{
+        nome: 'Katia Zelia', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'},
+        {
+          nome: 'Aline Maria', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'
+      }] 
+    },
+    {
+      grupo: 6,
+      pacientes: [{
+        nome: 'Joaquina de Lurdes', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'},
+        {
+          nome: 'Rafael Gomes Torantin', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'
+      }] 
+    }];
+        
+    this.generateRelatorio = true;
   }
 
   // helpers for View
