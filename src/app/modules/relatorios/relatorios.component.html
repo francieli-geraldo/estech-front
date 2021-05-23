@@ -1,9 +1,4 @@
 <div class="card card-custom gutter-b">
-    <div class="card-header">
-        <div class="card-title">
-            <h3 class="card-label">Lista de Contratos</h3>
-        </div>
-    </div>
     <div class="card-body">
         <!--begin: Wizard -->
         <div #wizard class="wizard wizard-3" id="kt_wizard_v3" data-wizard-state="step-first">
@@ -30,7 +25,7 @@
             <div class="row justify-content-center py-12 px-8 py-lg-15 px-lg-10">
                 <div class="col-xl-12">
                     <!--begin: Form Wizard Form-->
-                    <form class="form" id="kt_form">
+                    <form class="form" id="kt_form"  [formGroup]="formGroup">
                         <!--begin: Form Wizard Step 1-->
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                             <div class="form-group m-0">
@@ -40,9 +35,13 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" [(ngModel)]="model.relatorio"
-                                                        (change)="isCheck()" name="m_option_1" value="1"
-                                                        checked="checked" />
+                                                    <!-- <input type="radio" [(ngModel)]="model.relatorio" name="m_option_1" value="1"
+                                                        checked="checked" /> -->
+                                                        
+                                                    <input type="radio" 
+                                                        value="1" 
+                                                        formControlName="relatorio"
+                                                    />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -62,8 +61,12 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" [(ngModel)]="model.relatorio"
-                                                        (change)="isCheck()" name="m_option_2" value="2" />
+                                                
+                                                    <input type="radio" 
+                                                        value="2" 
+                                                        formControlName="relatorio"
+                                                    />
+                                                    <!-- <input type="radio" [(ngModel)]="model.relatorio" name="m_option_2" value="2" /> -->
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -84,8 +87,10 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" [(ngModel)]="model.relatorio"
-                                                        (change)="isCheck()" name="m_option_3" value="3" />
+                                                    <input type="radio" 
+                                                        value="3" 
+                                                        formControlName="relatorio"
+                                                    />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -111,9 +116,12 @@
 
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <label class="form-text text-muted"><b>Status</b></label>
-                                    <select class="form-control" name="status" placeholder="Filtro por status"
-                                        formControlName="status">
+                                    <label class="form-text text-muted"><b>Grupo</b></label>
+                                    <select class="form-control" 
+                                            name="grupo"
+                                            placeholder="Selecione"
+                                            autocomplete="off"
+                                            formControlName="grupo">
                                         <option value="">Todos</option>
                                         <option value="1">Cancelado</option>
                                         <option value="2">Ativo</option>
@@ -122,18 +130,25 @@
                                 </div>
 
                                 <div class="col-lg-4">
-                                    <label class="form-text text-muted"><b>Programa</b></label>
-                                    <select class="form-control" placeholder="Filtro por Programa" name="type"
-                                        formControlName="type">
+                                    <label class="form-text text-muted"><b>Status</b></label>
+                                    <select class="form-control"
+                                            name="status"
+                                            placeholder="Selecione"
+                                            autocomplete="off"
+                                            formControlName="status">
                                         <option value="">Todos</option>
                                     </select>
                                 </div>
 
-                                <ng-container *ngIf="this.model.relatorio == '1'">
+                                <ng-container *ngIf="this.formGroup.value.relatorio == '1'">
                                     <div class="col-lg-4">
                                         <label class="form-text text-muted"><b>Semana</b></label>
-                                        <select class="form-control" placeholder="Filtro por Programa" name="type"
-                                            formControlName="typew">
+                                        <select class="form-control" 
+                                            name="semana"
+                                            placeholder="Selecione"
+                                            autocomplete="off"
+                                            formControlName="semana"
+                                            >
                                             <option value="">Todos</option>
                                         </select>
                                     </div>
@@ -144,47 +159,17 @@
 
                         <!--begin: Form Wizard Step 5-->
                         <div class="pb-5" data-wizard-type="step-content">
-                            <h4 class="mb-10 font-weight-bold text-dark">
-                                Review your Details and Submit
-                            </h4>
-                            <div class="border-bottom mb-5 pb-5">
-                                <div class="font-weight-bolder mb-3">Current Address:</div>
-                                <div class="line-height-xl">
-                                    Address Line 1
-                                    <br />
-                                    Address Line 2 <br />
-                                    Melbourne 3000, VIC, Australia
-                                </div>
-                            </div>
-                            <div class="border-bottom mb-5 pb-5">
-                                <div class="font-weight-bolder mb-3">Delivery Details:</div>
-                                <div class="line-height-xl">
-                                    Package: Complete Workstation (Monitor, Computer, Keyboard &
-                                    Mouse)
-                                    <br />
-                                    Weight: 25kg <br />
-                                    Dimensions: 110cm (w) x 90cm (h) x 150cm (L)
-                                </div>
-                            </div>
-                            <div class="border-bottom mb-5 pb-5">
-                                <div class="font-weight-bolder mb-3">
-                                    Delivery Service Type:
-                                </div>
-                                <div class="line-height-xl">
-                                    Overnight Delivery with Regular Packaging
-                                    <br />
-                                    Preferred Morning (8:00AM - 11:00AM) Delivery
-                                </div>
-                            </div>
-                            <div class="mb-5">
-                                <div class="font-weight-bolder mb-3">Delivery Address:</div>
-                                <div class="line-height-xl">
-                                    Address Line 1
-                                    <br />
-                                    Address Line 2 <br />
-                                    Preston 3072, VIC, Australia
-                                </div>
-                            </div>
+                            <ng-container *ngIf="this.model.relatorio == '1'">
+                                <div>teste 1</div>
+                            </ng-container>
+
+                            <ng-container *ngIf="this.model.relatorio == '2'">
+                                <div>teste 2</div>
+                            </ng-container>
+
+                            <ng-container *ngIf="this.model.relatorio == '3'">                                
+                                <div>teste 3</div>
+                            </ng-container>
                         </div>
                         <!--end: Form Wizard Step 5-->
 
@@ -197,15 +182,16 @@
                                 </div>
                             </div>
                             <div>
-                                <div (click)="onSubmit()"
+                                <div
                                     class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
                                     data-wizard-type="action-submit">
                                     Exportar
                                 </div>
-                                <div class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                                    data-wizard-type="action-next">
+                                <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                                    data-wizard-type="action-next" 
+                                    (click)="genarete()">
                                     Gerar Relatório
-                                </div>
+                                </button>
                             </div>
                         </div>
                         <!--end: Form Actions -->
