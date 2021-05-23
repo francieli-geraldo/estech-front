@@ -31,6 +31,11 @@ const routes: Routes = [
         path: 'contratos',
         loadChildren: () =>
           import('../modules/contratos/contratos.module').then((m) => m.ContratosModule),
+      },     
+      {
+        path: 'relatorios',
+        loadChildren: () =>
+          import('../modules/relatorios/relatorios.module').then((m) => m.RelatoriosModule),
       },
       {
         path: 'builder',

@@ -8,10 +8,10 @@ const routes: Routes = [
     path: '',
     component: ContratosComponent
   },
-  // {
-  //   path: 'add',
-  //   component: EditPacienteComponent
-  // },
+  {
+    path: ':new_register',
+    component: ContratosComponent
+  },
   // {
   //   path: 'edit',
   //   component: EditPacienteComponent

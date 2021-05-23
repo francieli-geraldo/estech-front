@@ -57,7 +57,7 @@
       <ul class="menu-subnav">
         <!-- begin::2 Level -->
         <li class="menu-item" routerLinkActive="menu-item-active">
-          <a class="menu-link" routerLink="/contratos" routerLinkActive="active">
+          <a class="menu-link" routerLink="/contratos;new_register=sim" routerLinkActive="active">
             <span [inlineSVG]="'./assets/media/svg/icons/Files/File-plus.svg'" cacheSVG="true"
               class="svg-icon menu-icon"></span>
             <span class="menu-text">Novo Contrato</span>
@@ -82,35 +82,13 @@
 
   
   <!-- begin::1 Level -->
-  <li class="menu-item menu-item-submenu menu-item-rel" routerLinkActive="menu-item-active"
-    [attr.data-menu-toggle]="headerMenuDesktopToggle" aria-haspopup="true">
-    <a class="menu-link menu-toggle" routerLinkActive="active">
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
+    <a class="menu-link" routerLink="/relatorios" routerLinkActive="active">
       <span class="menu-text">Relatórios</span>
-      <i class="menu-arrow"></i>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
     </a>
-    <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-      <ul class="menu-subnav">
-        <!-- begin::2 Level -->
-        <li class="menu-item" routerLinkActive="menu-item-active">
-          <a class="menu-link" routerLink="/user-profile" routerLinkActive="active">
-            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Add-user.svg'" cacheSVG="true"
-              class="svg-icon menu-icon"></span>
-            <span class="menu-text">Cadastrar Paciente</span>
-          </a>
-        </li>
-        <!-- end::2 Level -->
-
-        <!-- begin::2 Level -->
-        <li class="menu-item" routerLinkActive="menu-item-active">
-          <a class="menu-link" routerLink="/pacientes" routerLinkActive="active">
-            <span [inlineSVG]="'./assets/media/svg/icons/Text/Bullet-list.svg'" cacheSVG="true"
-              class="svg-icon menu-icon"></span>
-            <span class="menu-text">Listar Pacientes</span>
-          </a>
-        </li>
-        <!-- end::2 Level -->
-      </ul>
-    </div>
   </li>
   <!-- end::1 Level -->
 

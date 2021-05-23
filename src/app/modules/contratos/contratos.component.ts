@@ -8,6 +8,7 @@ import { ContratosService } from "../../services/contratos.service";
 import { CancelContratoModalComponent } from "./components/cancel-contrato-modal/cancel-contrato-modal.component";
 import { DeleteContratoModalComponent } from "./components/delete-contrato-modal/delete-contrato-modal.component";
 import { FormContratoModalComponent } from "./components/form-contrato-modal/form-contrato-modal.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-contratos",
@@ -17,13 +18,17 @@ import { FormContratoModalComponent } from "./components/form-contrato-modal/for
 export class ContratosComponent implements OnInit {
 
   @Input() paciente: number;
+  new_register;
 
   constructor(    
     private modalService: NgbModal,
-    public service: ContratosService
+    public service: ContratosService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+    if(this.route.params['value'].hasOwnProperty('new_register'))
+      this.create()
   }
 
   create() {
