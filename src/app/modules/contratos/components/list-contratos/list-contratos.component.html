@@ -1,0 +1,175 @@
+<div class="mt-5">
+
+  <!-- begin: Filtration form -->
+  <div class="form form-label-right">
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="row" [formGroup]="filterGroup">
+          <div class="col-lg-6">
+            <small class="form-text text-muted"><b>Filtrar</b> por Status</small>
+            <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">
+              <option value="">Todos</option>
+              <option value="1">Cancelado</option>
+              <option value="2">Ativo</option>
+              <option value="3">Pendente</option>
+            </select>
+          </div>
+          <div class="col-lg-6">
+            <small class="form-text text-muted"><b>Filtrar</b> por Programa</small>
+            <select class="form-control" placeholder="Filtro por Programa" name="type" formControlName="type">
+              <option value="">Todos</option>
+              <option *ngFor="let title of getProgramas()" [value]="title.id">
+                {{title.description}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2" [formGroup]="searchGroup">
+        <small class="form-text text-muted"><b>Pesquisa</b> em todos os campos</small>
+        <input type="text" class="form-control" name="searchText" placeholder="Pesquisar" value=""
+          formControlName="searchTerm" />
+      </div>
+    </div>
+  </div>
+  <!-- end: Filtration form -->
+
+  <!-- begin: Grouping -->
+  <ng-container *ngIf="grouping.getSelectedRowsCount()">
+    <div class="form">
+      <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+        <div class="col-xl-12">
+          <div class="form-group form-group-inline">
+            <div class="form-label form-label-no-wrap">
+              <label class="font-bold font-danger"><span>Selected records count:
+                  <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
+            </div>
+            <!-- <div> -->
+            <!-- <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+                (click)="deleteSelected()">
+                <i class="fa fa-trash"></i> Delete All
+              </button>&nbsp;
+              <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+                (click)="fetchSelected()">
+                <i class="fa fa-stream"></i> Fetch Selected
+              </button>&nbsp;
+              <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+                (click)="updateStatusForSelected()">
+                <i class="fa fa-sync-alt"></i> Update Status
+              </button> -->
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <!-- end: Grouping -->
+
+  <!-- begin:Table -->
+  <div class="table-responsive angular-bootstrap-table">
+    <table class="table table-head-custom table-vertical-center overflow-hidden">
+      <thead>
+        <th class="selection-cell-header" data-row-selection="true">
+          <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
+              [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+        </th>
+        <th>
+          ID
+          <app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          PROGRAMA
+          <app-sort-icon column="programa" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          GRUPO
+          <app-sort-icon column="grupo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          DATA DE INICIO
+          <app-sort-icon column="dt_inicio" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          DATA DE CONCLUSÃO
+          <app-sort-icon column="dt_conclusao" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          STATUS
+          <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          PESO INICIAL
+          <app-sort-icon column="peso_inicial" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          META
+          <app-sort-icon column="meta" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          OBJETIVO
+          <app-sort-icon column="objetivo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          PLUS
+          <app-sort-icon column="dt_contratacao_plus" [activeColumn]="sorting.column"
+            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+        </th>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let register of service.items$ | async">
+          <td class="selection-cell">
+            <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(register.id)"
+                [checked]="grouping.isRowSelected(register.id)" />
+              <span></span>
+            </label>
+          </td>
+          <td>{{ register.id }}</td>
+          <td>{{ register.programa }}</td>
+          <td>{{ register.grupo }}</td>
+          <td>{{ register.dt_inicio }}</td>
+          <td>{{ register.dt_conclusao }}</td>
+          <td>
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 1"
+              [class.label-light-success]="register.status === 2" [class.label-light-primary]="register.status === 3">
+              <ng-container *ngIf="register.status === 1">Cancelado</ng-container>
+              <ng-container *ngIf="register.status === 2">Ativo</ng-container>
+              <ng-container *ngIf="register.status === 3">Pendente</ng-container>
+            </span>
+          </td>
+          <td>{{ register.peso_inicial }}</td>
+          <td>{{ register.meta }}</td>
+          <td>{{ register.objetivo }}</td>
+          <td>{{ register.dt_cancelamento }}</td>
+          <td style="display: flex;">
+            <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
+              <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-primary">
+              </span>
+            </a>
+
+            <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+              (click)="cancelContrato(register.id)">
+              <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-danger">
+              </span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- end: Table -->
+  <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+    [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+
+</div>

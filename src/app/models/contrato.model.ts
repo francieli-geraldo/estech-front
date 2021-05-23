@@ -15,4 +15,5 @@ export interface Contrato extends BaseModel {
   dt_cancelamento: string;
   motivo: string;
   observacao: string;
+  plus: boolean;
 }

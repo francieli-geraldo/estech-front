@@ -2,3 +2,8 @@ input:read-only {
     border: none;
     cursor: default;
 }
+
+th.sortable {    
+    text-align: center;
+    vertical-align: super;
+}

@@ -134,7 +134,7 @@
     </ng-container>
 
     <ng-container *ngIf="activeTabId === tabs.CONTRATOS_TAB">
-      <app-contratos></app-contratos>
+      <app-list-contratos [paciente]="paciente.id"></app-list-contratos>
     </ng-container>
 
     <ng-container *ngIf="activeTabId === tabs.LANCAMENTOS_TAB">

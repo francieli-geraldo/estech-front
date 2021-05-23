@@ -30,7 +30,7 @@
                     <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
               </div>
               <!-- <div> -->
-                <!-- <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+              <!-- <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
                   (click)="deleteSelected()">
                   <i class="fa fa-trash"></i> Delete All
                 </button>&nbsp;
@@ -96,7 +96,7 @@
                   [checked]="grouping.isRowSelected(register.id)" />
                 <span></span>
               </label>
-            </td>       
+            </td>
             <td>{{ register.id }}</td>
             <td>{{ register.nome }}</td>
             <td>{{ register.dt_nascimento }}</td>
@@ -107,14 +107,13 @@
             <td>
 
               <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-              [routerLink]="'/pacientes/edit/' + register.id">
+                [routerLink]="'/pacientes/edit/' + register.id">
                 <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
                 </span>
               </a>
 
-              <a title="Deletar" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                (click)="delete(register.id)">
+              <a title="Deletar" class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(register.id)">
                 <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-danger">
                 </span>

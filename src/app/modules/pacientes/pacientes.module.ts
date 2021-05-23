@@ -12,24 +12,21 @@ import { PacientesRoutingModule } from './pacientes-routing.module';
 import { FormPacienteModalComponent } from './components/form-paciente-modal/form-paciente-modal.component';
 import { DeletePacienteModalComponent } from './components/delete-paciente-modal/delete-paciente-modal.component';
 import { EditPacienteComponent } from './paciente-edit/edit-paciente.component';
-import { ContratosComponent } from './paciente-edit/contratos/contratos.component';
-import { FormContratoModalComponent } from './paciente-edit/contratos/components/form-contrato-modal/form-contrato-modal.component';
-import { DeleteContratoModalComponent } from './paciente-edit/contratos/components/delete-contrato-modal/delete-contrato-modal.component';
-import { CancelContratoModalComponent } from './paciente-edit/contratos/components/cancel-contrato-modal/cancel-contrato-modal.component';
 import { LancamentosComponent } from './paciente-edit/lancamentos/lancamentos.component';
+import { FormContratoModalComponent } from '../contratos/components/form-contrato-modal/form-contrato-modal.component';
+import { DeleteContratoModalComponent } from '../contratos/components/delete-contrato-modal/delete-contrato-modal.component';
+import { CancelContratoModalComponent } from '../contratos/components/cancel-contrato-modal/cancel-contrato-modal.component';
+import { ContratosModule } from '../contratos/contratos.module';
+import { ContratosComponent } from '../contratos/contratos.component';
 
 
 @NgModule({
   declarations: [
     PacientesComponent,
-    ContratosComponent,
     LancamentosComponent,
     FormPacienteModalComponent,
     DeletePacienteModalComponent,
-    EditPacienteComponent,
-    FormContratoModalComponent,
-    DeleteContratoModalComponent,
-    CancelContratoModalComponent,
+    EditPacienteComponent  
   ],
   imports: [
     CommonModule,
@@ -40,14 +37,12 @@ import { LancamentosComponent } from './paciente-edit/lancamentos/lancamentos.co
     InlineSVGModule,
     CRUDTableModule,
     NgbModalModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    ContratosModule
   ],
   entryComponents: [
     FormPacienteModalComponent,
     DeletePacienteModalComponent,
-    FormContratoModalComponent,
-    DeleteContratoModalComponent,
-    CancelContratoModalComponent
   ]
 })
 export class PacientesModule {}

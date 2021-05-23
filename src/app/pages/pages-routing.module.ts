@@ -26,6 +26,11 @@ const routes: Routes = [
         path: 'grupos',
         loadChildren: () =>
           import('../modules/grupos/grupos.module').then((m) => m.GruposModule),
+      },      
+      {
+        path: 'contratos',
+        loadChildren: () =>
+          import('../modules/contratos/contratos.module').then((m) => m.ContratosModule),
       },
       {
         path: 'builder',
