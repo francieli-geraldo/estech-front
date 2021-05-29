@@ -10,6 +10,7 @@ import { NgbDatepickerModule, NgbDropdownModule, NgbModalModule } from '@ng-boot
 import { RelatorioSemanalComponent } from './relatorio-semanal/relatorio-semanal.component';
 import { RelatorioEvolucaoComponent } from './relatorio-evolucao/relatorio-evolucao.component';
 import { RelatorioConcluidoComponent } from './relatorio-concluido/relatorio-concluido.component';
+import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
   exports: [RelatoriosComponent],  
@@ -26,7 +27,8 @@ import { RelatorioConcluidoComponent } from './relatorio-concluido/relatorio-con
     CRUDTableModule,
     NgbModalModule,
     NgbDatepickerModule,
-    NgbDropdownModule    
+    NgbDropdownModule,
+    ExportAsModule
   ],
 })
 export class RelatoriosModule { }

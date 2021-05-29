@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 
 @Component({
   selector: 'app-relatorio-semanal',

@@ -20,11 +20,11 @@
                                 <i class="ki ki-arrow-down pl-2" style="font-size: .8em;"></i>
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="px-9 py-4 font-weight-bold">
-                                <button class="dropdown-item">Excel</button>
-                                <button class="dropdown-item">PDF</button>
+                                <button class="dropdown-item" (click)="exportAs('xlsx')">Excel</button>
+                                <button class="dropdown-item" (click)="exportAs('pdf', 'landscape')">PDF</button>
+                                <button class="dropdown-item" (click)="exportAs('png')">Imagem</button>
                             </div>
                         </div>
-
 
                         <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
                             data-wizard-type="action-next" (click)="genarete()" *ngIf="!generateRelatorio">
@@ -45,7 +45,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="1" formControlName="relatorio" />
+                                                    <input type="radio" value="semanal" formControlName="relatorio" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -66,7 +66,7 @@
                                             <span class="option-control">
                                                 <span class="radio">
 
-                                                    <input type="radio" value="2" formControlName="relatorio" />
+                                                    <input type="radio" value="evtotal" formControlName="relatorio" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -87,7 +87,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="3" formControlName="relatorio" />
+                                                    <input type="radio" value="conclui" formControlName="relatorio" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -132,7 +132,7 @@
                                     </select>
                                 </div>
 
-                                <ng-container *ngIf="this.formGroup.value.relatorio == '1'">
+                                <ng-container *ngIf="this.formGroup.value.relatorio == 'semanal'">
                                     <div class="col-lg-4">
                                         <label class="form-text text-muted"><b>Semana</b></label>
                                         <select class="form-control" name="semana" placeholder="Selecione"
@@ -144,15 +144,15 @@
                             </div>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.relatorio == '1'">
+                        <ng-container *ngIf="generateRelatorio && model.relatorio == 'semanal'">
                             <app-relatorio-semanal [data]="data" [relatorio]="model"></app-relatorio-semanal>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.relatorio == '2'">
+                        <ng-container *ngIf="generateRelatorio && model.relatorio == 'evtotal'">
                             <app-relatorio-evolucao [data]="data" [relatorio]="model"></app-relatorio-evolucao>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.relatorio == '3'">
+                        <ng-container *ngIf="generateRelatorio && model.relatorio == 'conclui'">
                             <app-relatorio-concluido [data]="data" [relatorio]="model"></app-relatorio-concluido>
                         </ng-container>
                     </div>
