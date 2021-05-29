@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RelatorioConcluidoComponent implements OnInit {
 
   @Input() data: any;
+  @Input() relatorio: any;
 
   constructor() { }
 

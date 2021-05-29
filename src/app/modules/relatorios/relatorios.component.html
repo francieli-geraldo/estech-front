@@ -1,47 +1,51 @@
 <div class="card card-custom gutter-b">
     <div class="card-body">
-        <!--begin: Wizard -->
-        <div #wizard class="wizard wizard-3" id="kt_wizard_v3" data-wizard-state="step-first">
-            <div class="kt-grid__item">
-                <!--begin: Form Wizard Nav -->
-                <div class="wizard-nav border-bottom mb-1 mb-lg-5">
-                    <div class="wizard-steps px-8 py-8 px-lg-15 py-lg-3">
-                        <a class="wizard-step" href="javascript:;" data-wizard-type="step" data-wizard-state="current">
-                            <div class="wizard-label">
-                                <div class="wizard-title"><span>1</span> ADICIONAR FILTROS</div>
-                                <div class="wizard-bar"></div>
+
+        <div class="row justify-content-center py-6 px-4 py-lg-6 px-lg-5">
+            <div class="col-xl-12">
+                <!--begin: Form Actions -->
+                <div class="d-flex justify-content-between border-bottom pb-5">
+                    <div class="mr-2">
+                        <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
+                            data-wizard-type="action-prev" (click)="setgenerateRelatorioFalse()"
+                            *ngIf="generateRelatorio">
+                            Voltar
+                        </div>
+                    </div>
+                    <div>
+
+                        <div ngbDropdown class="d-inline-block" *ngIf="generateRelatorio">
+                            <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownBasic1" ngbDropdownToggle>
+                                Exportar
+                                <i class="ki ki-arrow-down pl-2" style="font-size: .8em;"></i>
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="px-9 py-4 font-weight-bold">
+                                <button class="dropdown-item">Excel</button>
+                                <button class="dropdown-item">PDF</button>
                             </div>
-                        </a>
-                        <a class="wizard-step" href="javascript:;" data-wizard-type="step">
-                            <div class="wizard-label">
-                                <div class="wizard-title"><span>2</span> EXIBIR E EXPORTAR RELATÓRIO</div>
-                                <div class="wizard-bar"></div>
-                            </div>
-                        </a>
+                        </div>
+
+
+                        <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                            data-wizard-type="action-next" (click)="genarete()" *ngIf="!generateRelatorio">
+                            Gerar Relatório
+                        </button>
                     </div>
                 </div>
-                <!--end: Form Wizard Nav -->
-            </div>
-            <div class="row justify-content-center py-12 px-8 py-lg-15 px-lg-10">
-                <div class="col-xl-12">
-                    <!--begin: Form Wizard Form-->
-                    <form class="form" id="kt_form"  [formGroup]="formGroup">
-                        <!--begin: Form Wizard Step 1-->
-                        <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                <!--end: Form Actions -->
+                <!--begin: Form Wizard Form-->
+                <form class="form" id="kt_form" [formGroup]="formGroup">
+                    <!--begin: Form Wizard Step 1-->
+                    <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                        <ng-container *ngIf="!generateRelatorio">
                             <div class="form-group m-0">
-                                <label class="h4">1° Escolha o tipo de relatório:</label>
-                                <div class="row">
+                                <!-- <label class="h4">Escolha o tipo de relatório:</label> -->
+                                <div class="row pt-6">
                                     <div class="col-lg-4">
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <!-- <input type="radio" [(ngModel)]="model.relatorio" name="m_option_1" value="1"
-                                                        checked="checked" /> -->
-                                                        
-                                                    <input type="radio" 
-                                                        value="1" 
-                                                        formControlName="relatorio"
-                                                    />
+                                                    <input type="radio" value="1" formControlName="relatorio" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -61,12 +65,8 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                
-                                                    <input type="radio" 
-                                                        value="2" 
-                                                        formControlName="relatorio"
-                                                    />
-                                                    <!-- <input type="radio" [(ngModel)]="model.relatorio" name="m_option_2" value="2" /> -->
+
+                                                    <input type="radio" value="2" formControlName="relatorio" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -87,10 +87,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" 
-                                                        value="3" 
-                                                        formControlName="relatorio"
-                                                    />
+                                                    <input type="radio" value="3" formControlName="relatorio" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -109,19 +106,17 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="separator separator-dashed my-8"></div>
 
-                            <label class="h4">2° Adicione Filtros:</label>
-
+                            <label class="h5">
+                                <i class="fa fa-filter" style="color: black; font-weight: 600;"></i>
+                                Filtros
+                            </label>
                             <div class="row">
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Grupo</b></label>
-                                    <select class="form-control" 
-                                            name="grupo"
-                                            placeholder="Selecione"
-                                            autocomplete="off"
-                                            formControlName="grupo">
+                                    <select class="form-control" name="grupo" placeholder="Selecione" autocomplete="off"
+                                        formControlName="grupo">
                                         <option value="">Todos</option>
                                         <option value="1">Cancelado</option>
                                         <option value="2">Ativo</option>
@@ -131,11 +126,8 @@
 
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Status</b></label>
-                                    <select class="form-control"
-                                            name="status"
-                                            placeholder="Selecione"
-                                            autocomplete="off"
-                                            formControlName="status">
+                                    <select class="form-control" name="status" placeholder="Selecione"
+                                        autocomplete="off" formControlName="status">
                                         <option value="">Todos</option>
                                     </select>
                                 </div>
@@ -143,63 +135,33 @@
                                 <ng-container *ngIf="this.formGroup.value.relatorio == '1'">
                                     <div class="col-lg-4">
                                         <label class="form-text text-muted"><b>Semana</b></label>
-                                        <select class="form-control" 
-                                            name="semana"
-                                            placeholder="Selecione"
-                                            autocomplete="off"
-                                            formControlName="semana"
-                                            >
+                                        <select class="form-control" name="semana" placeholder="Selecione"
+                                            autocomplete="off" formControlName="semana">
                                             <option value="">Todos</option>
                                         </select>
                                     </div>
                                 </ng-container>
                             </div>
-                        </div>
-                        <!--end: Form Wizard Step 1-->
+                        </ng-container>
 
-                        <!--begin: Form Wizard Step 5-->
-                        <div class="pb-5" data-wizard-type="step-content">
-                            <ng-container *ngIf="generateRelatorio && model.relatorio == '1'">
-                                <app-relatorio-semanal [data]="data"></app-relatorio-semanal>
-                            </ng-container>
+                        <ng-container *ngIf="generateRelatorio && model.relatorio == '1'">
+                            <app-relatorio-semanal [data]="data" [relatorio]="model"></app-relatorio-semanal>
+                        </ng-container>
 
-                            <ng-container *ngIf="generateRelatorio && model.relatorio == '2'">
-                                <app-relatorio-evolucao [data]="data"></app-relatorio-evolucao>
-                            </ng-container>
+                        <ng-container *ngIf="generateRelatorio && model.relatorio == '2'">
+                            <app-relatorio-evolucao [data]="data" [relatorio]="model"></app-relatorio-evolucao>
+                        </ng-container>
 
-                            <ng-container *ngIf="generateRelatorio && model.relatorio == '3'">   
-                                <app-relatorio-concluido [data]="data"></app-relatorio-concluido>
-                            </ng-container>
-                        </div>
-                        <!--end: Form Wizard Step 5-->
+                        <ng-container *ngIf="generateRelatorio && model.relatorio == '3'">
+                            <app-relatorio-concluido [data]="data" [relatorio]="model"></app-relatorio-concluido>
+                        </ng-container>
+                    </div>
+                    <!--end: Form Wizard Step 5-->
 
-                        <!--begin: Form Actions -->
-                        <div class="d-flex justify-content-between border-top pt-10">
-                            <div class="mr-2">
-                                <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
-                                    data-wizard-type="action-prev" (click)="setgenerateRelatorioFalse()">
-                                    Voltar
-                                </div>
-                            </div>
-                            <div>
-                                <div
-                                    class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                                    data-wizard-type="action-submit">
-                                    Exportar
-                                </div>
-                                <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                                    data-wizard-type="action-next" 
-                                    (click)="genarete()">
-                                    Gerar Relatório
-                                </button>
-                            </div>
-                        </div>
-                        <!--end: Form Actions -->
-                    </form>
-                    <!--end: Form Wizard Form-->
-                </div>
+
+                </form>
+                <!--end: Form Wizard Form-->
             </div>
         </div>
-        <!--end: Wizard -->
     </div>
 </div>

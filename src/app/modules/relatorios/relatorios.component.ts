@@ -20,7 +20,7 @@ const EMPTY_RELATORIO: Relatorio = {
   templateUrl: './relatorios.component.html',
   styleUrls: ['./relatorios.component.scss']
 })
-export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RelatoriosComponent implements OnInit, OnDestroy {
 
   
   @ViewChild('wizard', { static: true }) el: ElementRef;
@@ -47,13 +47,7 @@ export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.model = EMPTY_RELATORIO;
-    this.loadForm();
-  }
-
-  ngAfterViewInit(): void {
-    this.wizard = new KTWizard(this.el.nativeElement, {
-      startStep: 1
-    });  
+    this.loadForm();    
   }
 
   setgenerateRelatorioFalse() {    
@@ -95,7 +89,8 @@ export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
         nome: 'Katia Zelia', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'},
         {
           nome: 'Aline Maria', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'
-      }] 
+      }],
+      total: { c: '6', lm: '8', a: '10', lt: '4', j: '8', h: '12', postagens: '100%', balanca: '12', p_balanca: '180%', evolucao: '8.00', objetivo: '-44'} 
     },
     {
       grupo: 6,
@@ -103,7 +98,8 @@ export class RelatoriosComponent implements OnInit, AfterViewInit, OnDestroy {
         nome: 'Joaquina de Lurdes', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'},
         {
           nome: 'Rafael Gomes Torantin', programa: 'Turbo', c: 3, lm: 4, a:5, lt:2, j: 4, h: 6, postagens: '50%', balanca: 6, p_balanca: '90%', evolucao:'4.00', objetivo: '22', observacao: 'teste'
-      }] 
+      }],
+      total: { c: '6', lm: '8', a: '10', lt: '4', j: '8', h: '12', postagens: '100%', balanca: '12', p_balanca: '180%', evolucao: '8.00', objetivo: '-44'}  
     }];
         
     this.generateRelatorio = true;
