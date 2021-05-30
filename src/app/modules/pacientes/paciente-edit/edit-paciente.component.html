@@ -11,7 +11,7 @@
       <h3 class="card-label">
         <ng-container *ngIf="paciente">
           {{ id ? "Editar" : "Cadastrar" }} paciente
-        </ng-container>        
+        </ng-container>
       </h3>
     </div>
     <div class="card-toolbar">
@@ -26,7 +26,8 @@
   <div class="card-body">
     <ul class="nav nav-tabs nav-tabs-line" role="tablist">
       <li class="nav-item cursor-pointer" (click)="changeTab(tabs.INFOMACOES_PACIENTE_TAB)">
-        <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.INFOMACOES_PACIENTE_TAB"
+        <a class="nav-link" data-toggle="tab" role="tab"
+          [attr.aria-selected]="activeTabId === tabs.INFOMACOES_PACIENTE_TAB"
           [class.active]="activeTabId === tabs.INFOMACOES_PACIENTE_TAB">
           Informações do Paciente
         </a>
@@ -45,49 +46,29 @@
       <div class="mt-5" *ngIf="paciente">
         <form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
           <div class="form-group row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <label class="form-label">Nome</label>
-              <input
-                type="text"
-                class="form-control form-control-lg form-control-solid"
-                name="nome"
-                placeholder="Nome"
-                autocomplete="off"
-                [class.is-invalid]="isControlInvalid('nome')"
-                [class.is-valid]="isControlValid('nome')"
-                formControlName="nome"
-              />            
+              <input type="text" class="form-control form-control-lg form-control-solid" name="nome" placeholder="Nome"
+                autocomplete="off" [class.is-invalid]="isControlInvalid('nome')"
+                [class.is-valid]="isControlValid('nome')" formControlName="nome" />
             </div>
-            <div class="col-lg-6">
-              <label>Sexo</label>
-              <select
-                class="form-control form-control-lg form-control-solid"
-                name="sexo"
-                [class.is-invalid]="isControlInvalid('sexo')"
-                formControlName="sexo"
-              >
-                <option value="Feminino">Feminino</option>
-                <option value="Masculino">Masculino</option>
-              </select>
-            </div>            
           </div>
           <div class="form-group row">
             <div class="col-lg-6">
+              <label>Sexo</label>
+              <select class="form-control form-control-lg form-control-solid" name="sexo"
+                [class.is-invalid]="isControlInvalid('sexo')" formControlName="sexo">
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
+              </select>
+            </div>
+            <div class="col-lg-6">
               <label>Data de nascimento</label>
               <div class="input-group input-group-solid">
-                <input
-                  type="text"
-                  name="dt_nascimento"
-                  class="form-control form-control-lg form-control-solid"
-                  autocomplete="off"
-                  placeholder="dd/mm/yyyy"
-                  ngbDatepicker
-                  #d="ngbDatepicker"
+                <input type="text" name="dt_nascimento" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #d="ngbDatepicker"
                   [class.is-invalid]="isControlInvalid('dt_nascimento')"
-                  [class.is-valid]="isControlValid('dt_nascimento')"
-                  formControlName="dt_nascimento"
-                  readonly="true"
-                />
+                  [class.is-valid]="isControlValid('dt_nascimento')" formControlName="dt_nascimento" readonly="true" />
                 <div class="input-group-append" (click)="d.toggle()">
                   <span class="input-group-text">
                     <i class="text-dark-50 flaticon-calendar"></i>
@@ -95,39 +76,27 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <label class="form-label">E-mail</label>
-              <input
-                type="email"
-                class="form-control form-control-lg form-control-solid"
-                name="email"
-                placeholder="E-mail"
-                autocomplete="off"
-                [class.is-invalid]="isControlInvalid('email')"
-                [class.is-valid]="isControlValid('email')"
-                formControlName="email"
-              />
-            </div>
           </div>
+
           <div class="form-group row">
             <div class="col-lg-6">
+              <label class="form-label">E-mail</label>
+              <input type="email" class="form-control form-control-lg form-control-solid" name="email"
+                placeholder="E-mail" autocomplete="off" [class.is-invalid]="isControlInvalid('email')"
+                [class.is-valid]="isControlValid('email')" formControlName="email" />
+            </div>
+            <div class="col-lg-6">
               <label class="form-label">Celular</label>
-              <input
-                type="text"
-                class="form-control form-control-lg form-control-solid"
-                name="celular"
-                placeholder="Celular"
-                autocomplete="off"
-                [class.is-invalid]="isControlInvalid('celular')"
-                [class.is-valid]="isControlValid('celular')"
-                formControlName="celular"
-              />
+              <input type="text" class="form-control form-control-lg form-control-solid" name="celular"
+                placeholder="Celular" autocomplete="off" [class.is-invalid]="isControlInvalid('celular')"
+                [class.is-valid]="isControlValid('celular')" formControlName="celular" />
             </div>
           </div>
+
           <div class="float-right">
             <a class="btn btn-default font-weight-bold mr-2" routerLink="/pacientes">Cancelar</a>
             <button type="submit" class="btn btn-primary font-weight-bold mr-2"
-              [disabled]="formGroup.invalid">Salvar</button>          
+              [disabled]="formGroup.invalid">Salvar</button>
           </div>
         </form>
       </div>
