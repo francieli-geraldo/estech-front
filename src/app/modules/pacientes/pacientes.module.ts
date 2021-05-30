@@ -18,6 +18,9 @@ import { DeleteContratoModalComponent } from '../contratos/components/delete-con
 import { CancelContratoModalComponent } from '../contratos/components/cancel-contrato-modal/cancel-contrato-modal.component';
 import { ContratosModule } from '../contratos/contratos.module';
 import { ContratosComponent } from '../contratos/contratos.component';
+import { RelatorioPacienteComponent } from './components/relatorio-paciente/relatorio-paciente.component';
+import { RelatorioPacienteModalComponent } from './components/relatorio-paciente-modal/relatorio-paciente-modal.component';
+import { ExportAsModule } from 'ngx-export-as';
 
 
 @NgModule({
@@ -26,7 +29,9 @@ import { ContratosComponent } from '../contratos/contratos.component';
     LancamentosComponent,
     FormPacienteModalComponent,
     DeletePacienteModalComponent,
-    EditPacienteComponent  
+    EditPacienteComponent,
+    RelatorioPacienteComponent,
+    RelatorioPacienteModalComponent  
   ],
   imports: [
     CommonModule,
@@ -38,11 +43,14 @@ import { ContratosComponent } from '../contratos/contratos.component';
     CRUDTableModule,
     NgbModalModule,
     NgbDatepickerModule,
-    ContratosModule
+    ContratosModule, 
+    ExportAsModule,
+    NgbDropdownModule
   ],
   entryComponents: [
     FormPacienteModalComponent,
     DeletePacienteModalComponent,
+    RelatorioPacienteModalComponent
   ]
 })
 export class PacientesModule {}

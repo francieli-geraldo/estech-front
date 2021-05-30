@@ -266,6 +266,4 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
 }

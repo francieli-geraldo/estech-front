@@ -22,6 +22,7 @@ import {
 import { PacientesService } from '../../services/pacientes.service';
 import { FormPacienteModalComponent } from './components/form-paciente-modal/form-paciente-modal.component';
 import { DeletePacienteModalComponent } from './components/delete-paciente-modal/delete-paciente-modal.component';
+import { RelatorioPacienteModalComponent } from './components/relatorio-paciente-modal/relatorio-paciente-modal.component';
 // import { EditPacienteModalComponent } from '../pacientes/components/edit-pacientes-modal/edit-paciente-modal.component';
 
 @Component({
@@ -161,21 +162,13 @@ export class PacientesComponent
     modalRef.result.then(() => this.service.fetch(), () => { });
   }
 
-  deleteSelected() {
-    const modalRef = this.modalService.open(FormPacienteModalComponent);
-    modalRef.componentInstance.ids = this.grouping.getSelectedRows();
+  generateRelatorio(id: number) {
+    const modalRef = this.modalService.open(
+      RelatorioPacienteModalComponent, 
+      { size: 'xl', scrollable: true  }
+    );
+    modalRef.componentInstance.id = id;
     modalRef.result.then(() => this.service.fetch(), () => { });
   }
 
-  updateStatusForSelected() {
-    const modalRef = this.modalService.open(FormPacienteModalComponent);
-    modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    modalRef.result.then(() => this.service.fetch(), () => { });
-  }
-
-  fetchSelected() {
-    const modalRef = this.modalService.open(FormPacienteModalComponent);
-    modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    modalRef.result.then(() => this.service.fetch(), () => { });
-  }
 }
