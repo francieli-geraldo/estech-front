@@ -165,7 +165,7 @@ export class PacientesComponent
   generateRelatorio(id: number) {
     const modalRef = this.modalService.open(
       RelatorioPacienteModalComponent, 
-      { size: 'xl', scrollable: true  }
+      { size: 'xl', scrollable: true, windowClass: 'modal-monitoramento' }
     );
     modalRef.componentInstance.id = id;
     modalRef.result.then(() => this.service.fetch(), () => { });

@@ -1,23 +1,24 @@
 <div class="modal-header">
     <div class="modal-title h4">Monitoramento de pasciente</div>
     <div>
-        <button type="button" class="btn btn-light btn-elevate mr-1" (click)="modal.dismiss()">
-            Cancelar
-        </button>
-
-        <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-success font-weight-bold text-uppercase" id="dropdownBasic1" ngbDropdownToggle>
+        <div ngbDropdown class="d-inline-block dropleft">
+            <button class="btn btn-outline-dark font-weight-bold btn-pill mr-2 dropdown-toggle" id="dropdownExport" ngbDropdownToggle>                
                 Exportar
-                <i class="ki ki-arrow-down pl-2" style="font-size: .8em;"></i>
+                <i class="ki ki-arrow-down pl-1" style="font-size: .8em;"></i>
             </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="px-9 py-4 font-weight-bold">
+            <div ngbDropdownMenu aria-labelledby="dropdownExport" class="px-9 py-4 font-weight-bold">
                 <button class="dropdown-item" (click)="exportAs('pdf', 'landscape')">PDF</button>
                 <button class="dropdown-item" (click)="exportAs('png')">Imagem</button>
             </div>
         </div>
+        <button type="button" class="btn btn-icon btn-outline-dark  btn-circle btn-sm mr-2" (click)="modal.dismiss()">
+            <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Close.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md" style="margin-right: 0px;">
+            </span>
+        </button>
     </div>
-    
+
 </div>
-<div id="relMonitoramento" class="modal-body">
+<div id="relMonitoramento" class="modal-body" style="padding: 0; overflow-x: hidden;">
     <app-relatorio-paciente></app-relatorio-paciente>
 </div>

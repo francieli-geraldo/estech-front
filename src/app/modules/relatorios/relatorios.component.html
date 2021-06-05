@@ -15,11 +15,11 @@
                     <div>
 
                         <div ngbDropdown class="d-inline-block" *ngIf="generateRelatorio">
-                            <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownBasic1" ngbDropdownToggle>
+                            <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownExport" ngbDropdownToggle>
                                 Exportar
                                 <i class="ki ki-arrow-down pl-2" style="font-size: .8em;"></i>
                             </button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="px-9 py-4 font-weight-bold">
+                            <div ngbDropdownMenu aria-labelledby="dropdownExport" class="px-9 py-4 font-weight-bold">
                                 <button class="dropdown-item" (click)="exportAs('xlsx')">Excel</button>
                                 <button class="dropdown-item" (click)="exportAs('pdf', 'landscape')">PDF</button>
                                 <button class="dropdown-item" (click)="exportAs('png')">Imagem</button>

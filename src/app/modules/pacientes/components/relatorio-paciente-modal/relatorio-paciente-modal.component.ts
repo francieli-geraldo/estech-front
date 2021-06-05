@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExportAsConfig, ExportAsService, SupportedExtensions } from 'ngx-export-as';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ export class RelatorioPacienteModalComponent implements OnInit {
     public modal: NgbActiveModal,
     private exportAsService: ExportAsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
   }
 
   genareteRelatorio() {      

@@ -1,1 +1,184 @@
-<p>relatorio-paciente works!</p>
+<div style="height: 720px;">
+    <div>
+        <div
+            style="width: 1080px; margin: 30px 0 0 10px; background: #EBEDF3; padding: 10px 5px 10px 5px; font-weight: bold; text-align: center; background-color: #FFA800;">
+            MONITORAMENTO DE PACIENTE AFINE-SE
+        </div>
+        <div style="width: 1080px; margin: 0px 10px; background: #EBEDF3; padding: 4px 5px;">
+            <div style=" width: 100%; display: flex; flex-wrap: wrap; margin-top: 8px;">
+                <div
+                    style=" width: 500px; flex: 0 0 500px; max-width: 500px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Paciente: </b></div>
+                    <div style="align-self: center; margin-left: 5px; width: 420px; background: #fff;">
+                        {{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 100px; flex: 0 0 100px; max-width: 100px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Plus: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 125px; flex: 0 0 125px; max-width: 125px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Término: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 100px; flex: 0 0 100px; max-width: 100px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Grupo: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 100px; flex: 0 0 100px; max-width: 100px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Status: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+            </div>
+            <div style="width: 100%; display: flex; flex-wrap: wrap; align-items: flex-start; margin-top: 8px;">
+                <div
+                    style=" width: 130px; flex: 0 0 130px; max-width: 130px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Peso Inicial: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style="width: 130px; flex: 0 0 130px; max-width: 130px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Peso Atual: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 100px; flex: 0 0 100px; max-width: 100px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Meta: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 130px; flex: 0 0 130px; max-width: 130px; position: relative; font-size: 13px; align-self: center;align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Total <br>Eliminado: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 150px; flex: 0 0 150px; max-width: 150px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>Elimiado <br>no Periodo: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 150px; flex: 0 0 150px; max-width: 150px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>% Objetivo: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+                <div
+                    style=" width: 150px; flex: 0 0 150px; max-width: 150px; position: relative; font-size: 13px; align-self: center; align-items: flex-start; display: flex;">
+                    <div style="align-self: center;"><b>% Postagens: </b></div>
+                    <div style="align-self: center; margin-left: 5px;">{{relatorioService.peso_atual}}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <table id="tablerelatorio" *ngFor="let service of lancamentoService;" style="width: 1080px; margin: 50px 0 0 10px;">
+        <thead style="background-color: #FFA800;">
+            <tr>
+                <th [attr.colspan]="arrayDays.length+1" style="text-align: center; padding: 6px 0 0 0;">{{'MÊS ' +
+                    service.mes}} </th>
+            </tr>
+            <tr>
+                <th [attr.rowspan]="2" style="padding: 5px;">POSTAGENS</th>
+                <th *ngFor="let day of arrayDays;" style="text-align: center;">{{day[1]}}</th>
+            </tr>
+            <tr>
+                <th *ngFor="let day of arrayDays;" style="text-align: center;">{{day[0]}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">CAFÉ</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_0'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">L MANHÃ</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_1'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">ALMOÇO</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_2'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">L TARDE</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_3'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">JANTA</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_4'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">HIIT</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_5'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">BALANÇA</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_6'}}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #EBEDF3; padding: 5px;">PESO</td>
+                <td style="min-width: 30px; max-width: 30px; text-align: center; border: 1px solid #EBEDF3;"
+                    *ngFor="let day of arrayDays;" id="{{service.mes+'_'+day[0]+'_7'}}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div
+        style="width: 1080px; display: flex; flex-wrap: wrap; margin-top: 8px; margin: 50px 0px 50px 10px; text-align: center; font-weight: bold; ">
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">Cafés</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">Lanche da manha</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">Almoço</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">Lanche da Tarde</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">Janta</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">HIIT</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+        <div style=" width: 154px;">
+            <div style="padding: 5px; background-color: #FFA800;">Balança</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">17%</div>
+            <div style="padding: 5px; border: 1px solid #EBEDF3;">2/12</div>
+        </div>
+    </div>
+</div>
+
+
+<div style=" height: 720px;">
+    <div style="max-width: 1080px; border: 1px solid #fff; margin: 80px 0px 50px 10px;">
+        <div
+            style="width: 1080px; margin: 10px 0 0 10px; background: #EBEDF3; padding: 10px 5px 10px 5px; font-weight: bold; text-align: center; background-color: #FFA800;">
+            Evolução do Paciente
+        </div>
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+            [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke">
+        </apx-chart>
+    </div>
+</div>

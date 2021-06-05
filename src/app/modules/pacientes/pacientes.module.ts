@@ -21,6 +21,7 @@ import { ContratosComponent } from '../contratos/contratos.component';
 import { RelatorioPacienteComponent } from './components/relatorio-paciente/relatorio-paciente.component';
 import { RelatorioPacienteModalComponent } from './components/relatorio-paciente-modal/relatorio-paciente-modal.component';
 import { ExportAsModule } from 'ngx-export-as';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ExportAsModule } from 'ngx-export-as';
     NgbDatepickerModule,
     ContratosModule, 
     ExportAsModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    NgApexchartsModule
   ],
   entryComponents: [
     FormPacienteModalComponent,
