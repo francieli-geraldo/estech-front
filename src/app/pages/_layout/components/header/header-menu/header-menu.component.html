@@ -126,5 +126,16 @@
   </li>
   <!-- end::1 Level -->
 
+    <!-- begin::1 Level -->
+    <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
+      <a class="menu-link" routerLink="/lancamentos" routerLinkActive="active">
+        <span class="menu-text">Lançamentos</span>
+        <ng-container *ngIf="rootArrowEnabled">
+          <i class="menu-arrow"></i>
+        </ng-container>
+      </a>
+    </li>
+    <!-- end::1 Level -->
+
 </ul>
 <!-- end::Header Nav -->

@@ -36,6 +36,11 @@ const routes: Routes = [
         path: 'relatorios',
         loadChildren: () =>
           import('../modules/relatorios/relatorios.module').then((m) => m.RelatoriosModule),
+      },     
+      {
+        path: 'lancamentos',
+        loadChildren: () =>
+          import('../modules/lancamentos/lancamentos.module').then((m) => m.LancamentosModule),
       },
       {
         path: 'builder',

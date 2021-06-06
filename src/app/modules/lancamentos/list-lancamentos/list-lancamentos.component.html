@@ -1,27 +1,28 @@
 <div class="mt-5">
-
   <!-- begin: Filtration form -->
   <div class="form form-label-right">
-    <div class="form-group row">
-      <div class="col-lg-4">
-        <div class="row" [formGroup]="filterGroup">
-          <div class="col-lg-6">
-            <small class="form-text text-muted"><b>Filtrar</b> por Programa</small>
-            <select class="form-control" placeholder="Filtro por Programa" name="type" formControlName="type">
-              <option value="">Todos</option>
-              <option *ngFor="let title of getProgramas()" [value]="title.id">
-                {{ title.description }}
-              </option>
-            </select>
-          </div>
-        </div>
+    <div class="form-group row"  [formGroup]="filterGroup">
+      <div class="col-lg-3">
+        <label for="typeahead-focus">Pesquisar um paciente:</label>
+        <input id="typeahead-focus" type="search" class="form-control" [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" [resultFormatter]="formatter" [inputFormatter]="formatter" name="paciente" formControlName="paciente" (selectItem)="selectedItem($event)"/>
+      </div>      
+      <div class="col-lg-2">
+        <label for="typeahead-focus">Selecione o programa:</label>        
+        <select class="form-control" name="programa" formControlName="programa" placeholder="Filtro por Programa">
+          <option *ngFor="let title of programas" [ngValue]="title.id">
+            {{ title.description }}
+          </option>
+        </select>
       </div>
-      <div class="col-lg-2" [formGroup]="searchGroup">
-        <small class="form-text text-muted"><b>Pesquisa</b> em todos os campos</small>
-        <input type="text" class="form-control" name="searchText" placeholder="Pesquisar" value=""
-          formControlName="searchTerm" />
+
+      <div class="col-lg-2">   
+        <button type="submit" class="btn btn-primary font-weight-bold mr-2" (click)="filter()"
+        style="position: absolute; bottom: 0; left: 0;">
+        <span class="svg-icon svg-icon-lg" [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"></span>
+        Pesquisar</button>
       </div>
     </div>
+    
   </div>
   <!-- end: Filtration form -->
 
@@ -30,8 +31,6 @@
     <table class="table table-head-custom table-vertical-center overflow-hidden">
       <thead>
         <th class="selection-cell-header" data-row-selection="true">
-          <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
-              [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
         </th>
 
         <th>
@@ -99,8 +98,8 @@
       <tbody>
         <tr *ngFor="let register of service.items$ | async">
           <td class="selection-cell">
-            <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(register.id)"
-                [checked]="grouping.isRowSelected(register.id)" />
+            <label class="checkbox checkbox-single">
+              <input type="checkbox" (click)="grouping.selectRow(register.id)" [checked]="grouping.isRowSelected(register.id)" />
               <span></span>
             </label>
           </td>
@@ -210,8 +209,15 @@
       </tbody>
     </table>
   </div>
+  
+  <ng-container *ngIf="!!!hasRegisters">
+    <div class="row text-center text-muted d-block" >
+      Nenhum registro encontrado
+    </div>
+  </ng-container>
+
   <!-- end: Table -->
   <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
-    [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+    [isLoading]="isLoading" (paginate)="paginate($event)" *ngIf="!!hasRegisters"></app-paginator>
 
 </div>
