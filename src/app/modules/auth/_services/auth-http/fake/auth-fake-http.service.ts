@@ -8,12 +8,12 @@ import { AuthModel } from '../../../_models/auth.model';
 import { UsersTable } from '../../../../../_fake/fake-db/users.table';
 import { environment } from '../../../../../../environments/environment';
 
-const API_USERS_URL = `${environment.apiUrl}/users`;
+const API_USERS_URL = `https://your-domain.com/api/users`;
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthHTTPService {
+export class AuthHTTPServiceFake {
   constructor(private http: HttpClient) { }
 
   // public methods

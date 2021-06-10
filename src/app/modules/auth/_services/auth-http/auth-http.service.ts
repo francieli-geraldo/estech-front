@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../../_models/user.model';
 import { environment } from '../../../../../environments/environment';
 import { AuthModel } from '../../_models/auth.model';
 
-const API_USERS_URL = `${environment.apiUrl}/auth`;
+const API_USERS_URL = `${environment.apiUrl}`;
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class AuthHTTPService {
 
   // public methods
   login(email: string, password: string): Observable<any> {
-    return this.http.post<AuthModel>(`${API_USERS_URL}/login`, { email, password });
+    return this.http.post(`${API_USERS_URL}/sessions`, { email, password });
   }
 
   // CREATE =>  POST: add a new user to the server
@@ -30,12 +30,39 @@ export class AuthHTTPService {
     });
   }
 
-  getUserByToken(token): Observable<UserModel> {
+  getUserByToken(auth): Observable<UserModel> {
     const httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${auth.token}`,
     });
-    return this.http.get<UserModel>(`${API_USERS_URL}/me`, {
-      headers: httpHeaders,
-    });
+    // return this.http.get<UserModel>(`${API_USERS_URL}/me`, {
+    //   headers: httpHeaders,
+    // });
+
+    const user = new UserModel();
+      user.id =  123;
+      user.username = 'franciligeraldo ';
+      user.password = '123';
+      user.fullname = 'Francieli Ferreira Geraldo';
+      user.firstname = 'Sean';
+      user.lastname = 'Stark';
+      user.email = 'franci.ff29@gmail.com';
+      user.pic = './assets/media/users/300_25.jpg';
+      user.roles = [1];
+      user.occupation = 'Programador';
+      user.companyName = 'SC Software';
+      user.phone = '41984568688';
+      user.address = {
+        addressLine: 'L-12-20 Vertex, Cybersquare',
+        city: 'San Francisco',
+        state: 'California',
+        postCode: '45000',
+      };
+      user.socialNetworks = {
+        linkedIn: 'https://linkedin.com/admin',
+        facebook: 'https://facebook.com/admin',
+        twitter: 'https://twitter.com/admin',
+        instagram: 'https://instagram.com/admin',
+      }
+    return of(user);
   }
 }
