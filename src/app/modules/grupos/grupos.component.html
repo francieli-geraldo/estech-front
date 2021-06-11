@@ -51,12 +51,12 @@
             </th>
             <th>
               NOME
-              <app-sort-icon column="nome" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+              <app-sort-icon column="name" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
                 (sort)="sort($event)"></app-sort-icon>
             </th>
             <th>
               DESCRIÇÃO
-              <app-sort-icon column="descricao" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+              <app-sort-icon column="description" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
                 (sort)="sort($event)"></app-sort-icon>
             </th>
             
@@ -70,8 +70,8 @@
                 </label>
               </td>       
               <td>{{ register.id }}</td>
-              <td>{{ register.nome }}</td>
-              <td>{{ register.descricao }}</td>
+              <td>{{ register.name }}</td>
+              <td>{{ register.description }}</td>
               <td>  
                 <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
                   (click)="editRegister(register.id, register)">

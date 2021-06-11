@@ -1,31 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { of, Subscription } from 'rxjs';
-import { catchError, first, tap } from 'rxjs/operators';
-import { Grupo } from 'src/app/models/grupo.model';
-import { GruposService } from 'src/app/services/grupos.service';
-import { CustomAdapter, CustomDateParserFormatter } from 'src/app/_metronic/core';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  NgbActiveModal,
+  NgbDateAdapter,
+  NgbDateParserFormatter,
+} from "@ng-bootstrap/ng-bootstrap";
+import { of, Subscription } from "rxjs";
+import { catchError, first, tap } from "rxjs/operators";
+import { Grupo } from "src/app/models/grupo.model";
+import { GruposService } from "src/app/services/grupos.service";
+import {
+  CustomAdapter,
+  CustomDateParserFormatter,
+} from "src/app/_metronic/core";
 
-const EMPTY_PROGRAMA: Grupo = {
+const EMPTY: Grupo = {
   id: undefined,
-  nome: '',
-  descricao: ''
+  name: "",
+  description: "",
 };
 
 @Component({
-  selector: 'app-form-grupos-modal',
-  templateUrl: './form-grupos-modal.component.html',
-  styleUrls: ['./form-grupos-modal.component.scss'],
+  selector: "app-form-grupos-modal",
+  templateUrl: "./form-grupos-modal.component.html",
+  styleUrls: ["./form-grupos-modal.component.scss"],
   providers: [
-    {provide: NgbDateAdapter, useClass: CustomAdapter},
-    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
-  ]
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+  ],
 })
 export class FormGruposModalComponent implements OnInit {
-
- @Input() id: number;
- @Input() register: Grupo;
+  @Input() id: number;
+  @Input() register: Grupo;
 
   isLoading$;
   formGroup: FormGroup;
@@ -33,9 +39,9 @@ export class FormGruposModalComponent implements OnInit {
 
   constructor(
     private registersService: GruposService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     public modal: NgbActiveModal
-    ) { }
+  ) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.registersService.isLoading$;
@@ -44,15 +50,21 @@ export class FormGruposModalComponent implements OnInit {
 
   loadRegister() {
     if (!this.id) {
-      this.register = EMPTY_PROGRAMA;
-    }     
+      this.register = EMPTY;
+    }
     this.loadForm();
   }
 
   loadForm() {
     this.formGroup = this.fb.group({
-      nome: [this.register.nome, Validators.compose([Validators.nullValidator])],
-      descricao: [this.register.descricao, Validators.compose([Validators.nullValidator])],
+      name: [
+        this.register.name,
+        Validators.compose([Validators.nullValidator]),
+      ],
+      description: [
+        this.register.description,
+        Validators.compose([Validators.nullValidator]),
+      ],
     });
   }
 
@@ -66,41 +78,47 @@ export class FormGruposModalComponent implements OnInit {
   }
 
   edit() {
-    const sbUpdate = this.registersService.update(this.register).pipe(
-      tap(() => {
-        this.modal.close();
-      }),
-      catchError((errorMessage) => {
-        this.modal.dismiss(errorMessage);
-        return of(this.register);
-      }),
-    ).subscribe(res => this.register = res);
+    const sbUpdate = this.registersService
+      .update(this.register)
+      .pipe(
+        tap(() => {
+          this.modal.close();
+        }),
+        catchError((errorMessage) => {
+          this.modal.dismiss(errorMessage);
+          return of(this.register);
+        })
+      )
+      .subscribe((res) => (this.register = res));
     console.log(sbUpdate);
-    
+
     this.subscriptions.push(sbUpdate);
   }
 
   create() {
-    const sbCreate = this.registersService.create(this.register).pipe(
-      tap(() => {
-        this.modal.close();
-      }),
-      catchError((errorMessage) => {
-        this.modal.dismiss(errorMessage);
-        return of(this.register);
-      }),
-    ).subscribe((res: Grupo) => this.register = res);
+    const sbCreate = this.registersService
+      .create(this.register)
+      .pipe(
+        tap(() => {
+          this.modal.close();
+        }),
+        catchError((errorMessage) => {
+          this.modal.dismiss(errorMessage);
+          return of(this.register);
+        })
+      )
+      .subscribe((res: Grupo) => (this.register = res));
     this.subscriptions.push(sbCreate);
   }
 
   private prepareRegister() {
     const formData = this.formGroup.value;
-    this.register.nome = formData.nome;
-    this.register.descricao = formData.descricao;
+    this.register.name = formData.name;
+    this.register.description = formData.description;
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sb => sb.unsubscribe());
+    this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
 
   // helpers for View

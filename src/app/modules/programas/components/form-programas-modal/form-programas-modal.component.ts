@@ -7,10 +7,10 @@ import { Programa } from 'src/app/models/programa.model';
 import { ProgramasService } from 'src/app/services/programas.service';
 import { CustomAdapter, CustomDateParserFormatter } from 'src/app/_metronic/core';
 
-const EMPTY_PROGRAMA: Programa = {
+const EMPTY: Programa = {
   id: undefined,
-  nome: '',
-  descricao: ''
+  name: '',
+  description: ''
 };
 
 @Component({
@@ -44,15 +44,15 @@ export class FormProgramasModalComponent implements OnInit {
 
   loadRegister() {
     if (!this.id) {
-      this.register = EMPTY_PROGRAMA;
+      this.register = EMPTY;
     }     
     this.loadForm();
   }
 
   loadForm() {
     this.formGroup = this.fb.group({
-      nome: [this.register.nome, Validators.compose([Validators.nullValidator])],
-      descricao: [this.register.descricao, Validators.compose([Validators.nullValidator])],
+      name: [this.register.name, Validators.compose([Validators.nullValidator])],
+      description: [this.register.description, Validators.compose([Validators.nullValidator])],
     });
   }
 
@@ -95,8 +95,8 @@ export class FormProgramasModalComponent implements OnInit {
 
   private prepareRegister() {
     const formData = this.formGroup.value;
-    this.register.nome = formData.nome;
-    this.register.descricao = formData.descricao;
+    this.register.name = formData.name;
+    this.register.description = formData.description;
   }
 
   ngOnDestroy(): void {

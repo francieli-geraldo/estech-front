@@ -11,7 +11,7 @@ import { Grupo } from '../models/grupo.model';
   providedIn: 'root'
 })
 export class GruposService extends TableService<Grupo> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/customers`;
+  API_URL = `${environment.apiUrl}/programs`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
@@ -21,9 +21,9 @@ export class GruposService extends TableService<Grupo> implements OnDestroy {
     return this.http.get<Grupo[]>(this.API_URL).pipe(
       map((response: Grupo[]) => {
         const filteredResult = baseFilter([
-          { id: 1,nome: 'teste 1',descricao: 'teste descricao 1'},
-          { id: 2,nome: 'teste 2',descricao: 'teste descricao 2'},
-          { id: 3,nome: 'teste 3',descricao: 'teste descricao 3'}
+          { id: 1, name: 'teste 1', description: 'teste descricao 1'},
+          { id: 2, name: 'teste 2', description: 'teste descricao 2'},
+          { id: 3, name: 'teste 3', description: 'teste descricao 3'}
         ], tableState);
           
         const result: TableResponseModel<Grupo> = {

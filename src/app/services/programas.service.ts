@@ -11,7 +11,7 @@ import { Programa } from '../models/programa.model';
   providedIn: 'root'
 })
 export class ProgramasService extends TableService<Programa> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/customers`;
+  API_URL = `${environment.apiUrl}/programs`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
@@ -19,17 +19,11 @@ export class ProgramasService extends TableService<Programa> implements OnDestro
   // READ
   find(tableState: ITableState): Observable<TableResponseModel<Programa>> {
     return this.http.get<Programa[]>(this.API_URL).pipe(
-      map((response: Programa[]) => {
-        const filteredResult = baseFilter([
-          { id: 1,nome: 'teste 1',descricao: 'teste descricao 1'},
-          { id: 2,nome: 'teste 2',descricao: 'teste descricao 2'},
-          { id: 3,nome: 'teste 3',descricao: 'teste descricao 3'}
-        ], tableState);
-        const result: TableResponseModel<Programa> = {
-          items: filteredResult.items,
-          total: filteredResult.total
+      map((response: Programa[]) => {        
+        return {
+          items: response['content'],
+          total: response['totalElements']
         };
-        return result;
       })
     );
   }
