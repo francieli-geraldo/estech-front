@@ -9,11 +9,11 @@ import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../
 
 const EMPTY_CUSTOMER: Paciente = {
   id: undefined,
-  nome: '',
-  dt_nascimento: '',
-  sexo: '',
+  name: '',
+  birthDate: '',
+  sex: '',
   email: '',
-  celular: ''
+  phone: ''
 };
 
 @Component({
@@ -66,11 +66,11 @@ export class FormPacienteModalComponent implements OnInit, OnDestroy {
 
   loadForm() {
     this.formGroup = this.fb.group({
-      nome: [this.register.nome, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-      dt_nascimento: [this.register.dt_nascimento, Validators.compose([Validators.nullValidator])],
-      sexo: [this.register.sexo, Validators.compose([Validators.required])],
+      name: [this.register.name, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+      birthDate: [this.register.birthDate, Validators.compose([Validators.nullValidator])],
+      sex: [this.register.sex, Validators.compose([Validators.required])],
       email: [this.register.email, Validators.compose([Validators.required, Validators.email])],
-      celular: [this.register.celular, Validators.compose([Validators.required])]
+      phone: [this.register.phone, Validators.compose([Validators.required])]
     });
   }
 
@@ -113,11 +113,11 @@ export class FormPacienteModalComponent implements OnInit, OnDestroy {
 
   private prepareRegister() {
     const formData = this.formGroup.value;
-    this.register.nome =  formData.nome;
-    this.register.dt_nascimento =  formData.dt_nascimento;
-    this.register.sexo =  formData.sexo;
+    this.register.name =  formData.name;
+    this.register.birthDate =  formData.birthDate;
+    this.register.sex =  formData.sex;
     this.register.email =  formData.email;
-    this.register.celular =  formData.celular;
+    this.register.phone =  formData.phone;
   }
 
   ngOnDestroy(): void {

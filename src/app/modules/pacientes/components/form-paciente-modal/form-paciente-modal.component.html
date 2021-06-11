@@ -6,7 +6,7 @@
         <ng-container *ngIf="!register.id">Cadastrar</ng-container>
         paciente
         <ng-container *ngIf="register.id"
-          >'{{ register.nome }}'</ng-container
+          >'{{ register.name }}'</ng-container
         >
       </ng-container>
     </div>
@@ -29,24 +29,24 @@
             <input
               type="text"
               class="form-control form-control-lg form-control-solid"
-              name="nome"
+              name="name"
               placeholder="Nome"
               autocomplete="off"
-              [class.is-invalid]="isControlInvalid('nome')"
-              [class.is-valid]="isControlValid('nome')"
-              formControlName="nome"
+              [class.is-invalid]="isControlInvalid('name')"
+              [class.is-valid]="isControlValid('name')"
+              formControlName="name"
             />            
           </div>
           <div class="col-lg-4">
             <label>Sexo</label>
             <select
               class="form-control form-control-lg form-control-solid"
-              name="sexo"
-              [class.is-invalid]="isControlInvalid('sexo')"
-              formControlName="sexo"
+              name="sex"
+              [class.is-invalid]="isControlInvalid('sex')"
+              formControlName="sex"
             >
-              <option value="Feminino">Feminino</option>
-              <option value="Masculino">Masculino</option>
+              <option value="FEMALE">Feminino</option>
+              <option value="MALE">Masculino</option>
             </select>
           </div>
           <div class="col-lg-4">
@@ -54,15 +54,15 @@
             <div class="input-group input-group-solid">
               <input
                 type="text"
-                name="dt_nascimento"
+                name="birthDate"
                 class="form-control form-control-lg form-control-solid"
                 autocomplete="off"
                 placeholder="dd/mm/yyyy"
                 ngbDatepicker
                 #d="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('dt_nascimento')"
-                [class.is-valid]="isControlValid('dt_nascimento')"
-                formControlName="dt_nascimento"
+                [class.is-invalid]="isControlInvalid('birthDate')"
+                [class.is-valid]="isControlValid('birthDate')"
+                formControlName="birthDate"
                 readonly="true"
               />
               <div class="input-group-append" (click)="d.toggle()">
@@ -93,12 +93,12 @@
             <input
               type="text"
               class="form-control form-control-lg form-control-solid"
-              name="celular"
+              name="phone"
               placeholder="Celular"
               autocomplete="off"
-              [class.is-invalid]="isControlInvalid('celular')"
-              [class.is-valid]="isControlValid('celular')"
-              formControlName="celular"
+              [class.is-invalid]="isControlInvalid('phone')"
+              [class.is-valid]="isControlValid('phone')"
+              formControlName="phone"
             />
           </div>
         </div>

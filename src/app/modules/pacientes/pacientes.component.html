@@ -51,22 +51,22 @@
           </th>
           <th>
             NOME
-            <app-sort-icon column="nome" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            <app-sort-icon column="name" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
             DATA DE NASCIMENTO
-            <app-sort-icon column="dt_nascimento" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            <app-sort-icon column="birthDate" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
             SEXO
-            <app-sort-icon column="sexo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            <app-sort-icon column="sex" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
             CELULAR
-            <app-sort-icon column="celular" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            <app-sort-icon column="phone" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
@@ -84,11 +84,11 @@
               </label>
             </td>
             <td>{{ register.id }}</td>
-            <td>{{ register.nome }}</td>
-            <td>{{ register.dt_nascimento }}</td>
-            <td>{{ register.sexo }}</td>
+            <td>{{ register.name }}</td>
+            <td>{{ register.birthDate }}</td>
+            <td>{{ register.sex }}</td>
             <td>{{ register.email }}</td>
-            <td>{{ register.celular }}</td>
+            <td>{{ register.phone }}</td>
 
             <td>
 

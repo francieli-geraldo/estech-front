@@ -11,7 +11,7 @@ import { Paciente } from '../models/paciente.model';
   providedIn: 'root'
 })
 export class PacientesService extends TableService<Paciente> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/customers`;
+  API_URL = `${environment.apiUrl}/patients`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
@@ -19,29 +19,15 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
   // READ
   find(tableState: ITableState): Observable<TableResponseModel<Paciente>> {
     return this.http.get<Paciente[]>(this.API_URL).pipe(
-      map((response: Paciente[]) => {
-        const filteredResult = baseFilter( [
-          {  id: 1, nome: 'Maria', dt_nascimento: '07/05/1973', sexo: 'Feminino', email: 'maria_rita@gmail.com', celular: '(41) 9 8456-8688'},
-          {   id: 2, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 3, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 4, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 5, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 6, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 7, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 8, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 9, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 10, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'},
-          {   id: 11, nome: 'João', dt_nascimento: '07/05/1970', sexo: 'Masculino', email: 'joaozinho087@gmail.com', celular: '(41) 9 9965-5656'}
-        ], tableState);
-        
-        const result: TableResponseModel<Paciente> = {
-          items: filteredResult.items,
-          total: filteredResult.total
+      map((response: Paciente[]) => {        
+        return {
+          items: response['content'],
+          total: response['size']
         };
-        return result;
       })
     );
   }
+
 
   deleteItems(ids: number[] = []): Observable<any> {
     const tasks$ = [];

@@ -8,11 +8,11 @@ import { Paciente } from '../../../models/paciente.model';
 
 const EMPTY_PACIENTE: Paciente = {
   id: undefined,
-  nome: '',
-  dt_nascimento: '',
-  sexo: '',
+  name: '',
+  birthDate: '',
+  sex: '',
   email: '',
-  celular: ''
+  phone: ''
 };
 
 @Component({
@@ -79,11 +79,11 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
     }
 
     this.formGroup = this.fb.group({
-      nome: [this.paciente.nome, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-      dt_nascimento: [this.paciente.dt_nascimento, Validators.compose([Validators.nullValidator])],
-      sexo: [this.paciente.sexo, Validators.compose([Validators.required])],
+      name: [this.paciente.name, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+      birthDate: [this.paciente.birthDate, Validators.compose([Validators.nullValidator])],
+      sex: [this.paciente.sex, Validators.compose([Validators.required])],
       email: [this.paciente.email, Validators.compose([Validators.required, Validators.email])],
-      celular: [this.paciente.celular, Validators.compose([Validators.required])]
+      phone: [this.paciente.phone, Validators.compose([Validators.required])]
     });
   }
 

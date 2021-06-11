@@ -109,10 +109,6 @@ export class PacientesComponent
     });
     const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
       .pipe(
-        /*
-      The user can type quite quickly in the input box, and that could trigger a lot of server requests. With this operator,
-      we are limiting the amount of server requests emitted to a maximum of one every 150ms
-      */
         debounceTime(150),
         distinctUntilChanged()
       )
