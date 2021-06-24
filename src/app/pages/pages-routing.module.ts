@@ -26,7 +26,12 @@ const routes: Routes = [
         path: 'grupos',
         loadChildren: () =>
           import('../modules/grupos/grupos.module').then((m) => m.GruposModule),
-      },      
+      },                
+      {
+        path: 'razoes-cancelamento',
+        loadChildren: () =>
+          import('../modules/razoes-cancelamento/razoes-cancelamento.module').then((m) => m.RazoesCancelamentoModule),
+      },   
       {
         path: 'contratos',
         loadChildren: () =>

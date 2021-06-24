@@ -5,29 +5,28 @@ import { exhaustMap, map } from 'rxjs/operators';
 import { TableService, TableResponseModel, ITableState, BaseModel } from '../_metronic/shared/crud-table';
 import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../environments/environment';
-import { Paciente } from '../models/paciente.model';
+import { RazaoCancelamento } from '../models/razao-cancelamento.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PacientesService extends TableService<Paciente> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/patients`;
+export class RazoesCancelamentoService extends TableService<RazaoCancelamento> implements OnDestroy {
+  API_URL = `${environment.apiUrl}/reason-cancellations`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
 
   // READ
-  find(tableState: ITableState): Observable<TableResponseModel<Paciente>> {
-    return this.http.get<Paciente[]>(this.API_URL).pipe(
-      map((response: Paciente[]) => {        
+  find(tableState: ITableState): Observable<TableResponseModel<RazaoCancelamento>> {
+    return this.http.get<RazaoCancelamento[]>(this.API_URL).pipe(
+      map((response: RazaoCancelamento[]) => {        
         return {
           items: response['content'],
-          total: response['totalElements']  
+          total: response['totalElements']
         };
       })
     );
   }
-
 
   deleteItems(ids: number[] = []): Observable<any> {
     const tasks$ = [];
@@ -37,15 +36,19 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
     return forkJoin(tasks$);
   }
 
+  cancelContrato(id: number): Observable<any> {
+    return this.http.get<RazaoCancelamento[]>(this.API_URL).pipe();
+  }
+
   updateStatusForItems(ids: number[], status: number): Observable<any> {
-    return this.http.get<Paciente[]>(this.API_URL).pipe(
-      map((customers: Paciente[]) => {
+    return this.http.get<RazaoCancelamento[]>(this.API_URL).pipe(
+      map((customers: RazaoCancelamento[]) => {
         return customers.filter(c => ids.indexOf(c.id) > -1).map(c => {
           // c.status = status;
           return c;
         });
       }),
-      exhaustMap((customers: Paciente[]) => {
+      exhaustMap((customers: RazaoCancelamento[]) => {
         const tasks$ = [];
         customers.forEach(customer => {
           tasks$.push(this.update(customer));
