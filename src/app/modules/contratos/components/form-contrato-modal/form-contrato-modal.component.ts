@@ -10,27 +10,27 @@ import { of, Subscription } from "rxjs";
 import { catchError, first, tap } from "rxjs/operators";
 import { Contrato } from "src/app/models/contrato.model";
 import { ContratosService } from "src/app/services/contratos.service";
+import { GruposService } from "src/app/services/grupos.service";
+import { ProgramasService } from "src/app/services/programas.service";
 import {
   CustomAdapter,
   CustomDateParserFormatter,
 } from "src/app/_metronic/core";
 
-const EMPTY_CONTRATO: Contrato = {
+const EMPTY_CONTRATO: any = {
+  
   id: undefined,
-  programa: 0,
-  grupo: 0,
-  dt_inicio: "",
-  dt_conclusao: "",
-  status: 0,
-  peso_inicial: 0,
-  meta: 0,
+  programId: 0,
+  groupId: 0,
+  status: "",
+
+  startingWeight: 0,
+  goal: 0,
   objetivo: 0,
-  dt_contratacao_plus: "",
-  dt_cancelamento_plus: "",
-  dt_cancelamento: "",
-  motivo: "",
-  observacao: "",
-  plus: false,
+
+  hiringDate: "",
+  startDate: "",
+  notes: ""  
 };
 
 @Component({
@@ -56,6 +56,8 @@ export class FormContratoModalComponent implements OnInit {
 
   constructor(
     private registersService: ContratosService,
+    private programasService: ProgramasService,
+    private gruposService: GruposService,
     private fb: FormBuilder,
     public modal: NgbActiveModal
   ) {}
@@ -77,53 +79,41 @@ export class FormContratoModalComponent implements OnInit {
   loadForm() {
     
     this.formContrato = this.fb.group({
-      programa: [
-        this.register.programa,
+      programId: [
+        this.register.programId,
         Validators.compose([Validators.nullValidator]),
       ],
-      grupo: [this.register.grupo, Validators.compose([Validators.nullValidator])],
-      dt_inicio: [
-        this.register.dt_inicio,
-        Validators.compose([Validators.nullValidator]),
-      ],
-      dt_conclusao: [
-        this.register.dt_conclusao,
-        Validators.compose([Validators.nullValidator]),
-      ],
+      groupId: [this.register.groupId, Validators.compose([Validators.nullValidator])],
       status: [this.register.status, Validators.compose([Validators.nullValidator])],
-      peso_inicial: [
-        this.register.peso_inicial,
+      startingWeight: [
+        this.register.startingWeight,
         Validators.compose([Validators.nullValidator]),
       ],
-      meta: [this.register.meta, Validators.compose([Validators.nullValidator])],
-      objetivo: [
-        this.register.meta,
+      goal: [this.register.goal, Validators.compose([Validators.nullValidator])], 
+      hiringDate: [
+        this.register.hiringDate,
         Validators.compose([Validators.nullValidator]),
-      ],
-      dt_contratacao_plus: [
-        this.register.dt_contratacao_plus,
+      ],     
+      startDate: [
+        this.register.startDate,
         Validators.compose([Validators.nullValidator]),
-      ],
-      dt_cancelamento_plus: [
-        this.register.dt_cancelamento_plus,
+      ],           
+      dateConclusion: [
+        this.register.dateConclusion,
         Validators.compose([Validators.nullValidator]),
-      ],
-      dt_cancelamento: [
-        this.register.dt_cancelamento,
+      ],           
+      cancellationDate: [
+        this.register.cancellationDate,
         Validators.compose([Validators.nullValidator]),
-      ],
-      motivo: [
-        this.register.motivo,
+      ],           
+      reasonCancellation: [
+        this.register.reasonCancellation,
         Validators.compose([Validators.nullValidator]),
-      ],
-      observacao: [
-        this.register.observacao,
+      ],           
+      notes: [
+        this.register.notes,
         Validators.compose([Validators.nullValidator]),
-      ],
-      plus: [
-        this.register.plus,
-        Validators.compose([Validators.nullValidator]),
-      ],
+      ]
     });
   }
   
@@ -173,19 +163,12 @@ export class FormContratoModalComponent implements OnInit {
 
   private prepareRegister() {
     const formData = this.formContrato.value;
-    this.register.programa = formData.programa;
-    this.register.grupo = formData.grupo;
-    this.register.dt_inicio = formData.dt_inicio;
-    this.register.dt_conclusao = formData.dt_conclusao;
+    this.register.programId = formData.programId;
+    this.register.groupId = formData.groupId;
+    this.register.startDate = formData.startDate;
+    this.register.hiringDate = formData.hiringDate;
     this.register.status = formData.status;
-    this.register.peso_inicial = formData.peso_inicial;
-    this.register.meta = formData.meta;
-    this.register.objetivo = formData.objetivo;
-    this.register.dt_contratacao_plus = formData.dt_contratacao_plus;
-    this.register.dt_cancelamento_plus = formData.dt_cancelamento_plus;
-    this.register.dt_cancelamento = formData.dt_cancelamento;
-    this.register.motivo = formData.motivo;
-    this.register.observacao = formData.observacao;
+    this.register.notes = formData.notes;
   }
 
   ngOnDestroy(): void {
@@ -215,15 +198,15 @@ export class FormContratoModalComponent implements OnInit {
 
   sumObjetivo() {
     const formData = this.formContrato.value;
-    if (formData.peso_inicial && formData.meta) {
-      this.valueObjetivo = formData.meta - formData.peso_inicial;
+    if (formData.startingWeight && formData.goal) {
+      this.valueObjetivo = formData.goal - formData.startingWeight;
     }
   }
 
   isDisabled() {    
     const formData = this.formContrato.value;
-    if(!!formData.dt_inicio){
-      let date: any = new Date(formData.dt_inicio);
+    if(!!formData.startDate){
+      let date: any = new Date(formData.startDate);
       this.minDateConclusao = this.minDatepicker(date.addDays(1));
       return false;
     }

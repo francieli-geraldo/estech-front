@@ -48,7 +48,6 @@ export class ListContratosComponent
       console.log("Paciente chegou aqui no bregnighte");      
     }
 
-
     this.filterForm();
     this.searchForm();
     this.service.fetch();

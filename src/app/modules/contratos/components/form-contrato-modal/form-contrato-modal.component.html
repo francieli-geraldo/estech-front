@@ -50,11 +50,11 @@
           <div class="col-lg-3">
             <label>Data de início</label>
             <div class="input-group input-group-solid">
-              <input type="text" name="dt_inicio" class="form-control form-control-lg form-control-solid"
-                autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #dt_inicio="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('dt_inicio')" [class.is-valid]="isControlValid('dt_inicio')"
-                formControlName="dt_inicio" readonly="true" [minDate]="minDate" [disabled]="!!id" />
-              <div class="input-group-append" (click)="!!!id ? dt_inicio.toggle() : false">
+              <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
+                autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #startDate="ngbDatepicker"
+                [class.is-invalid]="isControlInvalid('startDate')" [class.is-valid]="isControlValid('startDate')"
+                formControlName="startDate" readonly="true" [minDate]="minDate" [disabled]="!!id" />
+              <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
                 <span class="input-group-text">
                   <i class="text-dark-50 flaticon-calendar"></i>
                 </span>
@@ -65,11 +65,11 @@
           <div class="col-lg-3">
             <label>Data de conclusão</label>
             <div class="input-group input-group-solid">
-              <input type="text" name="dt_conclusao" class="form-control form-control-lg form-control-solid"
-                autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #dt_conclusao="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('dt_conclusao')" [class.is-valid]="isControlValid('dt_conclusao')"
-                formControlName="dt_conclusao" readonly="true" [minDate]="minDateConclusao" />
-              <div class="input-group-append" (click)="isDisabled() ? false : dt_conclusao.toggle()">
+              <input type="text" name="hiringDate" class="form-control form-control-lg form-control-solid"
+                autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #hiringDate="ngbDatepicker"
+                [class.is-invalid]="isControlInvalid('hiringDate')" [class.is-valid]="isControlValid('hiringDate')"
+                formControlName="hiringDate" readonly="true" [minDate]="minDateConclusao" />
+              <div class="input-group-append" (click)="isDisabled() ? false : hiringDate.toggle()">
                 <span class="input-group-text">
                   <i class="text-dark-50 flaticon-calendar"></i>
                 </span>
@@ -79,19 +79,19 @@
           
           <div class="col-lg-3">
             <label>Programa</label>
-            <select class="form-control form-control-lg form-control-solid" name="programa"
-              [class.is-invalid]="isControlInvalid('programa')" formControlName="programa">
-              <option value="1">Emagrece vc</option>
-              <option value="2">Engorda vc</option>
+            <select class="form-control form-control-lg form-control-solid" name="programId"
+              [class.is-invalid]="isControlInvalid('programId')" formControlName="programId">
+              <option >Emagrece vc</option>
+              <option >Engorda vc</option>
             </select>
           </div>
           
           <div class="col-lg-3">
             <label>Grupo</label>
-            <select class="form-control form-control-lg form-control-solid" name="grupo"
-              [class.is-invalid]="isControlInvalid('grupo')" formControlName="grupo">
-              <option value="1">Os novinhos</option>
-              <option value="2">Os coroas</option>
+            <select class="form-control form-control-lg form-control-solid" name="groupId"
+              [class.is-invalid]="isControlInvalid('groupId')" formControlName="groupId">
+              <option >Os novinhos</option>
+              <option >Os coroas</option>
             </select>
           </div>
         </div>
@@ -99,17 +99,17 @@
         <div class="form-group row">
           <div class="col-lg-3">
             <label class="form-label">Peso Inícial</label>
-            <input type="number" class="form-control form-control-lg form-control-solid" name="peso_inicial"
-              placeholder="Peso Inícial" autocomplete="off" [class.is-invalid]="isControlInvalid('peso_inicial')"
-              [class.is-valid]="isControlValid('peso_inicial')" formControlName="peso_inicial"
+            <input type="number" class="form-control form-control-lg form-control-solid" name="startingWeight"
+              placeholder="Peso Inícial" autocomplete="off" [class.is-invalid]="isControlInvalid('startingWeight')"
+              [class.is-valid]="isControlValid('startingWeight')" formControlName="startingWeight"
               (change)="sumObjetivo()" />
           </div>
 
           <div class="col-lg-3">
             <label class="form-label">Meta</label>
-            <input type="number" class="form-control form-control-lg form-control-solid" name="meta" placeholder="Meta"
-              autocomplete="off" [class.is-invalid]="isControlInvalid('meta')" [class.is-valid]="isControlValid('meta')"
-              formControlName="meta" (change)="sumObjetivo()" />
+            <input type="number" class="form-control form-control-lg form-control-solid" name="goal" placeholder="Meta"
+              autocomplete="off" [class.is-invalid]="isControlInvalid('goal')" [class.is-valid]="isControlValid('goal')"
+              formControlName="goal" (change)="sumObjetivo()" />
           </div>
           
           <div class="col-lg-3">
@@ -120,7 +120,7 @@
         </div>
 
         
-        <div class="separator separator-dashed my-8"></div>
+        <!-- <div class="separator separator-dashed my-8"></div>
 
         <div class="form-group row">  
           <div class="col-lg-1">      
@@ -183,7 +183,7 @@
           </div>
 
 
-        </div>
+        </div> -->
 
       </form>
     </ng-container>

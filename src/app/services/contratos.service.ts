@@ -11,29 +11,42 @@ import { Contrato } from '../models/contrato.model';
   providedIn: 'root'
 })
 export class ContratosService extends TableService<Contrato> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/customers`;
+  API_URL = `${environment.apiUrl}/1/agreements`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
 
-  // READ
+
   find(tableState: ITableState): Observable<TableResponseModel<Contrato>> {
     return this.http.get<Contrato[]>(this.API_URL).pipe(
-      map((response: Contrato[]) => {
-
-        const filteredResult = baseFilter([
-          { id: 1,programa: 1,grupo: 1,dt_inicio: '05/30/2021',dt_conclusao: '06/01/2021', status: 1, peso_inicial: 120.500, meta: 64,objetivo: 60, plus: true, dt_contratacao_plus: '05/30/2021', dt_cancelamento_plus: '06/01/2021', dt_cancelamento: '',motivo: '',observacao: ''},
-          { id: 2,programa: 1,grupo: 1,dt_inicio: '04/20/2021',dt_conclusao: '04/30/2021',status: 2,peso_inicial: 150.500, meta: 100,objetivo: 50.500, plus: false, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''  }           
-        ] , tableState);
-          
-        const result: TableResponseModel<Contrato> = {
-          items: filteredResult.items,
-          total: filteredResult.total
+      map((response: Contrato[]) => {        
+        return {
+          items: response['content'],
+          total: response['totalElements']  
         };
-        return result;
       })
     );
   }
+
+
+  // READ
+  // find(tableState: ITableState): Observable<TableResponseModel<Contrato>> {
+  //   return this.http.get<Contrato[]>(this.API_URL).pipe(
+  //     map((response: Contrato[]) => {
+
+  //       const filteredResult = baseFilter([
+  //         { id: 1,programa: 1,grupo: 1,dt_inicio: '05/30/2021',dt_conclusao: '06/01/2021', status: 1, peso_inicial: 120.500, meta: 64,objetivo: 60, plus: true, dt_contratacao_plus: '05/30/2021', dt_cancelamento_plus: '06/01/2021', dt_cancelamento: '',motivo: '',observacao: ''},
+  //         { id: 2,programa: 1,grupo: 1,dt_inicio: '04/20/2021',dt_conclusao: '04/30/2021',status: 2,peso_inicial: 150.500, meta: 100,objetivo: 50.500, plus: false, dt_contratacao_plus: '',dt_cancelamento_plus: '',dt_cancelamento: '',motivo: '',observacao: ''  }           
+  //       ] , tableState);
+          
+  //       const result: TableResponseModel<Contrato> = {
+  //         items: filteredResult.items,
+  //         total: filteredResult.total
+  //       };
+  //       return result;
+  //     })
+  //   );
+  // }
 
   deleteItems(ids: number[] = []): Observable<any> {
     const tasks$ = [];

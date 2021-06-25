@@ -79,38 +79,38 @@
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
-          PROGRAMA
-          <app-sort-icon column="programa" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
-        </th>
-        <th>
-          GRUPO
-          <app-sort-icon column="grupo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
-        </th>
-        <th>
-          DATA DE INICIO
-          <app-sort-icon column="dt_inicio" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
-        </th>
-        <th>
-          DATA DE CONCLUSÃO
-          <app-sort-icon column="dt_conclusao" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
-        </th>
-        <th>
           STATUS
           <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
+          PROGRAMA
+          <app-sort-icon column="program" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          GRUPO
+          <app-sort-icon column="group" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          DATA DE INICIO
+          <app-sort-icon column="startDate" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          DATA DE CONCLUSÃO
+          <app-sort-icon column="hiringDate" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
           PESO INICIAL
-          <app-sort-icon column="peso_inicial" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          <app-sort-icon column="startingWeight" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           META
-          <app-sort-icon column="meta" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          <app-sort-icon column="goal" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
@@ -118,11 +118,11 @@
           <app-sort-icon column="objetivo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
-        <th>
+        <!-- <th>
           PLUS
           <app-sort-icon column="dt_contratacao_plus" [activeColumn]="sorting.column"
             [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-        </th>
+        </th> -->
 
       </thead>
       <tbody>
@@ -134,22 +134,22 @@
             </label>
           </td>
           <td>{{ register.id }}</td>
-          <td>{{ register.programa }}</td>
-          <td>{{ register.grupo }}</td>
-          <td>{{ register.dt_inicio }}</td>
-          <td>{{ register.dt_conclusao }}</td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 1"
-              [class.label-light-success]="register.status === 2" [class.label-light-primary]="register.status === 3">
-              <ng-container *ngIf="register.status === 1">Cancelado</ng-container>
-              <ng-container *ngIf="register.status === 2">Ativo</ng-container>
-              <ng-container *ngIf="register.status === 3">Pendente</ng-container>
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 'CANCELED'"
+              [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-primary]="register.status === 'CONCLUDED'">
+              <ng-container *ngIf="register.status === 'ACTIVE'">Ativo</ng-container>
+              <ng-container *ngIf="register.status === 'CONCLUDED'">Concluído</ng-container>
+              <ng-container *ngIf="register.status === 'CANCELED'">Cancelado</ng-container>
             </span>
           </td>
-          <td>{{ register.peso_inicial }}</td>
-          <td>{{ register.meta }}</td>
-          <td>{{ register.objetivo }}</td>
-          <td>{{ register.dt_cancelamento }}</td>
+          <td>{{ register.program.name }}</td>
+          <td>{{ register.group.name }}</td>
+          <td>{{ register.startDate }}</td>
+          <td>{{ register.hiringDate }}</td>          
+          <td>{{ register.startingWeight }}</td>
+          <td>{{ register.goal }}</td>
+          <td>{{ ( register.goal - register.startingWeight ) }}</td>
+          <!-- <td>{{ register.dateConclusion }}</td> -->
           <td style="display: flex;">
             <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
               <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
