@@ -6,15 +6,15 @@
 </ng-container>
 
 <div class="modal-header">
-  <div class="modal-title h4">Deletar Programa</div>
+  <div class="modal-title h4">Excluir Programa</div>
 </div>
 <div class="modal-body">
   <ng-container *ngIf="isLoading">
-    <span>Programa está sendo deletado...</span>
+    <span>Programa sendo excluído...</span>
   </ng-container>
 
   <ng-container *ngIf="!isLoading">
-    <span>Tem certeza de que deseja excluir este programa permanentemente?</span>
+    <span>Tem certeza de que deseja excluir este registro permanentemente?</span>
   </ng-container>
 </div>
 
@@ -23,8 +23,8 @@
     <button type="button" class="btn btn-light btn-elevate mr-1" (click)="modal.dismiss()">
       Cancelar
     </button>&nbsp;
-    <button type="button" class="btn btn-primary btn-elevate" (click)="delete()">
-      Deletar
+    <button type="button" class="btn btn-danger btn-elevate" (click)="delete()">
+      Excluir
     </button>
   </div>
 </div>
