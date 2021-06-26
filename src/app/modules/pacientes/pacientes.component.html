@@ -1,17 +1,17 @@
 <div class="card card-custom gutter-b">
   <div class="card-header">
     <div class="card-title">
-      <h3 class="card-label">Lista de Pacientes</h3>
+      <h3 class="card-label">Manutenção de Pacientes</h3>
     </div>
     <div class="card-toolbar">
-      <button type="button" class="btn btn-primary" routerLink="/pacientes/add">Novo Paciente</button>
+      <button type="button" class="btn btn-primary" routerLink="/pacientes/add"><i class="fa fa-plus"></i>Novo</button>
     </div>
   </div>
   <div class="card-body">
     <!-- begin: Filtration form -->
     <div class="form form-label-right">
       <div class="form-group row">
-        <div class="col-lg-2" [formGroup]="searchGroup">
+        <div class="col-lg" [formGroup]="searchGroup">
           <input type="text" class="form-control" name="searchText" placeholder="Pesquisar" value=""
             formControlName="searchTerm" />
         </div>
@@ -26,7 +26,7 @@
           <div class="col-xl-12">
             <div class="form-group form-group-inline">
               <div class="form-label form-label-no-wrap">
-                <label class="font-bold font-danger"><span>Selected records count:
+                <label class="font-bold font-danger"><span>Total de registros selecionados:
                     <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
               </div>             
             </div>
@@ -45,7 +45,7 @@
                 [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
           </th>
           <th>
-            ID
+            CÓDIGO
             <app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
@@ -86,9 +86,9 @@
             <td>{{ register.id }}</td>
             <td>{{ register.name }}</td>
             <td>{{ register.birthDate }}</td>
-            <td>{{ register.sex }}</td>
-            <td>{{ register.email }}</td>
+            <td>{{ register.sex == "MALE" ? "Masculino": "Femino" }}</td>
             <td>{{ register.phone }}</td>
+            <td>{{ register.email }}</td>
 
             <td>
 

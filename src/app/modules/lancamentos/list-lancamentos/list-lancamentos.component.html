@@ -10,7 +10,7 @@
       </div>
       
       <div class="col-lg-2">
-        <label for="typeahead-focus">Selecione o programa:</label>        
+        <label for="typeahead-focus">Selecione o programa</label>        
         <select class="form-control" name="programa" formControlName="programa" placeholder="Filtro por Programa">
           <option *ngFor="let title of programas" [ngValue]="title.id">
             {{ title.description }}

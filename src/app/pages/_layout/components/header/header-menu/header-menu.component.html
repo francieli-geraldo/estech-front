@@ -11,41 +11,28 @@
   </li>
   <!-- end::1 Level -->
 
-  
   <!-- begin::1 Level -->
-  <li class="menu-item menu-item-submenu menu-item-rel" routerLinkActive="menu-item-active"
-    [attr.data-menu-toggle]="headerMenuDesktopToggle" aria-haspopup="true">
-    <a class="menu-link menu-toggle" routerLinkActive="active">
-      <span class="menu-text">Pacientes</span>
-      <i class="menu-arrow"></i>
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
+    <a class="menu-link" routerLink="/lancamentos" routerLinkActive="active">
+      <span class="menu-text">Lançamentos</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
     </a>
-    <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-      <ul class="menu-subnav">
-        <!-- begin::2 Level -->
-        <li class="menu-item" routerLinkActive="menu-item-active">
-          <a class="menu-link" routerLink="/pacientes/add" routerLinkActive="active">
-            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Add-user.svg'" cacheSVG="true"
-              class="svg-icon menu-icon"></span>
-            <span class="menu-text">Cadastrar Paciente</span>
-          </a>
-        </li>
-        <!-- end::2 Level -->
-
-        <!-- begin::2 Level -->
-        <li class="menu-item" routerLinkActive="menu-item-active">
-          <a class="menu-link" routerLink="/pacientes" routerLinkActive="active">
-            <span [inlineSVG]="'./assets/media/svg/icons/Text/Bullet-list.svg'" cacheSVG="true"
-              class="svg-icon menu-icon"></span>
-            <span class="menu-text">Listar Pacientes</span>
-          </a>
-        </li>
-        <!-- end::2 Level -->
-      </ul>
-    </div>
   </li>
   <!-- end::1 Level -->
 
-  
+  <!-- begin::1 Level -->
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
+    <a class="menu-link" routerLink="/relatorios" routerLinkActive="active">
+      <span class="menu-text">Relatórios</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+  <!-- end::1 Level -->
+
   <!-- begin::1 Level -->
   <li class="menu-item menu-item-submenu menu-item-rel" routerLinkActive="menu-item-active"
     [attr.data-menu-toggle]="headerMenuDesktopToggle" aria-haspopup="true">
@@ -78,21 +65,40 @@
     </div>
   </li>
   <!-- end::1 Level -->
-  
-
-  
+   
   <!-- begin::1 Level -->
-  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
-    <a class="menu-link" routerLink="/relatorios" routerLinkActive="active">
-      <span class="menu-text">Relatórios</span>
-      <ng-container *ngIf="rootArrowEnabled">
-        <i class="menu-arrow"></i>
-      </ng-container>
+  <li class="menu-item menu-item-submenu menu-item-rel" routerLinkActive="menu-item-active"
+    [attr.data-menu-toggle]="headerMenuDesktopToggle" aria-haspopup="true">
+    <a class="menu-link menu-toggle" routerLinkActive="active">
+      <span class="menu-text">Pacientes</span>
+      <i class="menu-arrow"></i>
     </a>
+    <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+      <ul class="menu-subnav">
+        <!-- begin::2 Level -->
+        <li class="menu-item" routerLinkActive="menu-item-active">
+          <a class="menu-link" routerLink="/pacientes/add" routerLinkActive="active">
+            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Add-user.svg'" cacheSVG="true"
+              class="svg-icon menu-icon"></span>
+            <span class="menu-text">Novo</span>
+          </a>
+        </li>
+        <!-- end::2 Level -->
+
+        <!-- begin::2 Level -->
+        <li class="menu-item" routerLinkActive="menu-item-active">
+          <a class="menu-link" routerLink="/pacientes" routerLinkActive="active">
+            <span [inlineSVG]="'./assets/media/svg/icons/Text/Bullet-list.svg'" cacheSVG="true"
+              class="svg-icon menu-icon"></span>
+            <span class="menu-text">Manutenção de Pacientes</span>
+          </a>
+        </li>
+        <!-- end::2 Level -->
+      </ul>
+    </div>
   </li>
   <!-- end::1 Level -->
 
-   
   <!-- begin::1 Level -->
   <li class="menu-item menu-item-submenu menu-item-rel" routerLinkActive="menu-item-active"
     [attr.data-menu-toggle]="headerMenuDesktopToggle" aria-haspopup="true">
@@ -125,9 +131,9 @@
         <!-- begin::2 Level -->
         <li class="menu-item" routerLinkActive="menu-item-active">
           <a class="menu-link" routerLink="/razoes-cancelamento" routerLinkActive="active">
-            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Group.svg'" cacheSVG="true"
+            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Flag.svg'" cacheSVG="true"
               class="svg-icon menu-icon"></span>
-            <span class="menu-text">Razões de Cancelamento</span>
+            <span class="menu-text">Motivos de cancelamento</span>
           </a>
         </li>
         <!-- end::2 Level -->
@@ -135,17 +141,6 @@
     </div>
   </li>
   <!-- end::1 Level -->
-
-    <!-- begin::1 Level -->
-    <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
-      <a class="menu-link" routerLink="/lancamentos" routerLinkActive="active">
-        <span class="menu-text">Lançamentos</span>
-        <ng-container *ngIf="rootArrowEnabled">
-          <i class="menu-arrow"></i>
-        </ng-container>
-      </a>
-    </li>
-    <!-- end::1 Level -->
 
 </ul>
 <!-- end::Header Nav -->

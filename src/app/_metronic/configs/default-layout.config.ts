@@ -63,7 +63,7 @@ export const DefaultLayoutConfig = {
   // Base Settins
   self: {
     layout: 'default', // blank/default page mode
-    backgroundImage: 'bg/bg-10.jpg'
+    backgroundImage: 'bg/bg-5.jpg'
   },
 
   // Page loader
