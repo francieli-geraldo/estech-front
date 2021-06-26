@@ -44,7 +44,6 @@ export class FormContratoModalComponent implements OnInit {
   
   @Input() id: number;
   @Input() register: Contrato;
-  valueObjetivo: number;
   isLoading$;
   formContrato: FormGroup;
   private subscriptions: Subscription[] = [];
@@ -200,9 +199,11 @@ export class FormContratoModalComponent implements OnInit {
 
   sumObjetivo() {
     const formData = this.formContrato.value;
-    if (formData.startingWeight && formData.goal) {
-      this.valueObjetivo = formData.goal - formData.startingWeight;
+    let sum;
+    if (formData.startingWeight && formData.goal) {       
+       sum = (formData.goal - formData.startingWeight).toFixed(3)
     }
+    return sum;
   }
 
   isDisabled() {    

@@ -146,7 +146,7 @@
           <td>{{ register.hiringDate }}</td>          
           <td>{{ register.startingWeight }}</td>
           <td>{{ register.goal }}</td>
-          <td>{{ ( register.goal - register.startingWeight ) }}</td>
+          <td>{{ (register.goal - register.startingWeight).toFixed(3) }}</td>
           <!-- <td>{{ register.dateConclusion }}</td> -->
           <td style="display: flex;">
             <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
