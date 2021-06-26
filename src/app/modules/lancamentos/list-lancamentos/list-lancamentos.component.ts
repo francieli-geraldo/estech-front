@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbModal, NgbTypeahead } from "@ng-bootstrap/ng-bootstrap";
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
+import { GruposService } from "src/app/services/grupos.service";
 import { LancamentoBase, LancamentosService } from "src/app/services/lancamentos.service";
 import {
   GroupingState,
@@ -50,11 +51,16 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    public service: LancamentosService  ) {}
+    public service: LancamentosService,
+    public gruposService: GruposService
+  ) {}
 
   // angular lifecircle hooks
   ngOnInit(): void {
+    this.gruposService.fetch();
+
     this.getLancamentos();
+
   }
 
   ngOnDestroy() {
@@ -78,16 +84,19 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
   filterForm() {
     this.filterGroup = this.fb.group({
       paciente: [""],
-      programa: [""],
+      grupo: [""],
     });
+    
+    this.subscriptions.push(
+      this.filterGroup.controls.grupo.valueChanges.subscribe(() => this.filter())
+    );
+    
     this.subscriptions.push(
       this.filterGroup.controls.paciente.valueChanges.subscribe(() =>
         this.filter()
       )
     );
-    this.subscriptions.push(
-      this.filterGroup.controls.programa.valueChanges.subscribe(() => this.filter())
-    );
+    
   }
 
   filter() {

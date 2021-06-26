@@ -2,10 +2,13 @@
   <!-- begin: Filtration form -->
   <div class="form form-label-right">
     <div class="form-group row"  [formGroup]="filterGroup">
-      <div class="col-lg-3">
-        <label for="typeahead-focus">Pesquisar um paciente:</label>
-        <input id="typeahead-focus" type="search" class="form-control" [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" [resultFormatter]="formatter" [inputFormatter]="formatter" name="paciente" formControlName="paciente" (selectItem)="selectedItem($event)"/>
-      </div>      
+      <div class="col-lg-2">
+        <label for="typeahead-focus">Filtrar por grupo:</label>        
+        <select class="form-control" name="grupo" formControlName="grupo" placeholder="Filtro por Grupo">
+          <option *ngFor="let grupo of gruposService.items$ | async" value="{{grupo.id}}">{{grupo.name}}</option>
+        </select>
+      </div>
+      
       <div class="col-lg-2">
         <label for="typeahead-focus">Selecione o programa:</label>        
         <select class="form-control" name="programa" formControlName="programa" placeholder="Filtro por Programa">
@@ -14,6 +17,11 @@
           </option>
         </select>
       </div>
+
+      <div class="col-lg-3">
+        <label for="typeahead-focus">Pesquisar um paciente:</label>
+        <input id="typeahead-focus" type="search" class="form-control" [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" [resultFormatter]="formatter" [inputFormatter]="formatter" name="paciente" formControlName="paciente" (selectItem)="selectedItem($event)"/>
+      </div>      
 
       <div class="col-lg-2">   
         <button type="submit" class="btn btn-primary font-weight-bold mr-2" (click)="filter()"
