@@ -166,7 +166,6 @@ export class FormContratoModalComponent implements OnInit {
     const formData = this.formContrato.value;
     this.register.programId = Number(formData.programId);
     this.register.groupId = Number(formData.groupId);
-    // this.register.status = formData.status;
     this.register.startDate = formData.startDate;
     this.register.startingWeight = formData.startingWeight;
     this.register.goal = formData.goal;    
