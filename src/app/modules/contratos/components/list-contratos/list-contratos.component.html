@@ -7,20 +7,18 @@
         <div class="row" [formGroup]="filterGroup">
           <div class="col-lg-6">
             <small class="form-text text-muted"><b>Filtrar</b> por Status</small>
-            <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">
-              <option value="">Todos</option>
-              <option value="1">Cancelado</option>
-              <option value="2">Ativo</option>
-              <option value="3">Pendente</option>
+            <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">              
+              <option  value="">Todos</option>
+              <option value="ACTIVE">Ativo</option>
+              <option value="CONCLUDED">Concluído</option>
+              <option value="CANCELED">Cancelado</option>
             </select>
           </div>
           <div class="col-lg-6">
             <small class="form-text text-muted"><b>Filtrar</b> por Programa</small>
             <select class="form-control" placeholder="Filtro por Programa" name="type" formControlName="type">
-              <option value="">Todos</option>
-              <option *ngFor="let title of getProgramas()" [value]="title.id">
-                {{title.description}}
-              </option>
+              <option value="">Todos</option>              
+              <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">{{register.name}}</option>
             </select>
           </div>
         </div>

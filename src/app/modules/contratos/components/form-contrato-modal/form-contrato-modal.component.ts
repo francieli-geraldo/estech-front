@@ -22,11 +22,9 @@ const EMPTY_CONTRATO: any = {
   id: undefined,
   programId: 0,
   groupId: 0,
-  status: "",
 
   startingWeight: 0,
   goal: 0,
-  objetivo: 0,
 
   hiringDate: "",
   startDate: "",
@@ -56,15 +54,18 @@ export class FormContratoModalComponent implements OnInit {
 
   constructor(
     private registersService: ContratosService,
-    private programasService: ProgramasService,
-    private gruposService: GruposService,
+    public programasService: ProgramasService,
+    public gruposService: GruposService,
     private fb: FormBuilder,
     public modal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
-    this.minDate = this.minDatepicker(new Date());
 
+    this.programasService.fetch();
+    this.gruposService.fetch();
+
+    this.minDate = this.minDatepicker(new Date());
     this.isLoading$ = this.registersService.isLoading$;
     this.loadRegister();
   }
@@ -120,7 +121,7 @@ export class FormContratoModalComponent implements OnInit {
 
   save() {
     this.prepareRegister();
-    if (this.register.id) {
+    if (this.id) {
       this.edit();
     } else {
       this.create();
@@ -163,11 +164,13 @@ export class FormContratoModalComponent implements OnInit {
 
   private prepareRegister() {
     const formData = this.formContrato.value;
-    this.register.programId = formData.programId;
-    this.register.groupId = formData.groupId;
+    this.register.programId = Number(formData.programId);
+    this.register.groupId = Number(formData.groupId);
+    // this.register.status = formData.status;
     this.register.startDate = formData.startDate;
+    this.register.startingWeight = formData.startingWeight;
+    this.register.goal = formData.goal;    
     this.register.hiringDate = formData.hiringDate;
-    this.register.status = formData.status;
     this.register.notes = formData.notes;
   }
 

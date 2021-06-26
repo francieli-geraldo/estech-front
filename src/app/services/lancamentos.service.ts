@@ -13,7 +13,8 @@ import { DatePipe } from '@angular/common';
 })
 export class LancamentosService extends TableService<Lancamento> implements OnDestroy {
   
-  API_URL = `${environment.apiUrl}/customers`;
+  API_URL = `${environment.apiUrl}/1/agreements/1/dailies/
+  `;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }

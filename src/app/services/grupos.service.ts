@@ -11,7 +11,7 @@ import { Grupo } from '../models/grupo.model';
   providedIn: 'root'
 })
 export class GruposService extends TableService<Grupo> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/programs`;
+  API_URL = `${environment.apiUrl}/groups`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }

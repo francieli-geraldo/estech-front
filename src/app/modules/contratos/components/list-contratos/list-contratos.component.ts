@@ -8,6 +8,7 @@ import { ContratosService } from "../../../../services/contratos.service";
 import { CancelContratoModalComponent } from "../cancel-contrato-modal/cancel-contrato-modal.component";
 import { DeleteContratoModalComponent } from "../delete-contrato-modal/delete-contrato-modal.component";
 import { FormContratoModalComponent } from "../form-contrato-modal/form-contrato-modal.component";
+import { ProgramasService } from "src/app/services/programas.service";
 
 @Component({
   selector: "app-list-contratos",
@@ -35,14 +36,17 @@ export class ListContratosComponent
   searchGroup: FormGroup;
   private subscriptions: Subscription[] = [];
 
-  constructor(
+  constructor(  
     private fb: FormBuilder,
     private modalService: NgbModal,
-    public service: ContratosService
+    public service: ContratosService,
+    public programasService: ProgramasService
   ) {}
 
   // angular lifecircle hooks
   ngOnInit(): void {
+
+    this.programasService.fetch();
 
     if(this.paciente){
       console.log("Paciente chegou aqui no bregnighte");      
