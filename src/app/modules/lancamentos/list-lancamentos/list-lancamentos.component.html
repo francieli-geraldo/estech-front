@@ -3,11 +3,11 @@
   <div class="form form-label-right">
     <div class="form-group row"  [formGroup]="filterGroup">
       <div class="col-lg-3">
-        <label for="typeahead-focus">Pesquisar um paciente:</label>
+        <label for="typeahead-focus">Pesquisar um paciente</label>
         <input id="typeahead-focus" type="search" class="form-control" [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" [resultFormatter]="formatter" [inputFormatter]="formatter" name="paciente" formControlName="paciente" (selectItem)="selectedItem($event)"/>
       </div>      
       <div class="col-lg-2">
-        <label for="typeahead-focus">Selecione o programa:</label>        
+        <label for="typeahead-focus">Selecione o programa</label>        
         <select class="form-control" name="programa" formControlName="programa" placeholder="Filtro por Programa">
           <option *ngFor="let title of programas" [ngValue]="title.id">
             {{ title.description }}
