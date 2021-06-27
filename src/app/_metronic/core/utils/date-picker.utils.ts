@@ -24,7 +24,7 @@ export class CustomAdapter extends NgbDateAdapter<string> {
   }
 
   toModel(date: NgbDateStruct | null): string | null {
-    return date ? date.year + this.DELIMITER + ("00" + date.month).slice(-2) + this.DELIMITER + date.day : null;
+    return date ? date.year + this.DELIMITER + ("00" + date.month).slice(-2) + this.DELIMITER + ("00" + date.day).slice(-2) : null;
   }
 }
 
@@ -51,6 +51,6 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
   }
 
   format(date: NgbDateStruct | null): string {
-    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
+    return date ? ("00" + date.day).slice(-2) + this.DELIMITER + ("00" + date.month).slice(-2) + this.DELIMITER + date.year : '';
   }
 }

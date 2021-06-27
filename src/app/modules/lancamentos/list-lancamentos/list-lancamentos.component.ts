@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { NgbModal, NgbTypeahead } from "@ng-bootstrap/ng-bootstrap";
+import { FormBuilder } from "@angular/forms";
+import { NgbDateAdapter, NgbDateParserFormatter, NgbModal, NgbTypeahead } from "@ng-bootstrap/ng-bootstrap";
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
 import { GruposService } from "src/app/services/grupos.service";
 import { LancamentoBase, LancamentosService } from "src/app/services/lancamentos.service";
+import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
 import {
   GroupingState,
   ICreateAction,
@@ -26,7 +27,11 @@ const states = [
 @Component({
   selector: 'app-list-lancamentos',
   templateUrl: './list-lancamentos.component.html',
-  styleUrls: ['./list-lancamentos.component.scss']
+  styleUrls: ['./list-lancamentos.component.scss'],
+  providers: [
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+  ],
 })
 export class ListLancamentosComponent implements OnInit, OnDestroy {
 
@@ -34,9 +39,9 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
   sorting: SortState;
   grouping: GroupingState;
   isLoading: boolean;
-  filterGroup: FormGroup;
-  searchGroup: FormGroup;
   previousLancamentos: any = {};
+  maxDate;
+  
   private subscriptions: Subscription[] = [];
  
   programas: Array<any>;
@@ -47,6 +52,8 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
   click$ = new Subject<string>();
 
   hasRegisters: Boolean = false;
+  endDate;
+  modelteste;
 
   constructor(
     private fb: FormBuilder,
@@ -57,19 +64,27 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
 
   // angular lifecircle hooks
   ngOnInit(): void {
+    this.modelteste = this.todayDatepicker(new Date())
+    this.maxDate = this.minDatepicker(new Date());
     this.gruposService.fetch();
-
     this.getLancamentos();
-
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
 
+  toDate(dob) {
+    if (dob) {
+      const [year, month, day] = dob.split('-');
+      const obj = { year: parseInt(year), month: parseInt(month), day: parseInt(day.split(' ')[0].trim()) };
+      // this.endDate = obj;
+    }
+  }
+
   getLancamentos() {    
-    this.filterForm();
-    this.searchForm();
+    // this.filterForm();
+    // this.searchForm();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;
@@ -82,35 +97,34 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
 
   // filtration
   filterForm() {
-    this.filterGroup = this.fb.group({
-      paciente: [""],
-      grupo: [""],
-    });
+    let today = new Date();
+    // this.filterGroup = this.fb.group({
+    //   dateFilter:  { year: today.getFullYear(), month: today.getMonth()+ 1, day: 1  },
+    //   grupo: [""],
+    // });
     
-    this.subscriptions.push(
-      this.filterGroup.controls.grupo.valueChanges.subscribe(() => this.filter())
-    );
+    // this.subscriptions.push(
+    //   this.filterGroup.controls.grupo.valueChanges.subscribe(() => this.filter())
+    // );
     
-    this.subscriptions.push(
-      this.filterGroup.controls.paciente.valueChanges.subscribe(() =>
-        this.filter()
-      )
-    );
+    // this.subscriptions.push(
+    //   this.filterGroup.controls.dateFilter.valueChanges.subscribe(() => this.filter())
+    // );
     
   }
 
   filter() {
     this.hasRegisters = true;
     const filter = {};
-    const paciente = this.filterGroup.get("paciente").value;
-    if (paciente) {
-      filter["paciente"] = paciente;
-    }
+    // const paciente = this.filterGroup.get("paciente").value;
+    // if (paciente) {
+    //   filter["paciente"] = paciente;
+    // }
 
-    const programa = this.filterGroup.get("programa").value;
-    if (programa) {
-      filter["programa"] = programa;
-    }
+    // const programa = this.filterGroup.get("programa").value;
+    // if (programa) {
+    //   filter["programa"] = programa;
+    // }
     this.service.patchState({ filter });
   }
 
@@ -203,6 +217,18 @@ export class ListLancamentosComponent implements OnInit, OnDestroy {
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
       map(term => (term === '' ? states : states.filter(v => v.description.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
     );
+  }
+
+  minDatepicker(day: Date) {
+    return {
+      year: day.getFullYear(),
+      month: Number(String(day.getMonth() + 1).padStart(2, "0")),
+      day: Number(String(day.getDate()).padStart(2, "0"))
+    };
+  }
+
+  todayDatepicker(day: Date) {
+    return `${day.getFullYear()}-${Number(String(day.getMonth() + 1).padStart(2, "0"))}-${Number(String(day.getDate()).padStart(2, "0"))}}`;
   }
 
   formatter = (x: {description: string}) => x.description;

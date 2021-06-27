@@ -1,26 +1,41 @@
 <div class="mt-5">
   <!-- begin: Filtration form -->
   <div class="form form-label-right">
-    <div class="form-group row"  [formGroup]="filterGroup">
+    <div class="form-group row">
+      
+      <div class="col-lg-3">
+        <label>Data de início</label>
+        <!-- <div class="input-group input-group-solid">
+          <input type="text" name="dateFilter" class="form-control form-control-solid"
+            autocomplete="off" readonly="true"placeholder="dd/mm/yyyy" ngbDatepicker #dateFilter="ngbDatepicker"            
+            [(ngModel)]="modelteste"   [maxDate]="maxDate" />
+          <div class="input-group-append" (click)="dateFilter.toggle()">
+            <span class="input-group-text bg-white">
+              <i class="text-dark-50 flaticon-calendar"></i>
+            </span>
+          </div>
+        </div> -->
+
+        <div class="input-group">
+          <input id="dp" class="form-control" placeholder="dd/mm/yyyy" name="dp" [(ngModel)]="modelteste" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append" (click)="d.toggle()" type="button">
+            <span class="input-group-text bg-white">
+              <i class="text-dark-50 flaticon-calendar"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div class="col-lg-2">
-        <label for="typeahead-focus">Filtrar por grupo:</label>        
-        <select class="form-control" name="grupo" formControlName="grupo" placeholder="Filtro por Grupo">
+        <label for="typeahead-focus">Grupo:</label>        
+        <select class="form-control" name="grupo" placeholder="Filtro por Grupo">
           <option *ngFor="let grupo of gruposService.items$ | async" value="{{grupo.id}}">{{grupo.name}}</option>
         </select>
       </div>
       
-      <div class="col-lg-2">
-        <label for="typeahead-focus">Selecione o programa</label>        
-        <select class="form-control" name="programa" formControlName="programa" placeholder="Filtro por Programa">
-          <option *ngFor="let title of programas" [ngValue]="title.id">
-            {{ title.description }}
-          </option>
-        </select>
-      </div>
-
       <div class="col-lg-3">
         <label for="typeahead-focus">Pesquisar um paciente:</label>
-        <input id="typeahead-focus" type="search" class="form-control" [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" [resultFormatter]="formatter" [inputFormatter]="formatter" name="paciente" formControlName="paciente" (selectItem)="selectedItem($event)"/>
+        <input id="typeahead-focus" type="search" class="form-control" [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" [resultFormatter]="formatter" [inputFormatter]="formatter" name="paciente" (selectItem)="selectedItem($event)"/>
       </div>      
 
       <div class="col-lg-2">   
@@ -29,8 +44,8 @@
         <span class="svg-icon svg-icon-lg" [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"></span>
         Pesquisar</button>
       </div>
-    </div>
-    
+
+    </div>    
   </div>
   <!-- end: Filtration form -->
 
@@ -43,7 +58,7 @@
 
         <th>
           Data
-          <app-sort-icon column="data" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          <app-sort-icon [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
