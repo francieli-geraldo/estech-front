@@ -23,11 +23,6 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-2" [formGroup]="searchGroup">
-        <small class="form-text text-muted"><b>Pesquisa</b> em todos os campos</small>
-        <input type="text" class="form-control" name="searchText" placeholder="Pesquisar" value=""
-          formControlName="searchTerm" />
-      </div>
     </div>
   </div>
   <!-- end: Filtration form -->
@@ -42,20 +37,6 @@
               <label class="font-bold font-danger"><span>Total de registros selecionados:
                   <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
             </div>
-            <!-- <div> -->
-            <!-- <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
-                (click)="deleteSelected()">
-                <i class="fa fa-trash"></i> Delete All
-              </button>&nbsp;
-              <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-                (click)="fetchSelected()">
-                <i class="fa fa-stream"></i> Fetch Selected
-              </button>&nbsp;
-              <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-                (click)="updateStatusForSelected()">
-                <i class="fa fa-sync-alt"></i> Update Status
-              </button> -->
-            <!-- </div> -->
           </div>
         </div>
       </div>

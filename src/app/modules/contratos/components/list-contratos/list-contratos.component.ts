@@ -46,14 +46,7 @@ export class ListContratosComponent
   // angular lifecircle hooks
   ngOnInit(): void {
 
-    this.programasService.fetch();
-
-    if(this.paciente){
-      console.log("Paciente chegou aqui no bregnighte");      
-    }
-
-    this.filterForm();
-    this.searchForm();
+    // this.searchForm();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;
@@ -62,6 +55,9 @@ export class ListContratosComponent
       (res) => (this.isLoading = res)
     );
     this.subscriptions.push(sb);
+
+    this.programasService.fetch();
+    this.filterForm();
   }
 
   ngOnDestroy() {
@@ -72,8 +68,7 @@ export class ListContratosComponent
   filterForm() {
     this.filterGroup = this.fb.group({
       status: [""],
-      type: [""],
-      searchTerm: [""],
+      type: [""]
     });
     this.subscriptions.push(
       this.filterGroup.controls.status.valueChanges.subscribe(() =>
@@ -213,12 +208,4 @@ export class ListContratosComponent
     );
   }
 
-  getProgramas(){
-    return [
-      {id: 1, description: "Emagrece você"},
-      {id: 2, description: "Engorda você"},
-      {id: 3, description: "Casa você"},
-      {id: 4, description: "Separa você"},
-    ]
-  }
 }

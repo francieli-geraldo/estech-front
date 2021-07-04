@@ -8,6 +8,11 @@ th.sortable {
     vertical-align: super;
 }
 
-.input-group-append {
-    cursor: pointer;
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+input[name="dateFilter"]:read-only {
+    border: 1px solid #E4E6EF;
+    border-radius: .42rem;
 }

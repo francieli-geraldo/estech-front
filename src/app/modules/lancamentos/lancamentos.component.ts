@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { LancamentoBase, LancamentosService } from "src/app/services/lancamentos.service";
+import { LancamentosService } from "src/app/services/lancamentos.service";
 import {
   GroupingState,
   ICreateAction,
