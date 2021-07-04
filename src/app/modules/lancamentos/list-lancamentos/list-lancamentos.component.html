@@ -3,30 +3,29 @@
   <!-- begin: Filtration form -->
   <div class="form form-label-right">
     <div class="form-group row">
-      <div class="col-lg-4">
+      <div class="col-lg-12">
         <div class="row" [formGroup]="filterGroup">
-          <div class="col-lg-6">
-            <small class="form-text text-muted"><b>Filtrar</b> por Status</small>
-            <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">              
-              <option  value="">Todos</option>
-              <option value="ACTIVE">Ativo</option>
-              <option value="CONCLUDED">Concluído</option>
-              <option value="CANCELED">Cancelado</option>
-            </select>
+          <div class="col-lg-3">
+            <label>Data de início</label>
+            <div class="input-group">
+              <input readonly class="form-control" autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker  #dateFilter="ngbDatepicker" [maxDate]="maxDate"  name="dateFilter" formControlName="dateFilter">
+              <div class="input-group-append"  type="button" (click)="dateFilter.toggle()">
+                <span class="input-group-text bg-white">
+                  <i class="text-dark-50 flaticon-calendar"></i>
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-6">
-            <small class="form-text text-muted"><b>Filtrar</b> por Programa</small>
-            <select class="form-control" placeholder="Filtro por Programa" name="type" formControlName="type">
+    
+          <div class="col-lg-2">
+            <label for="typeahead-focus">Grupo:</label>        
+            <select class="form-control cursor-pointer" placeholder="Grupo" name="grupoId" formControlName="grupoId">
               <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}</option>
             </select>
           </div>
+
         </div>
       </div>
-      <!-- <div class="col-lg-2" [formGroup]="searchGroup">
-        <small class="form-text text-muted"><b>Pesquisa</b> em todos os campos</small>
-        <input type="text" class="form-control" name="searchText" placeholder="Pesquisar" value=""
-          formControlName="searchTerm" />
-      </div> -->
     </div>
   </div>
   <!-- end: Filtration form -->
@@ -57,49 +56,69 @@
             [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
         </th>
         <th>
-          CÓDIGO
-          <app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
-        </th>
-        <th>
-          STATUS
-          <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
-        </th>
-        <th>
-          PROGRAMA
-          <app-sort-icon column="program" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          PACIENTE
+          <app-sort-icon column="patientId" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           GRUPO
-          <app-sort-icon column="group" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          <app-sort-icon column="groupId" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
-          DATA DE INICIO
-          <app-sort-icon column="startDate" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          DATA
+          <app-sort-icon column="date" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
-          DATA DE CONCLUSÃO
-          <app-sort-icon column="hiringDate" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          Café da manha
+          <app-sort-icon column="breakfast" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
-          PESO INICIAL
-          <app-sort-icon column="startingWeight" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          Lanche da manha
+          <app-sort-icon column="morningSnack" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
-          META
-          <app-sort-icon column="goal" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          Almoço
+          <app-sort-icon column="lunch" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
-          OBJETIVO
-          <app-sort-icon column="objetivo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          Lanche da Tarde
+          <app-sort-icon column="afternoonSnack" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          Janta
+          <app-sort-icon column="dinner" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          Exercício
+          <app-sort-icon column="hiit" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          Peso anterior
+          <app-sort-icon column="previosWeight" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          Peso atual
+          <app-sort-icon column="currentWeight" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          Evolução
+          <app-sort-icon column="evolution" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>
+          Evolução acumulada
+          <app-sort-icon column="accumulatedEvolution" [activeColumn]="sorting.column"
+            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
         </th>
         
 
@@ -112,35 +131,96 @@
               <span></span>
             </label>
           </td>
-          <td>{{ register.id }}</td>
+          <td>{{ register.patientId }}</td>
+          <td>{{ register.groupId }}</td>
+          <td>{{ register.date }}</td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 'CANCELED'"
-              [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-primary]="register.status === 'CONCLUDED'">
-              <ng-container *ngIf="register.status === 'ACTIVE'">Ativo</ng-container>
-              <ng-container *ngIf="register.status === 'CONCLUDED'">Concluído</ng-container>
-              <ng-container *ngIf="register.status === 'CANCELED'">Cancelado</ng-container>
+            <span class="label label-lg label-inline" 
+              [class.label-light-danger]="register.breakfast === false"
+              [class.label-light-success]="register.breakfast === true"
+              [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'breakfast') : false">
+              <ng-container *ngIf="register.breakfast === false">X</ng-container>
+              <ng-container *ngIf="register.breakfast === true">✔</ng-container>              
             </span>
           </td>
-          <td>{{ register.program.name }}</td>
-          <td>{{ register.group.name }}</td>
-          <td>{{ register.startDate }}</td>
-          <td>{{ register.hiringDate }}</td>          
-          <td>{{ register.startingWeight }}</td>
-          <td>{{ register.goal }}</td>
-          <td>{{ (register.goal - register.startingWeight).toFixed(3) }}</td>
+          <td>
+            <span class="label label-lg label-inline" 
+              [class.label-light-danger]="register.morningSnack === false"
+              [class.label-light-success]="register.morningSnack === true"
+              [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'morningSnack') : false">
+              <ng-container *ngIf="register.morningSnack === false">X</ng-container>
+              <ng-container *ngIf="register.morningSnack === true">✔</ng-container>              
+            </span>
+          </td>
+          <td>
+            <span class="label label-lg label-inline" 
+              [class.label-light-danger]="register.lunch === false"
+              [class.label-light-success]="register.lunch === true"
+              [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'lunch') : false">
+              <ng-container *ngIf="register.lunch === false">X</ng-container>
+              <ng-container *ngIf="register.lunch === true">✔</ng-container>              
+            </span>
+          </td>
+          <td>
+            <span class="label label-lg label-inline" 
+              [class.label-light-danger]="register.afternoonSnack === false"
+              [class.label-light-success]="register.afternoonSnack === true"
+              [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'afternoonSnack') : false">
+              <ng-container *ngIf="register.afternoonSnack === false">X</ng-container>
+              <ng-container *ngIf="register.afternoonSnack === true">✔</ng-container>              
+            </span>
+          </td>
+          <td>
+            <span class="label label-lg label-inline" 
+              [class.label-light-danger]="register.dinner === false"
+              [class.label-light-success]="register.dinner === true"
+              [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'dinner') : false">
+              <ng-container *ngIf="register.dinner === false">X</ng-container>
+              <ng-container *ngIf="register.dinner === true">✔</ng-container>              
+            </span>
+          </td>
+          <td>
+            <span class="label label-lg label-inline" 
+              [class.label-light-danger]="register.hiit === false"
+              [class.label-light-success]="register.hiit === true"
+              [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'hiit') : false">
+              <ng-container *ngIf="register.hiit === false">X</ng-container>
+              <ng-container *ngIf="register.hiit === true">✔</ng-container>              
+            </span>
+          </td>
+          <td>{{ register.balance.previousWeight }}</td>
+          <td>{{ register.balance.currentWeight }}</td>
+          <td>{{ register.balance.evolution }}</td>
+          <td>{{ register.balance.accumulatedEvolution }}</td>
           <td style="display: flex;">
-            <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
+
+            <a *ngIf="!register.editable" title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+              (click)="startEdit(register)">
               <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-primary">
               </span>
             </a>
 
-            <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-              (click)="cancelContrato(register.id)">
-              <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
+            <a *ngIf="register.editable" title="Salvar" class="btn btn-icon btn-light btn-hover-success btn-sm mx-3"
+              (click)="confirmEditCreate(register)">
+              <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Check.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-success">
+              </span>
+            </a>
+
+            <a *ngIf="register.editable" title="Cancelar" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-3"
+              (click)="cancelEditCreate(register, $event)">
+              <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Close.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-danger">
               </span>
             </a>
+
           </td>
         </tr>
       </tbody>

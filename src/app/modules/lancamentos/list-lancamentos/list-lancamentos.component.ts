@@ -1,16 +1,21 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDateAdapter, NgbDateParserFormatter, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../_metronic/shared/crud-table";
 import { GruposService } from "src/app/services/grupos.service";
 import { LancamentosService } from "src/app/services/lancamentos.service";
+import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
 
 @Component({
   selector: "app-list-lancamentos",
   templateUrl: "./list-lancamentos.component.html",
   styleUrls: ["./list-lancamentos.component.scss"],
+  providers: [
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+  ]
 })
 export class ListLancamentosComponent
   implements
@@ -32,6 +37,8 @@ export class ListLancamentosComponent
   filterGroup: FormGroup;
   searchGroup: FormGroup;
   private subscriptions: Subscription[] = [];
+  previousLancamentos: any = {};
+  maxDate = this.formatDatepicker(new Date());
 
   constructor(  
     private fb: FormBuilder,
@@ -42,6 +49,9 @@ export class ListLancamentosComponent
 
   // angular lifecircle hooks
   ngOnInit(): void {
+    
+    this.gruposService.fetch();
+    this.filterForm();
 
     // this.searchForm();
     this.service.fetch();
@@ -53,8 +63,6 @@ export class ListLancamentosComponent
     );
     this.subscriptions.push(sb);
 
-    this.gruposService.fetch();
-    this.filterForm();
   }
 
   ngOnDestroy() {
@@ -62,31 +70,31 @@ export class ListLancamentosComponent
   }
 
   // filtration
-  filterForm() {
+  async filterForm() {
     this.filterGroup = this.fb.group({
-      status: [""],
-      type: ["1"]
+      dateFilter: [this.todayDatepicker(new Date())],
+      grupoId: ["1"]
     });
     this.subscriptions.push(
-      this.filterGroup.controls.status.valueChanges.subscribe(() =>
+      this.filterGroup.controls.dateFilter.valueChanges.subscribe(() =>
         this.filter()
       )
     );
     this.subscriptions.push(
-      this.filterGroup.controls.type.valueChanges.subscribe(() => this.filter())
+      this.filterGroup.controls.grupoId.valueChanges.subscribe(() => this.filter())
     );
   }
 
   filter() {
     const filter = {};
-    const status = this.filterGroup.get("status").value;
-    if (status) {
-      filter["status"] = status;
+    const dateFilter = this.filterGroup.get("dateFilter").value;
+    if (dateFilter) {
+      filter["dateFilter"] = dateFilter;
     }
 
-    const type = this.filterGroup.get("type").value;
-    if (type) {
-      filter["type"] = type;
+    const grupoId = this.filterGroup.get("grupoId").value;
+    if (grupoId) {
+      filter["grupoId"] = grupoId;
     }
     this.service.patchState({ filter });
   }
@@ -143,62 +151,40 @@ export class ListLancamentosComponent
     // );
   }
 
-  editRegister(id: number, register) {
-    // const modalRef = this.modalService.open(FormContratoModalComponent, {
-    //   size: "xl",
-    // });
-    // modalRef.componentInstance.id = id;
-    // modalRef.componentInstance.register = register;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-  
-    // );
+  confirmEditCreate(register) {
+    register.editable = false;    
+    if(register.id){
+      // this.service.edit(register)
+    }else{
+      // this.service.create(register)
+    }
   }
 
-  delete(id: number) {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.id = id;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+  startEdit(register) {
+    this.previousLancamentos[register.date] =  Object.assign({}, register);
+    register.editable = true;
   }
 
-  cancelContrato(id: number) {
-    // const modalRef = this.modalService.open(CancelContratoModalComponent);
-    // modalRef.componentInstance.id = id;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+  cancelEditCreate(register, row) {
+    register.editable = false;
+    Object.keys(register).forEach(item => {
+      register[item] = this.previousLancamentos[register.date][item]
+    });    
   }
 
-  deleteSelected() {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+  changeValueRegister(register, field) {
+    register[field] = !register[field];
   }
 
-  updateStatusForSelected() {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+  formatDatepicker(day: Date) {
+    return {
+      year: day.getFullYear(),
+      month: Number(String(day.getMonth() + 1).padStart(2, "0")),
+      day: Number(String(day.getDate()).padStart(2, "0"))
+    };
   }
 
-  fetchSelected() {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+  todayDatepicker(day: Date) {
+    return `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-26`;
   }
-
 }
