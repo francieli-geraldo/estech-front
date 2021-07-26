@@ -7,6 +7,7 @@ import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, 
 import { GruposService } from "src/app/services/grupos.service";
 import { LancamentosService } from "src/app/services/lancamentos.service";
 import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
+import { PacientesService } from "src/app/services/pacientes.service";
 
 @Component({
   selector: "app-list-lancamentos",
@@ -44,16 +45,17 @@ export class ListLancamentosComponent
     private fb: FormBuilder,
     private modalService: NgbModal,
     public service: LancamentosService,
-    public gruposService: GruposService
+    public gruposService: GruposService,
+    public pacientesService: PacientesService,
   ) {}
 
   // angular lifecircle hooks
   ngOnInit(): void {
     
     this.gruposService.fetch();
+    this.pacientesService.fetch();
     this.filterForm();
 
-    // this.searchForm();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;
@@ -131,9 +133,9 @@ export class ListLancamentosComponent
   }
 
   // pagination
-  paginate(paginator: PaginatorState) {
-    this.service.patchState({ paginator });
-  }
+  // paginate(paginator: PaginatorState) {
+  //   this.service.patchState({ paginator });
+  // }
 
   // // form actions
   create() {

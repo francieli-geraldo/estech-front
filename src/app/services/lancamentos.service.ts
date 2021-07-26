@@ -21,8 +21,8 @@ export class LancamentosService extends TableService<Lancamento> implements OnDe
     return this.http.get<Lancamento[]>(this.API_URL+'?groupId=1&date=2021-06-26').pipe(
       map((response: Lancamento[]) => {        
         return {
-          items: response['content'],
-          total: response['totalElements']  
+          items: response,
+          total: response.length  
         };
       })
     );
