@@ -194,10 +194,10 @@
               <ng-container *ngIf="register.hiit === true">✔</ng-container>              
             </span>
           </td>
-          <td>{{ register.balance.previousWeight.toFixed(3) }}</td>
-          <td>{{ register.balance.currentWeight.toFixed(3) }}</td>
-          <td>{{ register.balance.evolution.toFixed(3) }}</td>
-          <td>{{ register.balance.accumulatedEvolution.toFixed(3) }}</td>
+          <td>{{ register.balance.previousWeight }}</td>
+          <td>{{ register.balance.currentWeight }}</td>
+          <td>{{ register.balance.evolution }}</td>
+          <td>{{ register.balance.accumulatedEvolution }}</td>
           <td style="display: flex;">
 
             <a *ngIf="!register.editable" title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
