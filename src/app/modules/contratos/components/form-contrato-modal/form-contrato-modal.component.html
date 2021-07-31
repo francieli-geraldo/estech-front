@@ -2,7 +2,7 @@
   <div class="modal-header">
     <div class="modal-title h4" id="example-modal-sizes-title-lg">
       <ng-container *ngIf="register">
-        <ng-container *ngIf="register.id">Editar</ng-container>
+        <ng-container *ngIf="register.id">Alterar</ng-container>
         <ng-container *ngIf="!register.id">Cadastrar</ng-container>
         contrato
         <ng-container *ngIf="register.id">'{{ register.id }}'</ng-container>
@@ -201,7 +201,7 @@
     
     <ng-container *ngIf="!!id">
       <button type="button" class="btn btn-danger btn-elevate mr-2" (click)="modal.dismiss()">
-        Deletar
+        Excluir
       </button>
     </ng-container>
 
