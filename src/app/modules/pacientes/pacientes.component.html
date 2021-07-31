@@ -85,7 +85,7 @@
             </td>
             <td>{{ register.id }}</td>
             <td>{{ register.name }}</td>
-            <td>{{ register.birthDate }}</td>
+            <td>{{ register.birthDate | date:'dd/MM/yyyy' }}</td>
             <td>{{ register.sex == "MALE" ? "Masculino": "Femino" }}</td>
             <td>{{ register.phone }}</td>
             <td>{{ register.email }}</td>

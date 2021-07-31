@@ -133,7 +133,7 @@
           </td>
           <td>{{ register.patientId }}</td>
           <td>{{ register.groupId }}</td>
-          <td>{{ register.date | date:'dd/MMM/yyyy'}}</td>
+          <td>{{ register.date | date:'dd/MM/yyyy' }}</td>
           <td>
             <span class="label label-lg label-inline" 
               [class.label-light-danger]="register.breakfast === false"
@@ -182,7 +182,7 @@
               (click)="register.editable ? changeValueRegister(register,'dinner') : false">
               <ng-container *ngIf="register.dinner === false">X</ng-container>
               <ng-container *ngIf="register.dinner === true">✔</ng-container>              
-            </span></span>
+            </span>
           </td>
           <td>
             <span class="label label-lg label-inline" 
@@ -194,10 +194,10 @@
               <ng-container *ngIf="register.hiit === true">✔</ng-container>              
             </span>
           </td>
-          <td>{{ register.balance.previousWeight }}</td>
-          <td>{{ register.balance.currentWeight }}</td>
-          <td>{{ register.balance.evolution }}</td>
-          <td>{{ register.balance.accumulatedEvolution }}</td>
+          <td>{{ register.balance.previousWeight.toFixed(3) }}</td>
+          <td>{{ register.balance.currentWeight.toFixed(3) }}</td>
+          <td>{{ register.balance.evolution.toFixed(3) }}</td>
+          <td>{{ register.balance.accumulatedEvolution.toFixed(3) }}</td>
           <td style="display: flex;">
 
             <a *ngIf="!register.editable" title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
