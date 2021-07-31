@@ -52,11 +52,11 @@
                                             <span class="option-label">
                                                 <span class="option-head">
                                                     <span class="option-title">
-                                                        Semanal
+                                                        Periódico
                                                     </span>
                                                 </span>
                                                 <span class="option-body">
-                                                    Relatório semanal dos lançamentos realizados.
+                                                    Relatório periódico dos lançamentos realizados.
                                                 </span>
                                             </span>
                                         </label>
@@ -98,7 +98,7 @@
                                                     </span>
                                                 </span>
                                                 <span class="option-body">
-                                                    Relatório com valores totaias e percentuaias de lançamentos e
+                                                    Relatório com valores totais e percentuaias de lançamentos e
                                                     resultado alcançado pelos pacientes.
                                                 </span>
                                             </span>
@@ -117,10 +117,7 @@
                                     <label class="form-text text-muted"><b>Grupo</b></label>
                                     <select class="form-control" name="grupo" placeholder="Selecione" autocomplete="off"
                                         formControlName="grupo">
-                                        <option value="">Todos</option>
-                                        <option value="1">Cancelado</option>
-                                        <option value="2">Ativo</option>
-                                        <option value="3">Pendente</option>
+                                        <option *ngFor="let grupo of grupoService.items$ | async" value="{{grupo.id}}">{{grupo.name}}</option>                                       
                                     </select>
                                 </div>
 
@@ -129,6 +126,9 @@
                                     <select class="form-control" name="status" placeholder="Selecione"
                                         autocomplete="off" formControlName="status">
                                         <option value="">Todos</option>
+                                        <option value="1">Cancelado</option>
+                                        <option value="2">Ativo</option>
+                                        <option value="3">Pendente</option>
                                     </select>
                                 </div>
 

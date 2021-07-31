@@ -1,3 +1,4 @@
+import { GruposService } from 'src/app/services/grupos.service';
 import {
   AfterViewInit,
   Component,
@@ -64,11 +65,13 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     private relatoriosService: RelatoriosService,
     private router: Router,
     private route: ActivatedRoute,
-    private exportAsService: ExportAsService
+    private exportAsService: ExportAsService,
+    public grupoService: GruposService
   ) {}
 
   ngOnInit() {
     this.model = EMPTY_RELATORIO;
+    this.grupoService.fetch();
     this.loadForm();
   }
 
