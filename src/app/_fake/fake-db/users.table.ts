@@ -9,7 +9,7 @@ export class UsersTable {
       refreshToken: 'auth-token-f8c137a2c98743f48b643e71161d90aa',
       roles: [1],
       pic: './assets/media/users/44683435.jpg',
-      fullname: 'Samuel Silva Cruz',
+      fullname: 'Samuel Silva da Cruz',
       firstname: 'Samuel',
       lastname: 'Cruz',
       occupation: 'CEO',
