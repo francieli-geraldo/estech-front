@@ -37,24 +37,6 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
     return forkJoin(tasks$);
   }
 
-  updateStatusForItems(ids: number[], status: number): Observable<any> {
-    return this.http.get<Paciente[]>(this.API_URL).pipe(
-      map((customers: Paciente[]) => {
-        return customers.filter(c => ids.indexOf(c.id) > -1).map(c => {
-          // c.status = status;
-          return c;
-        });
-      }),
-      exhaustMap((customers: Paciente[]) => {
-        const tasks$ = [];
-        customers.forEach(customer => {
-          tasks$.push(this.update(customer));
-        });
-        return forkJoin(tasks$);
-      })
-    );
-  }
-
   ngOnDestroy() {
     this.subscriptions.forEach(sb => sb.unsubscribe());
   }

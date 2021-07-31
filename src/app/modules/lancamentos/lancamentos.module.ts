@@ -11,6 +11,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { LancamentosComponent } from './lancamentos.component';
 import { ListLancamentosComponent } from './list-lancamentos/list-lancamentos.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ListLancamentosComponent } from './list-lancamentos/list-lancamentos.co
     ListLancamentosComponent
   ],
   imports: [
+    NgxMaskModule.forChild(),
     CommonModule,
     HttpClientModule,
     LancamentosRoutingModule,

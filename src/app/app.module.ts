@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 // Highlight JS
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/splash-screen.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -27,6 +28,9 @@ function appInitializer(authService: AuthService) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: false
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     SplashScreenModule,

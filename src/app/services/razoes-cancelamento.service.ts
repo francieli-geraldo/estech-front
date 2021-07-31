@@ -40,24 +40,6 @@ export class RazoesCancelamentoService extends TableService<RazaoCancelamento> i
     return this.http.get<RazaoCancelamento[]>(this.API_URL).pipe();
   }
 
-  updateStatusForItems(ids: number[], status: number): Observable<any> {
-    return this.http.get<RazaoCancelamento[]>(this.API_URL).pipe(
-      map((customers: RazaoCancelamento[]) => {
-        return customers.filter(c => ids.indexOf(c.id) > -1).map(c => {
-          // c.status = status;
-          return c;
-        });
-      }),
-      exhaustMap((customers: RazaoCancelamento[]) => {
-        const tasks$ = [];
-        customers.forEach(customer => {
-          tasks$.push(this.update(customer));
-        });
-        return forkJoin(tasks$);
-      })
-    );
-  }
-
   ngOnDestroy() {
     this.subscriptions.forEach(sb => sb.unsubscribe());
   }

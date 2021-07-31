@@ -40,24 +40,6 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
     return this.http.get<Contrato[]>(this.API_URL).pipe();
   }
 
-  updateStatusForItems(ids: number[], status: number): Observable<any> {
-    return this.http.get<Contrato[]>(this.API_URL).pipe(
-      map((customers: Contrato[]) => {
-        return customers.filter(c => ids.indexOf(c.id) > -1).map(c => {
-          // c.status = status;
-          return c;
-        });
-      }),
-      exhaustMap((customers: Contrato[]) => {
-        const tasks$ = [];
-        customers.forEach(customer => {
-          tasks$.push(this.update(customer));
-        });
-        return forkJoin(tasks$);
-      })
-    );
-  }
-
   ngOnDestroy() {
     this.subscriptions.forEach(sb => sb.unsubscribe());
   }

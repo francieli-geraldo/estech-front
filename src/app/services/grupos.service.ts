@@ -16,19 +16,13 @@ export class GruposService extends TableService<Grupo> implements OnDestroy {
     super(http);
   }
 
-  // READ
   find(tableState: ITableState): Observable<TableResponseModel<Grupo>> {
     return this.http.get<Grupo[]>(this.API_URL).pipe(
       map((response: Grupo[]) => {
-        const filteredResult = baseFilter([
-          { id: 1, name: 'teste 1', description: 'teste descricao 1'},
-          { id: 2, name: 'teste 2', description: 'teste descricao 2'},
-          { id: 3, name: 'teste 3', description: 'teste descricao 3'}
-        ], tableState);
           
         const result: TableResponseModel<Grupo> = {
-          items: filteredResult.items,
-          total: filteredResult.total
+          items: response['content'],
+          total: response['totalElements']
         };
         return result;
       })
@@ -45,24 +39,6 @@ export class GruposService extends TableService<Grupo> implements OnDestroy {
 
   cancelContrato(id: number): Observable<any> {
     return this.http.get<Grupo[]>(this.API_URL).pipe();
-  }
-
-  updateStatusForItems(ids: number[], status: number): Observable<any> {
-    return this.http.get<Grupo[]>(this.API_URL).pipe(
-      map((customers: Grupo[]) => {
-        return customers.filter(c => ids.indexOf(c.id) > -1).map(c => {
-          // c.status = status;
-          return c;
-        });
-      }),
-      exhaustMap((customers: Grupo[]) => {
-        const tasks$ = [];
-        customers.forEach(customer => {
-          tasks$.push(this.update(customer));
-        });
-        return forkJoin(tasks$);
-      })
-    );
   }
 
   ngOnDestroy() {
