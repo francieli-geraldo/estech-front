@@ -12,6 +12,7 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { LancamentosComponent } from './lancamentos.component';
 import { ListLancamentosComponent } from './list-lancamentos/list-lancamentos.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { InputsModule } from 'src/app/_metronic/shared/inputs';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NgxMaskModule } from 'ngx-mask';
   imports: [
     NgxMaskModule.forChild(),
     CommonModule,
+    InputsModule,
     HttpClientModule,
     LancamentosRoutingModule,
     FormsModule,

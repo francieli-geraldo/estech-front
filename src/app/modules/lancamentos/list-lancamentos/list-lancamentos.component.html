@@ -7,14 +7,7 @@
         <div class="row" [formGroup]="filterGroup">
           <div class="col-lg-3">
             <label>Data de lançamento</label>
-            <div class="input-group">
-              <input readonly class="form-control" autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker  #dateFilter="ngbDatepicker" [maxDate]="maxDate"  name="dateFilter" formControlName="dateFilter">
-              <div class="input-group-append"  type="button" (click)="dateFilter.toggle()">
-                <span class="input-group-text bg-white">
-                  <i class="text-dark-50 flaticon-calendar"></i>
-                </span>
-              </div>
-            </div>
+            <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input>            
           </div>
     
           <div class="col-lg-3">
@@ -194,7 +187,18 @@
               <ng-container *ngIf="register.hiit === true">✔</ng-container>              
             </span>
           </td>
-          <td>{{ register.balance.previousWeight }}</td>
+          <td>            
+            <ng-container *ngIf="!register.editable">{{register.balance.previousWeight}}</ng-container>
+            <ng-container *ngIf="register.editable">
+              <input 
+                type="text"  
+                class="input-grid" 
+                [(ngModel)]="register.balance.previousWeight" 
+                [value]="register.balance.previousWeight"
+                mask="000,000"
+                >
+            </ng-container>            
+          </td>
           <td>{{ register.balance.currentWeight }}</td>
           <td>{{ register.balance.evolution }}</td>
           <td>{{ register.balance.accumulatedEvolution }}</td>

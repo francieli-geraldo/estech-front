@@ -39,7 +39,7 @@ export class ListLancamentosComponent
   searchGroup: FormGroup;
   private subscriptions: Subscription[] = [];
   previousLancamentos: any = {};
-  maxDate = this.formatDatepicker(new Date());
+  maxDate = new Date();
 
   constructor(  
     private fb: FormBuilder,
@@ -176,14 +176,6 @@ export class ListLancamentosComponent
 
   changeValueRegister(register, field) {
     register[field] = !register[field];
-  }
-
-  formatDatepicker(day: Date) {
-    return {
-      year: day.getFullYear(),
-      month: Number(String(day.getMonth() + 1).padStart(2, "0")),
-      day: Number(String(day.getDate()).padStart(2, "0"))
-    };
   }
 
   todayDatepicker(day: Date) {

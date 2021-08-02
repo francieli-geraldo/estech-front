@@ -1,0 +1,52 @@
+<div class="input-group" style="width: 0px; height: 0px;">
+  <input readonly 
+  name="datepicker" 
+  class="form-control" 
+  ngbDatepicker 
+  [maxDate]="maxDate" 
+  [minDate]="minDate"    
+  #datepicker="ngbDatepicker"     
+  [displayMonths]="2" 
+  [autoClose]="'outside'"
+  (dateSelect)="onDateSelection($event)" 
+  [dayTemplate]="t" 
+  style="width: 0px; height: 0px; border: none;"
+  >
+  <ng-template #t let-date let-focused="focused">
+    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+      [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+      (mouseleave)="hoveredDate = null">
+      {{ date.day }}
+    </span>
+  </ng-template>
+</div>
+
+<input #dpFromDate 
+  class="form-control" 
+  placeholder="dd/mm/aaaa" 
+  name="dpFromDate"
+  [value]="formatter.format(fromDate)" 
+  (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+  [formControlName]="FormControlInitialDate" 
+  hidden/>
+
+<input #dpToDate
+  class="form-control" 
+  placeholder="dd/mm/aaaa" 
+  name="dpToDate" 
+  [value]="formatter.format(toDate)"
+  (input)="toDate = validateInput(toDate, dpToDate.value)"
+  [formControlName]="FormControlFinalDate" 
+  hidden
+  />      
+
+<div class="form-group ml-2">
+  <div class="input-group">
+    <input class="form-control" [value]="showDatePeriod" type="text" placeholder="dd/mm/aaaa - dd/mm/aaaa" readonly/>      
+    <div class="input-group-append"   (click)="datepicker.toggle()" type="button">
+      <span class="input-group-text bg-white">
+        <i class="text-dark-50 flaticon-calendar"></i>
+      </span>
+    </div>
+  </div>
+</div>

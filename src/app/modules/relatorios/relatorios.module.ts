@@ -11,6 +11,7 @@ import { RelatorioSemanalComponent } from './relatorio-semanal/relatorio-semanal
 import { RelatorioEvolucaoComponent } from './relatorio-evolucao/relatorio-evolucao.component';
 import { RelatorioConcluidoComponent } from './relatorio-concluido/relatorio-concluido.component';
 import { ExportAsModule } from 'ngx-export-as';
+import { InputsModule } from 'src/app/_metronic/shared/inputs';
 
 @NgModule({
   exports: [RelatoriosComponent],  
@@ -19,6 +20,7 @@ import { ExportAsModule } from 'ngx-export-as';
     RelatorioSemanalComponent, RelatorioEvolucaoComponent, RelatorioConcluidoComponent],  
   imports: [
     CommonModule,
+    InputsModule,
     HttpClientModule,
     FormsModule,
     RelatoriosRoutingModule,

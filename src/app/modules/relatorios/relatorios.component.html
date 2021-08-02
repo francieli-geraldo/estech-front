@@ -27,14 +27,14 @@
                         </div>
 
                         <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                            data-wizard-type="action-next" (click)="genarete()" *ngIf="!generateRelatorio">
+                            data-wizard-type="action-next" (click)="generateReport()" *ngIf="!generateRelatorio" [disabled]="isDisabled">
                             Gerar Relatório
                         </button>
                     </div>
                 </div>
                 <!--end: Form Actions -->
                 <!--begin: Form Wizard Form-->
-                <form class="form" id="kt_form" [formGroup]="formGroup">
+                <form class="form" id="kt_form" [formGroup]="reportForm">
                     <!--begin: Form Wizard Step 1-->
                     <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                         <ng-container *ngIf="!generateRelatorio">
@@ -45,7 +45,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="semanal" formControlName="relatorio" />
+                                                    <input type="radio" value="periodReport" formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -66,7 +66,7 @@
                                             <span class="option-control">
                                                 <span class="radio">
 
-                                                    <input type="radio" value="evtotal" formControlName="relatorio" />
+                                                    <input type="radio" value="fullReport" formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -87,7 +87,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="conclui" formControlName="relatorio" />
+                                                    <input type="radio" value="completedReport" formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -112,47 +112,45 @@
                                 <i class="fa fa-filter" style="color: black; font-weight: 600;"></i>
                                 Filtros
                             </label>
-                            <div class="row">
+                            <div class="row">                                
+                                <ng-container *ngIf="this.reportForm.value.report == 'periodReport'">
+                                    <div class="col-lg-4">
+                                        <label class="form-text text-muted"><b>Período</b></label>
+                                        <date-period-input [InputMaxDate]="maxDate"
+                                        [FormControlInitialDate]="'initialDate'"
+                                        [FormControlFinalDate]="'finalDate'"></date-period-input>
+                                    </div>
+                                </ng-container>
+
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Grupo</b></label>
-                                    <select class="form-control" name="grupo" placeholder="Selecione" autocomplete="off"
-                                        formControlName="groupId">
+                                    <select class="form-control" name="groupId" autocomplete="off" formControlName="groupId">
+                                        <option value="" disabled selected>Selecione</option>
                                         <option *ngFor="let grupo of grupoService.items$ | async" value="{{grupo.id}}">{{grupo.name}}</option>                                       
                                     </select>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Situação</b></label>
-                                    <select class="form-control" name="status" placeholder="Selecione"
-                                        autocomplete="off" formControlName="status">
+                                    <select class="form-control" name="status" placeholder="Selecione" autocomplete="off" formControlName="status">
                                         <option value="">Todos</option>
                                         <option value="1">Cancelado</option>
                                         <option value="2">Ativo</option>
                                         <option value="3">Pendente</option>
                                     </select>
                                 </div>
-
-                                <ng-container *ngIf="this.formGroup.value.relatorio == 'semanal'">
-                                    <div class="col-lg-4">
-                                        <label class="form-text text-muted"><b>Semana</b></label>
-                                        <select class="form-control" name="semana" placeholder="Selecione"
-                                            autocomplete="off" formControlName="semana">
-                                            <option value="">Todos</option>
-                                        </select>
-                                    </div>
-                                </ng-container>
                             </div>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.relatorio == 'semanal'">
+                        <ng-container *ngIf="generateRelatorio && model.report == 'periodReport'">
                             <app-relatorio-semanal [data]="data" [relatorio]="model"></app-relatorio-semanal>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.relatorio == 'evtotal'">
+                        <ng-container *ngIf="generateRelatorio && model.report == 'fullReport'">
                             <app-relatorio-evolucao [data]="data" [relatorio]="model"></app-relatorio-evolucao>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.relatorio == 'conclui'">
+                        <ng-container *ngIf="generateRelatorio && model.report == 'completedReport'">
                             <app-relatorio-concluido [data]="data" [relatorio]="model"></app-relatorio-concluido>
                         </ng-container>
                     </div>

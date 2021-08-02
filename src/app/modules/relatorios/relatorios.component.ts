@@ -1,4 +1,3 @@
-import { GruposService } from 'src/app/services/grupos.service';
 import {
   AfterViewInit,
   Component,
@@ -7,22 +6,14 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import KTWizard from "../../../assets/js/components/wizard";
-import { KTUtil } from "../../../assets/js/components/util";
 import { Relatorio } from "src/app/models/relatorio.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { RelatoriosService } from "src/app/services/relatorios.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExportAsConfig, ExportAsService, SupportedExtensions } from "ngx-export-as";
+import { GruposService } from "src/app/services/grupos.service";
 
-const EMPTY_RELATORIO: Relatorio = {
-  id: undefined,
-  relatorio: "semanal",
-  status: "",
-  grupo: "",
-  semana: "",
-};
 
 @Component({
   selector: "app-relatorios",
@@ -34,43 +25,45 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   config: ExportAsConfig = {
     type: 'pdf',
     elementIdOrContent: 'tablerelatorio',
-    options: {
-      jsPDF: {
+    options: { jsPDF: {
         orientation: 'landscape',
-        margins: {
-          top: '20',
-          left: '20',
-          right: '20'
-        }
-      },
+        margins: { top: '20', left: '20', right: '20' }
+      }
     }
   };
-
-
   submitted = false;
   wizard: any;
-
   data: any;
-  model: Relatorio;
+  
+  model: Relatorio = {
+    id: undefined,
+    report: "periodReport",
+    status: "",
+    groupId: "",
+    initialDate: "",
+    finalDate: "",
+  };  
   relatorio: Relatorio;
   previous: Relatorio;
   generateRelatorio = false;
 
-  formGroup: FormGroup;
+  reportForm: FormGroup;
   errorMessage = "";
+  isDisabled = true;
+
   private subscriptions: Subscription[] = [];
+  maxDate = new Date();
 
   constructor(
     private fb: FormBuilder,
-    private relatoriosService: RelatoriosService,
     private router: Router,
     private route: ActivatedRoute,
     private exportAsService: ExportAsService,
-    public grupoService: GruposService
+    private reportService: RelatoriosService,
+    public grupoService: GruposService,
   ) {}
 
   ngOnInit() {
-    this.model = EMPTY_RELATORIO;
     this.grupoService.fetch();
     this.loadForm();
   }
@@ -88,33 +81,53 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   }
 
   loadForm() {
-    if (!this.model) {
-      return;
-    }
-
-    this.formGroup = this.fb.group({
-      relatorio: [
-        this.model.relatorio,
+    
+    this.reportForm = this.fb.group({
+      report: [
+        this.model.report,
         Validators.compose([Validators.required]),
       ],
       status: [
         this.model.status,
         Validators.compose([Validators.nullValidator]),
       ],
-      grupo: [this.model.grupo, Validators.compose([Validators.nullValidator])],
-      semana: [
-        this.model.semana,
-        Validators.compose([Validators.nullValidator]),
-      ],
+      groupId: [this.model.groupId, Validators.compose([Validators.required])],
+      initialDate:[this.model.initialDate, Validators.compose([Validators.required])],
+      finalDate:[this.model.finalDate, Validators.compose([Validators.required])],
+    });
+
+    this.reportForm.controls['report'].valueChanges.subscribe(value => {      
+      this.reportForm.setValue({groupId: '', initialDate: '', finalDate: '', status: '' });
+      this.isDisabled = true;
+    });
+    
+    this.reportForm.controls['groupId'].valueChanges.subscribe(value => {
+      this.reportForm.updateValueAndValidity();
+      this.isDisabled = this.reportForm.invalid;
+    });
+    
+    this.reportForm.controls['initialDate'].valueChanges.subscribe(value => {
+      this.reportForm.updateValueAndValidity();
+      this.isDisabled = this.reportForm.invalid;
+    });
+
+    this.reportForm.controls['finalDate'].valueChanges.subscribe(value => {
+      this.reportForm.updateValueAndValidity();
+      this.isDisabled = this.reportForm.invalid;
     });
   }
+  
+  onFormChange(){
+    
+    this.isDisabled = false;
+  }
 
-  genarete() {
-    this.formGroup.markAllAsTouched();
-    if (!this.formGroup.valid) {
+  generateReport() {
+    this.reportForm.markAllAsTouched();
+    if (this.reportForm.invalid) {
       return;
     }
-    const formValues = this.formGroup.value;
+    const formValues = this.reportForm.value;
     this.model = Object.assign(this.model, formValues);
 
     this.data = [
@@ -223,27 +236,6 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     this.generateRelatorio = true;
   }
 
-  // helpers for View
-  isControlValid(controlName: string): boolean {
-    const control = this.formGroup.controls[controlName];
-    return control.valid && (control.dirty || control.touched);
-  }
-
-  isControlInvalid(controlName: string): boolean {
-    const control = this.formGroup.controls[controlName];
-    return control.invalid && (control.dirty || control.touched);
-  }
-
-  controlHasError(validation: string, controlName: string) {
-    const control = this.formGroup.controls[controlName];
-    return control.hasError(validation) && (control.dirty || control.touched);
-  }
-
-  isControlTouched(controlName: string): boolean {
-    const control = this.formGroup.controls[controlName];
-    return control.dirty || control.touched;
-  }
-
   exportAs(type: SupportedExtensions, opt?: string) {
     this.config.type = type;
     if (opt) {
@@ -251,7 +243,7 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     }
     this.exportAsService.save(
       this.config, 
-      `rel-${this.model.relatorio}-${new Date().toLocaleString().replace(/[^a-z0-9]/gi,'')}`
+      `rel-${this.model.report}-${new Date().toLocaleString().replace(/[^a-z0-9]/gi,'')}`
     ).subscribe(() => {
       
     });
