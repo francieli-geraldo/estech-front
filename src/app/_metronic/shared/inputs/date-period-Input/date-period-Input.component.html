@@ -21,29 +21,32 @@
   </ng-template>
 </div>
 
-<input #dpFromDate 
+<input 
+  #dpFromDate
   class="form-control" 
   placeholder="dd/mm/aaaa" 
   name="dpFromDate"
   [value]="formatter.format(fromDate)" 
+  [formControlName]="fcInitialDate" 
   (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
-  [formControlName]="FormControlInitialDate" 
-  hidden/>
+  hidden
+  />
 
-<input #dpToDate
+<input
+  #dpToDate
   class="form-control" 
   placeholder="dd/mm/aaaa" 
-  name="dpToDate" 
+  name="dpToDate"
   [value]="formatter.format(toDate)"
+  [formControlName]="fcFinalDate" 
   (input)="toDate = validateInput(toDate, dpToDate.value)"
-  [formControlName]="FormControlFinalDate" 
   hidden
   />      
 
 <div class="form-group ml-2">
   <div class="input-group">
-    <input class="form-control" [value]="showDatePeriod" type="text" placeholder="dd/mm/aaaa - dd/mm/aaaa" readonly/>      
-    <div class="input-group-append"   (click)="datepicker.toggle()" type="button">
+    <input class="form-control" [value]="showDatePeriod" type="text" placeholder="dd/mm/aaaa - dd/mm/aaaa" readonly/>
+    <div class="input-group-append" (click)="datepicker.toggle()" type="button">
       <span class="input-group-text bg-white">
         <i class="text-dark-50 flaticon-calendar"></i>
       </span>

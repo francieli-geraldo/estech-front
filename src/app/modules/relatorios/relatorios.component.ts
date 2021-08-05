@@ -9,10 +9,11 @@ import {
 import { Relatorio } from "src/app/models/relatorio.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { RelatoriosService } from "src/app/services/relatorios.service";
+import { ReportsService } from "src/app/services/reports.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExportAsConfig, ExportAsService, SupportedExtensions } from "ngx-export-as";
 import { GruposService } from "src/app/services/grupos.service";
+import { tap } from "rxjs/operators";
 
 
 @Component({
@@ -37,8 +38,8 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   
   model: Relatorio = {
     id: undefined,
-    report: "periodReport",
-    status: "",
+    report: "periodic-reports",
+    status: "ACTIVE",
     groupId: "",
     initialDate: "",
     finalDate: "",
@@ -59,7 +60,7 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private exportAsService: ExportAsService,
-    private reportService: RelatoriosService,
+    private reportsService: ReportsService,
     public grupoService: GruposService,
   ) {}
 
@@ -97,7 +98,7 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     });
 
     this.reportForm.controls['report'].valueChanges.subscribe(value => {      
-      this.reportForm.setValue({groupId: '', initialDate: '', finalDate: '', status: '' });
+      this.reportForm.patchValue({groupId: '', initialDate: '', finalDate: '', status: '' });
       this.isDisabled = true;
     });
     
@@ -126,114 +127,127 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     this.reportForm.markAllAsTouched();
     if (this.reportForm.invalid) {
       return;
-    }
-    const formValues = this.reportForm.value;
-    this.model = Object.assign(this.model, formValues);
+    }        
+    
+    const report = this.reportForm.value.report;    
+    const params = Object.assign({}, this.reportForm.value);
+    delete params["report"];
+    
+    
 
-    this.data = [
-      {
-        grupo: 4,
-        pacientes: [
-          {
-            nome: "Katia Zelia",
-            programa: "Turbo",
-            c: 3,
-            lm: 4,
-            a: 5,
-            lt: 2,
-            j: 4,
-            h: 6,
-            postagens: "50%",
-            balanca: 6,
-            p_balanca: "90%",
-            evolucao: "4.00",
-            objetivo: "22",
-            observacao: "teste",
+    this.reportsService.getReport({ report, params }).subscribe((res) => {
+      if(res){
+        this.model = Object.assign(this.model, report);    
+        this.data = [{
+            grupo: 4,
+            pacientes: [
+              {
+                nome: "Katia Zelia",
+                programa: "Turbo",
+                c: 3,
+                lm: 4,
+                a: 5,
+                lt: 2,
+                j: 4,
+                h: 6,
+                postagens: "50%",
+                balanca: 6,
+                p_balanca: "90%",
+                evolucao: "4.00",
+                objetivo: "22",
+                observacao: "teste",
+              },
+              {
+                nome: "Aline Maria",
+                programa: "Turbo",
+                c: 3,
+                lm: 4,
+                a: 5,
+                lt: 2,
+                j: 4,
+                h: 6,
+                postagens: "50%",
+                balanca: 6,
+                p_balanca: "90%",
+                evolucao: "4.00",
+                objetivo: "22",
+                observacao: "teste",
+              },
+            ],
+            total: {
+              c: "6",
+              lm: "8",
+              a: "10",
+              lt: "4",
+              j: "8",
+              h: "12",
+              postagens: "100%",
+              balanca: "12",
+              p_balanca: "180%",
+              evolucao: "8.00",
+              objetivo: "-44",
+            },
           },
           {
-            nome: "Aline Maria",
-            programa: "Turbo",
-            c: 3,
-            lm: 4,
-            a: 5,
-            lt: 2,
-            j: 4,
-            h: 6,
-            postagens: "50%",
-            balanca: 6,
-            p_balanca: "90%",
-            evolucao: "4.00",
-            objetivo: "22",
-            observacao: "teste",
+            grupo: 6,
+            pacientes: [
+              {
+                nome: "Joaquina de Lurdes",
+                programa: "Turbo",
+                c: 3,
+                lm: 4,
+                a: 5,
+                lt: 2,
+                j: 4,
+                h: 6,
+                postagens: "50%",
+                balanca: 6,
+                p_balanca: "90%",
+                evolucao: "4.00",
+                objetivo: "22",
+                observacao: "teste",
+              },
+              {
+                nome: "Rafael Gomes Torantin",
+                programa: "Turbo",
+                c: 3,
+                lm: 4,
+                a: 5,
+                lt: 2,
+                j: 4,
+                h: 6,
+                postagens: "50%",
+                balanca: 6,
+                p_balanca: "90%",
+                evolucao: "4.00",
+                objetivo: "22",
+                observacao: "teste",
+              },
+            ],
+            total: {
+              c: "6",
+              lm: "8",
+              a: "10",
+              lt: "4",
+              j: "8",
+              h: "12",
+              postagens: "100%",
+              balanca: "12",
+              p_balanca: "180%",
+              evolucao: "8.00",
+              objetivo: "-44",
+            },
           },
-        ],
-        total: {
-          c: "6",
-          lm: "8",
-          a: "10",
-          lt: "4",
-          j: "8",
-          h: "12",
-          postagens: "100%",
-          balanca: "12",
-          p_balanca: "180%",
-          evolucao: "8.00",
-          objetivo: "-44",
-        },
-      },
-      {
-        grupo: 6,
-        pacientes: [
-          {
-            nome: "Joaquina de Lurdes",
-            programa: "Turbo",
-            c: 3,
-            lm: 4,
-            a: 5,
-            lt: 2,
-            j: 4,
-            h: 6,
-            postagens: "50%",
-            balanca: 6,
-            p_balanca: "90%",
-            evolucao: "4.00",
-            objetivo: "22",
-            observacao: "teste",
-          },
-          {
-            nome: "Rafael Gomes Torantin",
-            programa: "Turbo",
-            c: 3,
-            lm: 4,
-            a: 5,
-            lt: 2,
-            j: 4,
-            h: 6,
-            postagens: "50%",
-            balanca: 6,
-            p_balanca: "90%",
-            evolucao: "4.00",
-            objetivo: "22",
-            observacao: "teste",
-          },
-        ],
-        total: {
-          c: "6",
-          lm: "8",
-          a: "10",
-          lt: "4",
-          j: "8",
-          h: "12",
-          postagens: "100%",
-          balanca: "12",
-          p_balanca: "180%",
-          evolucao: "8.00",
-          objetivo: "-44",
-        },
-      },
-    ];
+        ];
+        this.generateRelatorio = true;  
 
-    this.generateRelatorio = true;
+      }else{
+        //message
+        console.log('Vazio ou erro');        
+      }
+    }); 
+
+    
   }
 
   exportAs(type: SupportedExtensions, opt?: string) {

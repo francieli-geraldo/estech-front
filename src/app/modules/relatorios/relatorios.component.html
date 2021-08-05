@@ -45,7 +45,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="periodReport" formControlName="report" />
+                                                    <input type="radio" value="periodic-reports" formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -113,12 +113,13 @@
                                 Filtros
                             </label>
                             <div class="row">                                
-                                <ng-container *ngIf="this.reportForm.value.report == 'periodReport'">
+                                <ng-container *ngIf="this.reportForm.value.report == 'periodic-reports'">
                                     <div class="col-lg-4">
                                         <label class="form-text text-muted"><b>Período</b></label>
-                                        <date-period-input [InputMaxDate]="maxDate"
-                                        [FormControlInitialDate]="'initialDate'"
-                                        [FormControlFinalDate]="'finalDate'"></date-period-input>
+                                        <date-period-input [inputMaxDate]="maxDate"
+                                        [fcInitialDate]="'initialDate'"
+                                        [fcFinalDate]="'finalDate'"
+                                        [formGroupBase]="reportForm"></date-period-input>
                                     </div>
                                 </ng-container>
 
@@ -133,7 +134,6 @@
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Situação</b></label>
                                     <select class="form-control" name="status" placeholder="Selecione" autocomplete="off" formControlName="status">
-                                        <option value="">Todos</option>
                                         <option value="CANCELED">Cancelado</option>
                                         <option value="ACTIVE">Ativo</option>
                                         <option value="COMPLETED">Concluído</option>
@@ -142,15 +142,15 @@
                             </div>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.report == 'periodReport'">
+                        <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'periodic-reports'">
                             <app-relatorio-semanal [data]="data" [relatorio]="model"></app-relatorio-semanal>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.report == 'fullReport'">
+                        <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'fullReport'">
                             <app-relatorio-evolucao [data]="data" [relatorio]="model"></app-relatorio-evolucao>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && model.report == 'completedReport'">
+                        <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'completedReport'">
                             <app-relatorio-concluido [data]="data" [relatorio]="model"></app-relatorio-concluido>
                         </ng-container>
                     </div>

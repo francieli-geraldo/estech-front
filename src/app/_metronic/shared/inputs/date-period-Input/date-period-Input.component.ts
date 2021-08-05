@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, ElementRef, ViewChild, } from "@angular/core";
-import { ControlContainer, FormControl, FormGroupDirective } from "@angular/forms";
+import { ControlContainer, FormControl, FormGroup, FormGroupDirective } from "@angular/forms";
 import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
 
@@ -16,10 +16,13 @@ import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core
   ],
 })
 export class DatePeriodInputComponent implements OnInit {
-  @Input() FormControlInitialDate: FormControl;
-  @Input() FormControlFinalDate: FormControl;  
-  @Input() InputMaxDate: Date;
-  @Input() InputMinDate: Date;
+
+  @Input() fcInitialDate: FormControl;
+  @Input() fcFinalDate: FormControl;  
+  @Input() inputMaxDate: Date;
+  @Input() inputMinDate: Date;
+  @Input() formGroupBase: FormGroup;
+
   maxDate: any = "";
   minDate: any = "";
 
@@ -35,11 +38,11 @@ export class DatePeriodInputComponent implements OnInit {
   ) {  }
 
   ngOnInit(){
-    if (this.InputMaxDate){
-      this.maxDate = this.formatDatepicker(this.InputMaxDate)
+    if (this.inputMaxDate){
+      this.maxDate = this.formatDatepicker(this.inputMaxDate)
     }      
-    if (this.InputMinDate){
-      this.minDate = this.formatDatepicker(this.InputMaxDate)
+    if (this.inputMinDate){
+      this.minDate = this.formatDatepicker(this.inputMinDate)
     }      
   }
 
@@ -54,13 +57,26 @@ export class DatePeriodInputComponent implements OnInit {
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
+      this.toDate = null; 
+      this.formGroupBase.patchValue({
+        initialDate: this.formatDateRequest(this.fromDate), 
+        finalDate: null 
+      })    
       this.showDatePeriod = `${this.formatDate(this.fromDate)} - dd/mm/yyyy`;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
-      this.toDate = date;      
+    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {      
+      this.toDate = date;
+      this.formGroupBase.patchValue({
+        initialDate: this.formatDateRequest(this.fromDate), 
+        finalDate: this.formatDateRequest(this.toDate) 
+      })    
       this.showDatePeriod = `${this.formatDate(this.fromDate)} - ${this.formatDate(this.toDate)}`;
     } else {
-      this.toDate = null;
-      this.fromDate = date;      
+      this.fromDate = date;
+      this.toDate = null;            
+      this.formGroupBase.patchValue({
+        initialDate: this.formatDateRequest(this.fromDate), 
+        finalDate: null 
+      })
       this.showDatePeriod = `${this.formatDate(this.fromDate)} - dd/mm/yyyy`;
     }
   }
@@ -97,5 +113,9 @@ export class DatePeriodInputComponent implements OnInit {
 
   formatDate(date): string {
     return date ? `${("00" + date.day).slice(-2)}/${("00" + date.month).slice(-2)}/${date.year}` : '';
+  }
+
+  formatDateRequest(date): string {
+    return date ? `${date.year}-${("00" + date.month).slice(-2)}-${("00" + date.day).slice(-2)}` : '';
   }
 }
