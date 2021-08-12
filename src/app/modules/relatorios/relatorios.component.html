@@ -37,7 +37,7 @@
                 <form class="form" id="kt_form" [formGroup]="reportForm">
                     <!--begin: Form Wizard Step 1-->
                     <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                        <ng-container *ngIf="!generateRelatorio">
+                        <div [hidden]="generateRelatorio === true">
                             <div class="form-group m-0">
                                 <!-- <label class="h4">Escolha o tipo de relatório:</label> -->
                                 <div class="row pt-6">
@@ -140,18 +140,18 @@
                                     </select>
                                 </div>
                             </div>
-                        </ng-container>
+                        </div>
 
                         <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'periodic-reports'">
-                            <app-relatorio-semanal [data]="data" [relatorio]="model"></app-relatorio-semanal>
+                            <app-relatorio-semanal [data]="datateste" [relatorio]="model"></app-relatorio-semanal>
                         </ng-container>
 
                         <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'fullReport'">
-                            <app-relatorio-evolucao [data]="data" [relatorio]="model"></app-relatorio-evolucao>
+                            <app-relatorio-evolucao [data]="datateste" [relatorio]="model"></app-relatorio-evolucao>
                         </ng-container>
 
                         <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'completedReport'">
-                            <app-relatorio-concluido [data]="data" [relatorio]="model"></app-relatorio-concluido>
+                            <app-relatorio-concluido [data]="datateste" [relatorio]="model"></app-relatorio-concluido>
                         </ng-container>
                     </div>
                     <!--end: Form Wizard Step 5-->

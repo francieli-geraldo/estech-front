@@ -119,7 +119,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       KTLayoutHeader.init('kt_header', 'kt_header_mobile');
       // Init Header Menu
       KTLayoutHeaderMenu.init('kt_header_menu', 'kt_header_menu_wrapper');
+
     });
+
   }
 
   ngOnDestroy() {

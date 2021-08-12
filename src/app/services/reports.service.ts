@@ -23,7 +23,6 @@ export class ReportsService extends TableService<Relatorio> implements OnDestroy
     this.loading.next(false);
     return this.http.get<Relatorio>(`${this.API_URL}/${report}`, { params } ).pipe(
       catchError((err) => {
-        console.log('err', err);
         return of(undefined);
       }),
       finalize(() => this.loading.next(false))

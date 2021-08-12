@@ -6,15 +6,9 @@ import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
   templateUrl: './relatorio-semanal.component.html',
   styleUrls: ['./relatorio-semanal.component.scss']
 })
-export class RelatorioSemanalComponent implements OnInit {
+export class RelatorioSemanalComponent {
 
   @Input() data: any;
   @Input() relatorio: any;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    
-  }
 
 }

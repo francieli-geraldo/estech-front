@@ -13,7 +13,7 @@ import { ReportsService } from "src/app/services/reports.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExportAsConfig, ExportAsService, SupportedExtensions } from "ngx-export-as";
 import { GruposService } from "src/app/services/grupos.service";
-import { tap } from "rxjs/operators";
+import KTDialog from '../../../assets/js/components/dialog';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   };
   submitted = false;
   wizard: any;
-  data: any;
+  datateste: any;
   
   model: Relatorio = {
     id: undefined,
@@ -138,7 +138,7 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     this.reportsService.getReport({ report, params }).subscribe((res) => {
       if(res){
         this.model = Object.assign(this.model, report);    
-        this.data = [{
+        this.datateste = [{
             grupo: 4,
             pacientes: [
               {
@@ -240,10 +240,11 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
           },
         ];
         this.generateRelatorio = true;  
-
       }else{
-        //message
-        console.log('Vazio ou erro');        
+        new KTDialog({ 
+          'type': 'danger', 
+          'placement': 'bottom right', 
+          'message': 'Não há lançamentos para esse periódo.' }).show();        
       }
     }); 
 

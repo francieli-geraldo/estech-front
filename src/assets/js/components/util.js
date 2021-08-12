@@ -532,6 +532,17 @@ export var KTUtil = function() {
             return document.getElementsByTagName('body')[0];
         },
 
+        getMessageBox: function() {
+            return document.getElementById('boxMessages') || KTUtil.createMessageBox();
+        },
+        
+        createMessageBox: function() {
+            let div = document.createElement('div');
+            div.id = 'boxMessages'; 
+            document.body.appendChild(div);
+            return document.getElementById('boxMessages');
+        },
+
         /**
          * Checks whether the element has given classes
          * @param {object} el jQuery element object

@@ -10,7 +10,9 @@ var KTDialog = function(options) {
 
     // Get element object
     var element;
-    var body = KTUtil.getBody();
+    
+    var body = KTUtil.getBody()
+    var messageBox = KTUtil.getMessageBox()
 
     // Default options
     var defaultOptions = {
@@ -40,6 +42,7 @@ var KTDialog = function(options) {
          * Handles subtoggle click toggle
          */
         init: function(options) {
+            
             the.events = [];
 
             // merge default and user defined options
@@ -56,19 +59,34 @@ var KTDialog = function(options) {
 
             element = document.createElement("DIV");
             KTUtil.setHTML(element, the.options.message);
-
-            KTUtil.addClass(element, 'dialog dialog-shown');
+            
             KTUtil.addClass(element, 'dialog-' + the.options.state);
             KTUtil.addClass(element, 'dialog-' + the.options.type);
 
             if (the.options.placement == 'top center') {
                 KTUtil.addClass(element, 'dialog-top-center');
+            } else if (the.options.placement == 'bottom center') {
+                KTUtil.addClass(element, 'dialog-bottom-center');
+            } else if (the.options.placement == 'bottom right') {
+                KTUtil.addClass(element, 'dialog-bottom-right');
             }
-
-            body.appendChild(element);
-
+            
+            if(the.options.type != 'loader'){
+                KTUtil.addEvent(element, 'click', () => Plugin.hide());
+                KTUtil.addClass(element, 'dialog dialog-shown d-flex rounded p-5 mb-4 align-items-center');
+                KTUtil.addClass(element, 'bg-light-' + the.options.type);
+                KTUtil.addClass(element, 'text-' + the.options.type);
+                messageBox.appendChild(element);                
+                if(!the.noStatic){
+                    setTimeout(() => { Plugin.hide() }, 10000)        
+                }
+            }else{
+                KTUtil.addClass(element, 'dialog dialog-shown');
+                body.appendChild(element)
+            }
+            
+            
             the.state = 'shown';
-
             Plugin.eventTrigger('shown');
 
             return the;
