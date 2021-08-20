@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +16,10 @@ import { environment } from 'src/environments/environment';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/splash-screen.module';
 import { NgxMaskModule } from 'ngx-mask';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
+registerLocaleData(localePt);
 function appInitializer(authService: AuthService) {
   return () => {
     return new Promise((resolve) => {
@@ -49,6 +52,7 @@ function appInitializer(authService: AuthService) {
     NgbModule,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'pt'},
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,
