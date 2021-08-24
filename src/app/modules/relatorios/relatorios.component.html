@@ -7,18 +7,24 @@
                 <div class="d-flex justify-content-between border-bottom pb-5">
                     <div class="mr-2">
                         <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
-                            data-wizard-type="action-prev" (click)="setgenerateRelatorioFalse()"
-                            *ngIf="generateRelatorio">
+                            (click)="setFalseShowReport()"
+                            [hidden]="!isShowReport">
                             Voltar
                         </div>
                     </div>
                     <div>
 
-                        <div ngbDropdown class="d-inline-block" *ngIf="generateRelatorio">
-                            <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownExport" ngbDropdownToggle>
+                        
+                        <button [hidden]="isShowReport"  class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                            (click)="generateReport()" [disabled]="isDisabled">
+                            Gerar Relatório
+                        </button>
+
+                        <div [hidden]="!isShowReport" ngbDropdown>
+                            <a class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownExport" ngbDropdownToggle >
                                 Exportar
                                 <i class="ki ki-arrow-down pl-2" style="font-size: .8em;"></i>
-                            </button>
+                            </a>
                             <div ngbDropdownMenu aria-labelledby="dropdownExport" class="px-9 py-4 font-weight-bold">
                                 <button class="dropdown-item" (click)="exportAs('xlsx')">Excel</button>
                                 <button class="dropdown-item" (click)="exportAs('pdf', 'landscape')">PDF</button>
@@ -26,18 +32,14 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                            data-wizard-type="action-next" (click)="generateReport()" *ngIf="!generateRelatorio" [disabled]="isDisabled">
-                            Gerar Relatório
-                        </button>
                     </div>
                 </div>
                 <!--end: Form Actions -->
                 <!--begin: Form Wizard Form-->
                 <form class="form" id="kt_form" [formGroup]="reportForm">
                     <!--begin: Form Wizard Step 1-->
-                    <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                        <div [hidden]="generateRelatorio === true">
+                    <div class="pb-5">
+                        <div [hidden]="isShowReport">
                             <div class="form-group m-0">
                                 <!-- <label class="h4">Escolha o tipo de relatório:</label> -->
                                 <div class="row pt-6">
@@ -142,15 +144,15 @@
                             </div>
                         </div>
 
-                        <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'periodic-reports'">
+                        <ng-container *ngIf="generateRelatorio == 'periodic-reports'">
                             <app-relatorio-semanal [data]="datateste" [relatorio]="model"></app-relatorio-semanal>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'fullReport'">
+                        <ng-container *ngIf="generateRelatorio == 'fullReport'">
                             <app-relatorio-evolucao [data]="datateste" [relatorio]="model"></app-relatorio-evolucao>
                         </ng-container>
 
-                        <ng-container *ngIf="generateRelatorio && reportForm.value.report == 'completedReport'">
+                        <ng-container *ngIf="generateRelatorio == 'completedReport'">
                             <app-relatorio-concluido [data]="datateste" [relatorio]="model"></app-relatorio-concluido>
                         </ng-container>
                     </div>

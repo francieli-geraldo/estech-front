@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ExportAsConfig, ExportAsService, SupportedExtensions } from "ngx-export-as";
 import { GruposService } from "src/app/services/grupos.service";
 import KTDialog from '../../../assets/js/components/dialog';
+import { catchError, tap } from "rxjs/operators";
 
 
 @Component({
@@ -35,7 +36,7 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   submitted = false;
   wizard: any;
   datateste: any;
-  
+  teste: any;
   model: Relatorio = {
     id: undefined,
     report: "periodic-reports",
@@ -46,7 +47,6 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   };  
   relatorio: Relatorio;
   previous: Relatorio;
-  generateRelatorio = false;
 
   reportForm: FormGroup;
   errorMessage = "";
@@ -64,13 +64,15 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
     public grupoService: GruposService,
   ) {}
 
-  ngOnInit() {
+  generateRelatorio = '';
+  isShowReport: boolean = false;
+  ngOnInit() {    
     this.grupoService.fetch();
     this.loadForm();
   }
 
-  setgenerateRelatorioFalse() {
-    this.generateRelatorio = false;
+  setFalseShowReport() {
+    this.isShowReport = false;
   }
 
   onSubmit() {
@@ -124,21 +126,17 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
   }
 
   generateReport() {
+
     this.reportForm.markAllAsTouched();
     if (this.reportForm.invalid) {
       return;
     }        
+
     
     const report = this.reportForm.value.report;    
-    const params = Object.assign({}, this.reportForm.value);
-    delete params["report"];
     
-    
-
-    this.reportsService.getReport({ report, params }).subscribe((res) => {
-      if(res){
-        this.model = Object.assign(this.model, report);    
-        this.datateste = [{
+    this.model = Object.assign(this.model, report);    
+    this.datateste = [{
             grupo: 4,
             pacientes: [
               {
@@ -238,15 +236,22 @@ export class RelatoriosComponent implements OnInit, OnDestroy {
               objetivo: "-44",
             },
           },
-        ];
-        this.generateRelatorio = true;  
-      }else{
-        new KTDialog({ 
-          'type': 'danger', 
-          'placement': 'bottom right', 
-          'message': 'Não há lançamentos para esse periódo.' }).show();        
-      }
-    }); 
+    ];
+        
+    this.generateRelatorio = report;  
+    
+
+    const params = Object.assign({}, this.reportForm.value);
+    delete params["report"];
+    const sbUpdate = this.reportsService
+      .getReport({ report, params })      
+      .pipe(
+        tap(() => {
+        })
+      )
+      .subscribe((res) => (this.isDisabled = false, this.isShowReport = true, this.teste = res));
+
+    this.subscriptions.push(sbUpdate);
 
     
   }
