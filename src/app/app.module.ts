@@ -52,7 +52,7 @@ function appInitializer(authService: AuthService) {
     NgbModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt'},
+    { provide: LOCALE_ID, useValue: 'pt-BR'},
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

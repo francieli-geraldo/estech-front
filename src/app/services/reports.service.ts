@@ -1,9 +1,8 @@
-import { Injectable, OnDestroy, Inject } from '@angular/core';
+import { Injectable, OnDestroy, Inject, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
-import { catchError, exhaustMap, finalize, map, tap } from 'rxjs/operators';
-import { TableService, TableResponseModel, ITableState, BaseModel } from '../_metronic/shared/crud-table';
-import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, finalize, map } from 'rxjs/operators';
+import { TableService,} from '../_metronic/shared/crud-table';
 import { environment } from '../../environments/environment';
 import { Relatorio } from '../models/relatorio.model';
 
@@ -18,10 +17,13 @@ export class ReportsService extends TableService<Relatorio> implements OnDestroy
   constructor(@Inject(HttpClient) http, ) {
     super(http);
   }
-  
+    
   getReport( { report, params }  ): Observable<any> {    
     this.loading.next(false);
-    return this.http.get<Relatorio>(`${this.API_URL}/${report}`, { params } ).pipe(
+    return this.http.get(`${this.API_URL}${report}`, { params } ).pipe( 
+      map((response) => {        
+        return response['content'];
+      }),     
       catchError((err) => {
         return of(undefined);
       }),

@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CompletedReport } from 'src/app/models/relatorio.model';
+import { ReportsService } from 'src/app/services/reports.service';
 
 @Component({
   selector: 'app-relatorio-concluido',
@@ -7,12 +11,22 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class RelatorioConcluidoComponent implements OnInit {
 
-  @Input() data: any;
-  @Input() relatorio: any;
+  @Input() form: any;  
+  @Output() output = new EventEmitter();
+ 
+  service: CompletedReport[];
+  service$: Observable<CompletedReport[]>;
 
-  constructor() { }
+  constructor(private reportsService: ReportsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
+   
+    const report = this.form.report;    
+    const params = Object.assign({}, this.form);
+    delete params["report"];
+
+    this.service$ = this.reportsService.getReport({ report, params });
+
   }
 
 }

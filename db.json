@@ -1,0 +1,47 @@
+{
+    "periodic-reports": {
+        "content": [
+            {
+                "groupName": "Group 1",
+                "patientName": "Francieli Geraldo",
+                "programName": "Advanced",
+                "breakfastTotal": 1,
+                "morningSnackTotal": 0,
+                "lunchTotal": 0,
+                "afternoonSnackTotal": 1,
+                "dinnerTotal": 0,
+                "hiitTotal": 0,
+                "postingPercentage": 16.6667,
+                "balanceTotal": 0,
+                "balancePercentage": 0,
+                "evolutionPeriod": -20,
+                "goal": -20,
+                "notesTotal": 1
+            }
+        ]
+    },
+    "groups": {
+        "content": [
+            {
+                "id": 1,
+                "name": "Group 1",
+                "description": "Test group 1"
+            },
+            {
+                "id": 2,
+                "name": "Group 2",
+                "description": "Test group 2"
+            },
+            {
+                "id": 3,
+                "name": "Group 3",
+                "description": "Test group 3"
+            },
+            {
+                "id": 4,
+                "name": "Group 4",
+                "description": "Test group 4"
+            }
+        ]
+    }
+}

@@ -3,18 +3,15 @@
 
         <div class="row justify-content-center py-6 px-4 py-lg-6 px-lg-5">
             <div class="col-xl-12">
-                <!--begin: Form Actions -->
                 <div class="d-flex justify-content-between border-bottom pb-5">
                     <div class="mr-2">
                         <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
-                            (click)="setFalseShowReport()"
+                            (click)="destroyReport()"
                             [hidden]="!isShowReport">
                             Voltar
                         </div>
                     </div>
                     <div>
-
-                        
                         <button [hidden]="isShowReport"  class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
                             (click)="generateReport()" [disabled]="isDisabled">
                             Gerar Relatório
@@ -34,14 +31,10 @@
 
                     </div>
                 </div>
-                <!--end: Form Actions -->
-                <!--begin: Form Wizard Form-->
                 <form class="form" id="kt_form" [formGroup]="reportForm">
-                    <!--begin: Form Wizard Step 1-->
                     <div class="pb-5">
                         <div [hidden]="isShowReport">
                             <div class="form-group m-0">
-                                <!-- <label class="h4">Escolha o tipo de relatório:</label> -->
                                 <div class="row pt-6">
                                     <div class="col-lg-4">
                                         <label class="option">
@@ -68,7 +61,7 @@
                                             <span class="option-control">
                                                 <span class="radio">
 
-                                                    <input type="radio" value="fullReport" formControlName="report" />
+                                                    <input type="radio" value="full-report" formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -89,7 +82,7 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="completedReport" formControlName="report" />
+                                                    <input type="radio" value="completed-report" formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -128,7 +121,7 @@
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Grupo</b></label>
                                     <select class="form-control" name="groupId" autocomplete="off" formControlName="groupId">
-                                        <option value="" disabled selected>Selecione</option>
+                                        <option value="" disabled selected>Selecione</option>                                        
                                         <option *ngFor="let grupo of grupoService.items$ | async" value="{{grupo.id}}">{{grupo.name}}</option>                                       
                                     </select>
                                 </div>
@@ -136,31 +129,19 @@
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Situação</b></label>
                                     <select class="form-control" name="status" placeholder="Selecione" autocomplete="off" formControlName="status">
-                                        <option value="CANCELED">Cancelado</option>
+                                        <option value="" disabled selected>Selecione</option>
+                                        <option value="ALL">Todos</option>
                                         <option value="ACTIVE">Ativo</option>
+                                        <option value="CANCELED">Cancelado</option>                                        
                                         <option value="COMPLETED">Concluído</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-
-                        <ng-container *ngIf="generateRelatorio == 'periodic-reports'">
-                            <app-relatorio-semanal [data]="datateste" [relatorio]="model"></app-relatorio-semanal>
-                        </ng-container>
-
-                        <ng-container *ngIf="generateRelatorio == 'fullReport'">
-                            <app-relatorio-evolucao [data]="datateste" [relatorio]="model"></app-relatorio-evolucao>
-                        </ng-container>
-
-                        <ng-container *ngIf="generateRelatorio == 'completedReport'">
-                            <app-relatorio-concluido [data]="datateste" [relatorio]="model"></app-relatorio-concluido>
-                        </ng-container>
                     </div>
-                    <!--end: Form Wizard Step 5-->
-
-
                 </form>
-                <!--end: Form Wizard Form-->
+
+                <template #showReport></template>
             </div>
         </div>
     </div>
