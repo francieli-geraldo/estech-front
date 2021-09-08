@@ -7,13 +7,14 @@
         <div class="row" [formGroup]="filterGroup">
           <div class="col-lg-3">
             <label>Data de lançamento</label>
-            <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input>            
+            <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input>
           </div>
-    
+
           <div class="col-lg-3">
-            <label for="typeahead-focus">Grupo</label>        
+            <label for="typeahead-focus">Grupo</label>
             <select class="form-control cursor-pointer" placeholder="Grupo" name="grupoId" formControlName="grupoId">
-              <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}</option>
+              <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}
+              </option>
             </select>
           </div>
 
@@ -23,185 +24,122 @@
   </div>
   <!-- end: Filtration form -->
 
-  <!-- begin: Grouping -->
-  <ng-container *ngIf="grouping.getSelectedRowsCount()">
-    <div class="form">
-      <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-        <div class="col-xl-12">
-          <div class="form-group form-group-inline">
-            <div class="form-label form-label-no-wrap">
-              <label class="font-bold font-danger"><span>Total de registros selecionados:
-                  <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <!-- end: Grouping -->
-
-  <!-- begin:Table -->
+   <!-- begin:Table -->
   <div class="table-responsive angular-bootstrap-table">
     <table class="table table-head-custom table-vertical-center overflow-hidden">
       <thead>
-        <th class="selection-cell-header" data-row-selection="true">
-          <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
-            [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-        </th>
         <th>
           PACIENTE
-          <app-sort-icon column="patientId" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           GRUPO
-          <app-sort-icon column="groupId" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           DATA
-          <app-sort-icon column="date" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Café da manhã
-          <app-sort-icon column="breakfast" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Lanche da manhã
-          <app-sort-icon column="morningSnack" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Almoço
-          <app-sort-icon column="lunch" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Lanche da Tarde
-          <app-sort-icon column="afternoonSnack" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Janta
-          <app-sort-icon column="dinner" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Exercício
-          <app-sort-icon column="hiit" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Peso anterior
-          <app-sort-icon column="previosWeight" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Peso atual
-          <app-sort-icon column="currentWeight" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Evolução
-          <app-sort-icon column="evolution" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
           Evolução acumulada
-          <app-sort-icon column="accumulatedEvolution" [activeColumn]="sorting.column"
-            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
         </th>
-        
-
       </thead>
       <tbody>
-        <tr *ngFor="let register of service.items$ | async">
-          <td class="selection-cell">
-            <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(register.id)"
-                [checked]="grouping.isRowSelected(register.id)" />
-              <span></span>
-            </label>
-          </td>
+        <tr *ngFor="let register of listLancamentos$ | async">
           <td>{{ register.patientId }}</td>
           <td>{{ register.groupId }}</td>
           <td>{{ register.date | date:'dd/MM/yyyy' }}</td>
           <td>
-            <span class="label label-lg label-inline" 
-              [class.label-light-danger]="register.breakfast === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.breakfast === false"
               [class.label-light-success]="register.breakfast === true"
               [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'breakfast') : false">
               <ng-container *ngIf="register.breakfast === false">X</ng-container>
-              <ng-container *ngIf="register.breakfast === true">✔</ng-container>              
+              <ng-container *ngIf="register.breakfast === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" 
-              [class.label-light-danger]="register.morningSnack === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.morningSnack === false"
               [class.label-light-success]="register.morningSnack === true"
               [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'morningSnack') : false">
               <ng-container *ngIf="register.morningSnack === false">X</ng-container>
-              <ng-container *ngIf="register.morningSnack === true">✔</ng-container>              
+              <ng-container *ngIf="register.morningSnack === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" 
-              [class.label-light-danger]="register.lunch === false"
-              [class.label-light-success]="register.lunch === true"
-              [class.cursor-pointer]="register.editable === true"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.lunch === false"
+              [class.label-light-success]="register.lunch === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'lunch') : false">
               <ng-container *ngIf="register.lunch === false">X</ng-container>
-              <ng-container *ngIf="register.lunch === true">✔</ng-container>              
+              <ng-container *ngIf="register.lunch === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" 
-              [class.label-light-danger]="register.afternoonSnack === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.afternoonSnack === false"
               [class.label-light-success]="register.afternoonSnack === true"
               [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'afternoonSnack') : false">
               <ng-container *ngIf="register.afternoonSnack === false">X</ng-container>
-              <ng-container *ngIf="register.afternoonSnack === true">✔</ng-container>              
+              <ng-container *ngIf="register.afternoonSnack === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" 
-              [class.label-light-danger]="register.dinner === false"
-              [class.label-light-success]="register.dinner === true"
-              [class.cursor-pointer]="register.editable === true"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.dinner === false"
+              [class.label-light-success]="register.dinner === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'dinner') : false">
               <ng-container *ngIf="register.dinner === false">X</ng-container>
-              <ng-container *ngIf="register.dinner === true">✔</ng-container>              
+              <ng-container *ngIf="register.dinner === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" 
-              [class.label-light-danger]="register.hiit === false"
-              [class.label-light-success]="register.hiit === true"
-              [class.cursor-pointer]="register.editable === true"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.hiit === false"
+              [class.label-light-success]="register.hiit === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'hiit') : false">
               <ng-container *ngIf="register.hiit === false">X</ng-container>
-              <ng-container *ngIf="register.hiit === true">✔</ng-container>              
+              <ng-container *ngIf="register.hiit === true">✔</ng-container>
             </span>
           </td>
-          <td>            
+          <td>
             <ng-container *ngIf="!register.editable">{{register.balance.previousWeight}}</ng-container>
             <ng-container *ngIf="register.editable">
-              <input 
-                type="text"  
-                class="input-grid" 
-                [(ngModel)]="register.balance.previousWeight" 
-                [value]="register.balance.previousWeight"
-                mask="000,000"
-                >
-            </ng-container>            
+              <input type="text" class="input-grid" [(ngModel)]="register.balance.previousWeight"
+                [value]="register.balance.previousWeight" mask="000,000">
+            </ng-container>
           </td>
-          <td>{{ register.balance.currentWeight }}</td>
-          <td>{{ register.balance.evolution }}</td>
-          <td>{{ register.balance.accumulatedEvolution }}</td>
+          <td>
+            <ng-container *ngIf="!register.editable">{{register.balance.currentWeight}}</ng-container>
+            <ng-container *ngIf="register.editable">
+              <input type="text" class="input-grid" [(ngModel)]="register.balance.currentWeight"
+                [value]="register.balance.currentWeight" mask="000,000">
+            </ng-container>
+          </td>
+          <td>{{ (register?.balance?.previousWeight || 0) - (register?.balance?.currentWeight || register?.balance?.previousWeight || 0) }}</td>
+          <td>{{ register.balance.accumulatedEvolution - ((register?.balance?.previousWeight || 0) - (register?.balance?.currentWeight || register?.balance?.previousWeight || 0) )}}</td>
           <td style="display: flex;">
 
             <a *ngIf="!register.editable" title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
@@ -224,14 +162,11 @@
                 class="svg-icon svg-icon-md svg-icon-danger">
               </span>
             </a>
-
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <!-- end: Table -->
-  <!-- <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
-    [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator> -->
+  
 
 </div>

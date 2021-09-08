@@ -1,13 +1,16 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbDateAdapter, NgbDateParserFormatter, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subscription } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../_metronic/shared/crud-table";
 import { GruposService } from "src/app/services/grupos.service";
 import { LancamentosService } from "src/app/services/lancamentos.service";
 import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
 import { PacientesService } from "src/app/services/pacientes.service";
+import { Lancamento } from "src/app/models/Lancamento.model";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-list-lancamentos",
@@ -18,17 +21,7 @@ import { PacientesService } from "src/app/services/pacientes.service";
     { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
   ]
 })
-export class ListLancamentosComponent
-  implements
-    OnInit,
-    OnDestroy,
-    ICreateAction,
-    IEditAction,
-    ISortView,
-    IFilterView,
-    IGroupingView,
-    ISearchView,
-    IFilterView {
+export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   @Input() paciente: number;
   paginator: PaginatorState;
@@ -41,29 +34,25 @@ export class ListLancamentosComponent
   previousLancamentos: any = {};
   maxDate = new Date();
 
-  constructor(  
+
+  listLancamentos$: Observable<Lancamento[]>;
+
+  constructor(
+    private http: HttpClient,
     private fb: FormBuilder,
     private modalService: NgbModal,
     public service: LancamentosService,
     public gruposService: GruposService,
     public pacientesService: PacientesService,
-  ) {}
+  ) { }
 
   // angular lifecircle hooks
   ngOnInit(): void {
-    
+
     this.gruposService.fetch();
     this.pacientesService.fetch();
     this.filterForm();
-
-    this.service.fetch();
-    this.grouping = this.service.grouping;
-    this.paginator = this.service.paginator;
-    this.sorting = this.service.sorting;
-    const sb = this.service.isLoading$.subscribe(
-      (res) => (this.isLoading = res)
-    );
-    this.subscriptions.push(sb);
+    this.filter();
 
   }
 
@@ -71,8 +60,7 @@ export class ListLancamentosComponent
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
 
-  // filtration
-  async filterForm() {
+  filterForm() {
     this.filterGroup = this.fb.group({
       dateFilter: [this.todayDatepicker(new Date())],
       grupoId: ["1"]
@@ -88,82 +76,56 @@ export class ListLancamentosComponent
   }
 
   filter() {
-    const filter = {};
+    const params = {};
     const dateFilter = this.filterGroup.get("dateFilter").value;
     if (dateFilter) {
-      filter["dateFilter"] = dateFilter;
+      params["date"] = dateFilter;
     }
 
     const grupoId = this.filterGroup.get("grupoId").value;
     if (grupoId) {
-      filter["grupoId"] = grupoId;
+      params["groupId"] = grupoId;
     }
-    this.service.patchState({ filter });
-  }
 
-  // search
-  searchForm() {
-    this.searchGroup = this.fb.group({
-      searchTerm: [""],
-    });
-    const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
-      .pipe(
-        debounceTime(150),
-        distinctUntilChanged()
-      )
-      .subscribe((val) => this.search(val));
-    this.subscriptions.push(searchEvent);
-  }
-
-  search(searchTerm: string) {
-    this.service.patchState({ searchTerm });
-  }
-
-  // sorting
-  sort(column: string) {
-    const sorting = this.sorting;
-    const isActiveColumn = sorting.column === column;
-    if (!isActiveColumn) {
-      sorting.column = column;
-      sorting.direction = "asc";
-    } else {
-      sorting.direction = sorting.direction === "asc" ? "desc" : "asc";
-    }
-    this.service.patchState({ sorting });
-  }
-
-  // pagination
-  // paginate(paginator: PaginatorState) {
-  //   this.service.patchState({ paginator });
-  // }
-
-  // // form actions
-  create() {
-    this.edit(undefined);
-  }
-
-  edit(id: number) {
-    // const modalRef = this.modalService.open(FormContratoModalComponent, {
-    //   size: "xl",
-    // });
-    // modalRef.componentInstance.id = id;
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
+    this.listLancamentos$ = this.service.findParams({ params });
   }
 
   confirmEditCreate(register) {
+    // 'agreementId': register.agreementId,
+    // 'patientId': register.patientId,
+    // "notes": "Informou café da manhã, e agora informou o lanche da manhã, porém estava muito calórico"
     register.editable = false;    
-    if(register.id){
-      // this.service.edit(register)
-    }else{
-      // this.service.create(register)
+    let registro = {
+      "date": register.date,
+      "balance": {
+        "informed": register.balance.informed,
+        "currentWeight": parseFloat(register.balance.currentWeight)
+      },
+      "breakfast": register.breakfast,
+      "morningSnack": register.morningSnack,
+      "lunch": register.lunch,
+      "afternoonSnack": register.afternoonSnack, 
+      "dinner": register.dinner,
+      "hiit": register.hiit    
     }
+
+
+    this.http.post<any>(`${environment.apiUrl}/${register.patientId}/agreements/${register.agreementId}/dailies`, registro).subscribe(data => {
+      console.log(data);      
+    })
+
+    
+    // console.log(register);
+    // this.service.editLancamento({
+    //   register: registro,
+    //   agreementId: ,
+    //   patientId: 
+    // })
+    
   }
 
   startEdit(register) {
-    this.previousLancamentos[register.date] =  Object.assign({}, register);
+    this.previousLancamentos[register.date] = Object.assign({}, register);
     register.editable = true;
   }
 
@@ -171,7 +133,7 @@ export class ListLancamentosComponent
     register.editable = false;
     Object.keys(register).forEach(item => {
       register[item] = this.previousLancamentos[register.date][item]
-    });    
+    });
   }
 
   changeValueRegister(register, field) {
@@ -179,6 +141,6 @@ export class ListLancamentosComponent
   }
 
   todayDatepicker(day: Date) {
-    return `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-26`;
+    return `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getUTCDate()).padStart(2, "0")}`;
   }
 }

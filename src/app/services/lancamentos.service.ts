@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
-import { exhaustMap, map } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { catchError, exhaustMap, finalize, map } from 'rxjs/operators';
 import { TableService, TableResponseModel, ITableState, BaseModel } from '../_metronic/shared/crud-table';
 import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../environments/environment';
@@ -11,21 +11,35 @@ import { Lancamento } from '../models/Lancamento.model';
   providedIn: 'root'
 })
 export class LancamentosService extends TableService<Lancamento> implements OnDestroy {
+
+  // private loading = new BehaviorSubject<boolean>(false);
+
   API_URL = `${environment.apiUrl}/dailies`;
+
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
 
+  editLancamento( { register, agreementId, patientId }  ): Observable<any> {    
+    return this.http.post(`${environment.apiUrl}/${patientId}/agreements/${agreementId}/dailies`, register ).pipe( 
+      map((response) => {        
+        return response;
+      }),     
+      catchError((err) => {
+        return of(undefined);
+      })      
+    )
+  }
 
-  find(tableState: ITableState): Observable<TableResponseModel<Lancamento>> {
-    return this.http.get<Lancamento[]>(this.API_URL+'?groupId=1&date=2021-06-26').pipe(
-      map((response: Lancamento[]) => {        
-        return {
-          items: response,
-          total: response.length  
-        };
-      })
-    );
+  findParams( { params }  ): Observable<any> {    
+    return this.http.get(this.API_URL, { params } ).pipe( 
+      map((response) => {        
+        return response;
+      }),     
+      catchError((err) => {
+        return of(undefined);
+      })      
+    )
   }
 
   deleteItems(ids: number[] = []): Observable<any> {
