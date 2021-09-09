@@ -13,14 +13,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   // KeenThemes mock, change it to:
-  // defaultAuth = {
-  //   email: '',
-  //   password: '',
-  // };
-  defaultAuth: any = {
+  defaultAuth = {
     email: '',
     password: '',
   };
+  // defaultAuth: any = {
+  //   email: 'admin@teste.com',
+  //   password: '123',
+  // };
   loginForm: FormGroup;
   hasError: boolean;
   returnUrl: string;
@@ -60,17 +60,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.defaultAuth.email,
         Validators.compose([
           Validators.required,
-          Validators.email,
-          Validators.minLength(3),
-          Validators.maxLength(320),
+          Validators.email
         ]),
       ],
       password: [
         this.defaultAuth.password,
         Validators.compose([
           Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
         ]),
       ],
     });
