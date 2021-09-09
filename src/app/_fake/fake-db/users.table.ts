@@ -3,7 +3,7 @@ export class UsersTable {
     {
       id: 1,
       username: 'admin',
-      password: '123',
+      password: 'Bdrc@gVLozIC65bRlWo$cuSUDp',
       email: 'samuel.sdacruz@gmail.com',
       authToken: 'auth-token-8f3ae836da744329a6f93bf20594b5cc',
       refreshToken: 'auth-token-f8c137a2c98743f48b643e71161d90aa',
@@ -58,7 +58,7 @@ export class UsersTable {
     {
       id: 2,
       username: 'franciligeraldo',
-      password: '123',
+      password: 'Bdrc@gVLozIC65bRlWo$cuSUDp',
       email: 'francieligeraldo@gmail.com',
       authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbf',
       refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e55',

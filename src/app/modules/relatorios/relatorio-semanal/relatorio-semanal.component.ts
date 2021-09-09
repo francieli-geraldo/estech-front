@@ -36,6 +36,10 @@ export class RelatorioSemanalComponent implements OnInit {
    
     const report = this.form.report;    
     const params = Object.assign({}, this.form);
+
+    if(params['status'] == "ALL"){
+      delete params["status"];
+    }
     delete params["report"];
 
     this.service$ = this.reportsService.getReport({ report, params });

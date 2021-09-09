@@ -20,25 +20,20 @@ export class LancamentosService extends TableService<Lancamento> implements OnDe
     super(http);
   }
 
-  editLancamento( { register, agreementId, patientId }  ): Observable<any> {    
-    return this.http.post(`${environment.apiUrl}/${patientId}/agreements/${agreementId}/dailies`, register ).pipe( 
-      map((response) => {        
-        return response;
-      }),     
-      catchError((err) => {
-        return of(undefined);
-      })      
+  editLancamento({ register, agreementId, patientId }) {
+    return this.http.post(`${environment.apiUrl}/${patientId}/agreements/${agreementId}/dailies`, register).subscribe(
+      (response) => { console.log(response) }
     )
   }
 
-  findParams( { params }  ): Observable<any> {    
-    return this.http.get(this.API_URL, { params } ).pipe( 
-      map((response) => {        
+  findParams({ params }): Observable<any> {
+    return this.http.get(this.API_URL, { params }).pipe(
+      map((response) => {
         return response;
-      }),     
+      }),
       catchError((err) => {
         return of(undefined);
-      })      
+      })
     )
   }
 

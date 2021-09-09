@@ -107,20 +107,13 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
       "afternoonSnack": register.afternoonSnack, 
       "dinner": register.dinner,
       "hiit": register.hiit    
-    }
-
-
-    this.http.post<any>(`${environment.apiUrl}/${register.patientId}/agreements/${register.agreementId}/dailies`, registro).subscribe(data => {
-      console.log(data);      
-    })
-
+    };
     
-    // console.log(register);
-    // this.service.editLancamento({
-    //   register: registro,
-    //   agreementId: ,
-    //   patientId: 
-    // })
+    this.service.editLancamento({
+      register: registro,
+      agreementId: register.agreementId,
+      patientId: register.patientId
+    })
     
   }
 
@@ -141,6 +134,7 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
   }
 
   todayDatepicker(day: Date) {
-    return `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getUTCDate()).padStart(2, "0")}`;
+    let arrayDay = day.toLocaleDateString().split('/');
+    return `${arrayDay[2]}-${arrayDay[1]}-${arrayDay[0]}`;
   }
 }

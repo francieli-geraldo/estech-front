@@ -41,7 +41,7 @@ export class AuthHTTPService {
     const user = new UserModel();
       user.id =  123;
       user.username = 'franciligeraldo ';
-      user.password = '123';
+      user.password = 'Bdrc@gVLozIC65bRlWo$cuSUDp';
       user.fullname = 'Francieli Ferreira Geraldo';
       user.firstname = 'Sean';
       user.lastname = 'Stark';
