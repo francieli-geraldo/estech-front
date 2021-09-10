@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let report of service$ | async; else loading">
+            <tr *ngFor="let report of service$ | async">
                 <td>{{ report?.groupName || '*' }}</td>
                 <td>{{ report?.patientName || '*' }}</td>
                 <td>{{ report?.programName || '*' }}</td>

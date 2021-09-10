@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbDateAdapter, NgbDateParserFormatter, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subject, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../_metronic/shared/crud-table";
 import { GruposService } from "src/app/services/grupos.service";
@@ -10,7 +10,6 @@ import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core
 import { PacientesService } from "src/app/services/pacientes.service";
 import { Lancamento } from "src/app/models/Lancamento.model";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-list-lancamentos",
@@ -33,7 +32,6 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   previousLancamentos: any = {};
   maxDate = new Date();
-
 
   listLancamentos$: Observable<Lancamento[]>;
 

@@ -26,52 +26,24 @@
 
    <!-- begin:Table -->
   <div class="table-responsive angular-bootstrap-table">
-    <table class="table table-head-custom table-vertical-center overflow-hidden">
+    <table class="table table-head-custom table-vertical-center overflow-hidden text-center">
       <thead>
-        <th>
-          PACIENTE
-        </th>
-        <th>
-          GRUPO
-        </th>
-        <th>
-          DATA
-        </th>
-        <th>
-          Café da manhã
-        </th>
-        <th>
-          Lanche da manhã
-        </th>
-        <th>
-          Almoço
-        </th>
-        <th>
-          Lanche da Tarde
-        </th>
-        <th>
-          Janta
-        </th>
-        <th>
-          Exercício
-        </th>
-        <th>
-          Peso anterior
-        </th>
-        <th>
-          Peso atual
-        </th>
-        <th>
-          Evolução
-        </th>
-        <th>
-          Evolução acumulada
-        </th>
+        <th>PACIENTE</th>
+        <th>DATA</th>
+        <th>Café da manhã</th>
+        <th>Lanche da manhã</th>
+        <th>Almoço</th>
+        <th>Lanche da Tarde</th>
+        <th>Janta</th>
+        <th>Exercício</th>
+        <th>Peso anterior</th>
+        <th>Peso atual</th>
+        <th>Evolução</th>
+        <th>Evolução acumulada</th>
       </thead>
       <tbody>
         <tr *ngFor="let register of listLancamentos$ | async">
-          <td>{{ register.patientId }}</td>
-          <td>{{ register.groupId }}</td>
+          <td >{{ register.patientId }}</td>          
           <td>{{ register.date | date:'dd/MM/yyyy' }}</td>
           <td>
             <span class="label label-lg label-inline" [class.label-light-danger]="register.breakfast === false"
