@@ -83,7 +83,7 @@ export abstract class TableService<T> {
   }
 
   // READ (Returning filtered list of entities)
-  find(tableState: ITableState): Observable<TableResponseModel<T>> {
+  find(tableState): Observable<TableResponseModel<T>> {
     const url = this.API_URL + '/find';
     this._errorMessage.next('');
     return this.http.post<TableResponseModel<T>>(url, tableState).pipe(
@@ -178,11 +178,11 @@ export abstract class TableService<T> {
       .pipe(
         tap((res: TableResponseModel<T>) => {
           this._items$.next(res.items);
-          this.patchStateWithoutFetch({
-            paginator: this._tableState$.value.paginator.recalculatePaginator(
-              res.total
-            ),
-          });
+          // this.patchStateWithoutFetch({
+          //   paginator: this._tableState$.value.paginator.recalculatePaginator(
+          //     res.total
+          //   ),
+          // });
         }),
         catchError((err) => {
           this._errorMessage.next(err);
@@ -197,9 +197,9 @@ export abstract class TableService<T> {
             const item = (el as unknown) as BaseModel;
             return item.id;
           });
-          this.patchStateWithoutFetch({
-            grouping: this._tableState$.value.grouping.clearRows(itemIds),
-          });
+          // this.patchStateWithoutFetch({
+          //   grouping: this._tableState$.value.grouping.clearRows(itemIds),
+          // });
         })
       )
       .subscribe();
@@ -207,13 +207,15 @@ export abstract class TableService<T> {
   }
 
   public setDefaults() {
-    this.patchStateWithoutFetch({ filter: {} });
-    this.patchStateWithoutFetch({ sorting: new SortState() });
-    this.patchStateWithoutFetch({ grouping: new GroupingState() });
-    this.patchStateWithoutFetch({ searchTerm: '' });
-    this.patchStateWithoutFetch({
-      paginator: new PaginatorState()
-    });
+    // this.patchStateWithoutFetch({ filter: {} });
+    // this.patchStateWithoutFetch({ sorting: new SortState() });
+    // this.patchStateWithoutFetch({ grouping: new GroupingState() });
+    // this.patchStateWithoutFetch({ searchTerm: '' });    
+    // this.patchStateWithoutFetch({
+    //   paginator: new PaginatorState()
+    // });
+
+    this.patchStateWithoutFetch({ sort: '' });
     this._isFirstLoading$.next(true);
     this._isLoading$.next(true);
     this._tableState$.next(DEFAULT_STATE);

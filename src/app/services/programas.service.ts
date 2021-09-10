@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { exhaustMap, map } from 'rxjs/operators';
-import { TableService, TableResponseModel, ITableState, BaseModel } from '../_metronic/shared/crud-table';
+import { TableService, TableResponseModel, BaseModel } from '../_metronic/shared/crud-table';
 import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../environments/environment';
 import { Programa } from '../models/programa.model';
@@ -17,8 +17,8 @@ export class ProgramasService extends TableService<Programa> implements OnDestro
   }
 
   // READ
-  find(tableState: ITableState): Observable<TableResponseModel<Programa>> {
-    return this.http.get<Programa[]>(this.API_URL).pipe(
+  find(params): Observable<TableResponseModel<Programa>> {
+    return this.http.get<Programa[]>(this.API_URL, { params }).pipe(
       map((response: Programa[]) => {        
         return {
           items: response['content'],

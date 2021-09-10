@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { exhaustMap, map } from 'rxjs/operators';
-import { TableService, TableResponseModel, ITableState, BaseModel } from '../_metronic/shared/crud-table';
+import { TableService, TableResponseModel, BaseModel } from '../_metronic/shared/crud-table';
 import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../environments/environment';
 import { Grupo } from '../models/grupo.model';
@@ -16,8 +16,8 @@ export class GruposService extends TableService<Grupo> implements OnDestroy {
     super(http);
   }
 
-  find(tableState: ITableState): Observable<TableResponseModel<Grupo>> {
-    return this.http.get<Grupo[]>(this.API_URL).pipe(
+  find(params): Observable<TableResponseModel<Grupo>> {
+    return this.http.get<Grupo[]>(this.API_URL, {params}).pipe(
       map((response: Grupo[]) => {
           
         const result: TableResponseModel<Grupo> = {

@@ -84,7 +84,7 @@ private subscriptions: Subscription[] = [];
     if (type) {
       filter["type"] = type;
     }
-    this.service.patchState({ filter });
+    // this.service.patchState({ filter });
   }
 
   // search
@@ -106,7 +106,7 @@ private subscriptions: Subscription[] = [];
   }
 
   search(searchTerm: string) {
-    this.service.patchState({ searchTerm });
+    // this.service.patchState({ searchTerm });
   }
 
   // sorting
@@ -119,12 +119,13 @@ private subscriptions: Subscription[] = [];
     } else {
       sorting.direction = sorting.direction === "asc" ? "desc" : "asc";
     }
-    this.service.patchState({ sorting });
+    let sort = `${sorting.column},${sorting.direction}`
+    this.service.patchState({ sort });
   }
 
   // pagination
   paginate(paginator: PaginatorState) {
-    this.service.patchState({ paginator });
+    // this.service.patchState({ paginator });
   }
 
   // // form actions

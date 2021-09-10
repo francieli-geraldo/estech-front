@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { catchError, exhaustMap, finalize, map } from 'rxjs/operators';
-import { TableService, TableResponseModel, ITableState, BaseModel } from '../_metronic/shared/crud-table';
+import { TableService, TableResponseModel, BaseModel } from '../_metronic/shared/crud-table';
 import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../environments/environment';
 import { Lancamento } from '../models/Lancamento.model';
