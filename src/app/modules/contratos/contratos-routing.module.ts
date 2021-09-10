@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductEditComponent } from '../e-commerce/products/product-edit/product-edit.component';
 import { ContratosComponent } from './contratos.component';
 
 const routes: Routes = [

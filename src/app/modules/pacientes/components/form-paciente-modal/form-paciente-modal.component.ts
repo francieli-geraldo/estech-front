@@ -7,7 +7,7 @@ import { Paciente } from '../../../../models/paciente.model';
 import { PacientesService } from '../../../../services/pacientes.service';
 import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../../../../_metronic/core';
 
-const EMPTY_CUSTOMER: Paciente = {
+const EMPTY_PACIENTE: Paciente = {
   id: undefined,
   name: '',
   birthDate: '',
@@ -47,14 +47,14 @@ export class FormPacienteModalComponent implements OnInit, OnDestroy {
 
   loadRegister() {
     if (!this.id) {
-      this.register = EMPTY_CUSTOMER;
+      this.register = EMPTY_PACIENTE;
       this.loadForm();
     } else {
       const sb = this.registersService.getItemById(this.id).pipe(
         first(),
         catchError((errorMessage) => {
           this.modal.dismiss(errorMessage);
-          return of(EMPTY_CUSTOMER);
+          return of(EMPTY_PACIENTE);
         })
       ).subscribe((register: Paciente) => {
         this.register = register;
