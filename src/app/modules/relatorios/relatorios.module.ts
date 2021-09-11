@@ -17,7 +17,10 @@ import { InputsModule } from 'src/app/_metronic/shared/inputs';
   exports: [RelatoriosComponent],  
   declarations: [
     RelatoriosComponent, 
-    RelatorioSemanalComponent, RelatorioEvolucaoComponent, RelatorioConcluidoComponent],  
+    RelatorioSemanalComponent, 
+    RelatorioEvolucaoComponent, 
+    RelatorioConcluidoComponent
+  ],  
   imports: [
     CommonModule,
     InputsModule,
