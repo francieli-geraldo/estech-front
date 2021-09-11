@@ -119,16 +119,12 @@ private subscriptions: Subscription[] = [];
     } else {
       sorting.direction = sorting.direction === "asc" ? "desc" : "asc";
     }
-    let sort = `${sorting.column},${sorting.direction}`
-    this.service.patchState({ sort });
+    this.service.patchState({ sorting });
   }
 
   // pagination
   paginate(paginator: PaginatorState) {
-    console.log(paginator);
-    
-
-    // this.service.patchState({ paginator });
+    this.service.patchState({ paginator });
   }
 
   // // form actions

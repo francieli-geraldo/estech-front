@@ -3,13 +3,12 @@ import { PaginatorState } from './paginator.model';
 import { SortState } from './sort.model';
 
 export interface ITableState {
-  // filter: {};
-  // paginator: PaginatorState;
-  // sorting: SortState;
-  // searchTerm: string;
-  // grouping: GroupingState;
-  // entityId: number | undefined;
-  sort: string;
+  filter: {};
+  paginator: PaginatorState;
+  sorting: SortState;
+  searchTerm: string;
+  grouping: GroupingState;
+  entityId: number | undefined;
 }
 
 export interface TableResponseModel<T> {

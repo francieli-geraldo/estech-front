@@ -46,12 +46,10 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   // angular lifecircle hooks
   ngOnInit(): void {
-
     this.gruposService.fetch();
     this.pacientesService.fetch();
     this.filterForm();
     this.filter();
-
   }
 
   ngOnDestroy() {
@@ -133,6 +131,6 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   todayDatepicker(day: Date) {
     let arrayDay = day.toLocaleDateString().split('/');
-    return `${arrayDay[2]}-${arrayDay[1]}-${arrayDay[0]}`;
+    return `${arrayDay[2]}-${("00" + arrayDay[1]).slice(-2)}-${("00" + arrayDay[0]).slice(-2)}`;
   }
 }

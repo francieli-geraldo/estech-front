@@ -26,7 +26,7 @@
 
    <!-- begin:Table -->
   <div class="table-responsive angular-bootstrap-table">
-    <table class="table table-head-custom table-vertical-center overflow-hidden text-center">
+    <table class="table table-head-custom table-vertical-center overflow-hidden text-left">
       <thead>
         <th>PACIENTE</th>
         <th>DATA</th>
@@ -43,7 +43,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let register of listLancamentos$ | async">
-          <td >{{ register.patientId }}</td>          
+          <td class="display-inline-block text-left">
+            <span>{{ register.patientId  + ' - ' + register.patientName }}</span>             
+          </td>          
           <td>{{ register.date | date:'dd/MM/yyyy' }}</td>
           <td>
             <span class="label label-lg label-inline" [class.label-light-danger]="register.breakfast === false"

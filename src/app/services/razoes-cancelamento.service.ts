@@ -17,8 +17,8 @@ export class RazoesCancelamentoService extends TableService<RazaoCancelamento> i
   }
 
   // READ
-  find(tableState): Observable<TableResponseModel<RazaoCancelamento>> {
-    return this.http.get<RazaoCancelamento[]>(this.API_URL).pipe(
+  find(params): Observable<TableResponseModel<RazaoCancelamento>> {
+    return this.http.get<RazaoCancelamento[]>(this.API_URL, { params }).pipe(
       map((response: RazaoCancelamento[]) => {        
         return {
           items: response['content'],

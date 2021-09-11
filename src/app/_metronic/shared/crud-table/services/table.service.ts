@@ -26,6 +26,8 @@ export abstract class TableService<T> {
   private _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
   private _errorMessage = new BehaviorSubject<string>('');
   private _subscriptions: Subscription[] = [];
+  private _params$ = new BehaviorSubject<any>({});
+
 
   // Getters
   get items$() {
@@ -174,15 +176,16 @@ export abstract class TableService<T> {
   public fetch() {
     this._isLoading$.next(true);
     this._errorMessage.next('');
-    const request = this.find(this._tableState$.value)
+
+    const request = this.find(this._params$.value)
       .pipe(
         tap((res: TableResponseModel<T>) => {
           this._items$.next(res.items);
-          // this.patchStateWithoutFetch({
-          //   paginator: this._tableState$.value.paginator.recalculatePaginator(
-          //     res.total
-          //   ),
-          // });
+          this.patchStateWithoutFetch({
+            paginator: this._tableState$.value.paginator.recalculatePaginator(
+              res.total
+            ),
+          });
         }),
         catchError((err) => {
           this._errorMessage.next(err);
@@ -197,9 +200,9 @@ export abstract class TableService<T> {
             const item = (el as unknown) as BaseModel;
             return item.id;
           });
-          // this.patchStateWithoutFetch({
-          //   grouping: this._tableState$.value.grouping.clearRows(itemIds),
-          // });
+          this.patchStateWithoutFetch({
+            grouping: this._tableState$.value.grouping.clearRows(itemIds),
+          });
         })
       )
       .subscribe();
@@ -207,15 +210,12 @@ export abstract class TableService<T> {
   }
 
   public setDefaults() {
-    // this.patchStateWithoutFetch({ filter: {} });
-    // this.patchStateWithoutFetch({ sorting: new SortState() });
-    // this.patchStateWithoutFetch({ grouping: new GroupingState() });
-    // this.patchStateWithoutFetch({ searchTerm: '' });    
-    // this.patchStateWithoutFetch({
-    //   paginator: new PaginatorState()
-    // });
+    this.patchStateWithoutFetch({ filter: {} });
+    this.patchStateWithoutFetch({ searchTerm: '' });    
+    this.patchStateWithoutFetch({ sorting: new SortState() });
+    this.patchStateWithoutFetch({ grouping: new GroupingState() });    
+    this.patchStateWithoutFetch({ paginator: new PaginatorState() });
 
-    this.patchStateWithoutFetch({ sort: '' });
     this._isFirstLoading$.next(true);
     this._isLoading$.next(true);
     this._tableState$.next(DEFAULT_STATE);
@@ -223,12 +223,31 @@ export abstract class TableService<T> {
   }
 
   // Base Methods
-  public patchState(patch: Partial<ITableState>) {
+  public patchState(patch: Partial<any>) {
     this.patchStateWithoutFetch(patch);
+    this.resolveParams(Object.keys(patch)[0])
     this.fetch();
   }
 
-  public patchStateWithoutFetch(patch: Partial<ITableState>) {
+  public resolveParams(key) {
+    switch (key) {
+      case 'sorting':
+        const params_sort = { sort: `${this._tableState$.value.sorting.column},${this._tableState$.value.sorting.direction}` } 
+        const newParamsSort = Object.assign(this._params$.value, params_sort);
+        this._params$.next(newParamsSort);
+        break;
+      case 'paginator':        
+        const params_paginator = { 
+          page: this._tableState$.value.paginator.page - 1,
+          size: this._tableState$.value.paginator.pageSize
+        } 
+        const newParamsPage = Object.assign(this._params$.value, params_paginator);
+        this._params$.next(newParamsPage);
+        break;
+    }
+
+  }
+  public patchStateWithoutFetch(patch: Partial<any>) {
     const newState = Object.assign(this._tableState$.value, patch);
     this._tableState$.next(newState);
   }

@@ -119,13 +119,12 @@ private subscriptions: Subscription[] = [];
     } else {
       sorting.direction = sorting.direction === "asc" ? "desc" : "asc";
     }
-    let sort = `${sorting.column},${sorting.direction}`
-    this.service.patchState({ sort });
+    this.service.patchState({ sorting });
   }
 
   // pagination
   paginate(paginator: PaginatorState) {
-    // this.service.patchState({ paginator });
+    this.service.patchState({ paginator });
   }
 
   // // form actions
@@ -167,32 +166,6 @@ private subscriptions: Subscription[] = [];
   }
 
 
-  deleteSelected() {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
-  }
-
-  updateStatusForSelected() {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
-  }
-
-  fetchSelected() {
-    // const modalRef = this.modalService.open(DeleteContratoModalComponent);
-    // modalRef.componentInstance.ids = this.grouping.getSelectedRows();
-    // modalRef.result.then(
-    //   () => this.service.fetch(),
-    //   () => {}
-    // );
-  }
 
   getProgramas(){
     return [

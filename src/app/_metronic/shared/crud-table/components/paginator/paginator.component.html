@@ -27,13 +27,11 @@
   >
     <option class="btn" *ngFor="let ps of pageSizes">
       {{ ps }}
-    </option></select
-  ><span class="react-bootstrap-table-pagin ation-total"
-    >&nbsp;Mostrando registros {{ paginator.page }} a&nbsp;{{
-      paginator.pageSize
-    }}
-    de&nbsp;{{ paginator.total }}</span
-  >
+    </option>
+    </select>
+    <span class="react-bootstrap-table-pagin ation-total">
+      Mostrando registros {{ pageInit }} - {{ pageEnd }} de {{ paginator.total }}
+    </span>
   <!-- end: pageSize -->
 </div>
 <!-- end: Paginator -->
