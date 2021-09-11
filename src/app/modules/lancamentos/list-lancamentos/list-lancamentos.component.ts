@@ -52,6 +52,16 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
     this.filter();
   }
 
+  changeWeight(event){ 
+    if(event.target.value !== ''){
+      event.target.value = parseFloat(event.target.value).toFixed(3);
+    }
+  }
+  
+  showWeight(value){
+    return (value !== '' && !!value) ? parseFloat(value).toFixed(3).replace('.',',') : '0,000';
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
