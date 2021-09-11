@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Programa } from 'src/app/models/programa.model';
 import { ProgramasService } from 'src/app/services/programas.service';
 import { GroupingState, ICreateAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from 'src/app/_metronic/shared/crud-table';
@@ -21,8 +21,7 @@ OnDestroy,
 ICreateAction,
 ISortView,
 IFilterView,
-IGroupingView,
-ISearchView {
+IGroupingView {
 paginator: PaginatorState;
 sorting: SortState;
 grouping: GroupingState;
@@ -94,19 +93,12 @@ private subscriptions: Subscription[] = [];
     });
     const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
       .pipe(
-        /*
-    The user can type quite quickly in the input box, and that could trigger a lot of server requests. With this operator,
-    we are limiting the amount of server requests emitted to a maximum of one every 150ms
-    */
-        debounceTime(150),
-        distinctUntilChanged()
+        map(value => value.trim()),
+        debounceTime(400),
+        distinctUntilChanged(),
       )
-      .subscribe((val) => this.search(val));
+      .subscribe((val) => this.service.filterByDescription(val));
     this.subscriptions.push(searchEvent);
-  }
-
-  search(searchTerm: string) {
-    // this.service.patchState({ searchTerm });
   }
 
   // sorting

@@ -8,6 +8,7 @@ import { BaseModel } from '../models/base.model';
 import { SortState } from '../models/sort.model';
 import { GroupingState } from '../models/grouping.model';
 import { environment } from '../../../../../environments/environment';
+import { searchInArray } from 'src/app/_fake/fake-helpers/http-extenstions';
 
 const DEFAULT_STATE: ITableState = {
   filter: {},
@@ -20,6 +21,7 @@ const DEFAULT_STATE: ITableState = {
 
 export abstract class TableService<T> {
   // Private fields
+  private baseForSearchTerm = new BehaviorSubject<T[]>([]);
   private _items$ = new BehaviorSubject<T[]>([]);
   private _isLoading$ = new BehaviorSubject<boolean>(false);
   private _isFirstLoading$ = new BehaviorSubject<boolean>(true);
@@ -142,6 +144,17 @@ export abstract class TableService<T> {
     );
   }
 
+  filterByDescription(searchTerm: string) {
+    const resultSearch = searchInArray(this.baseForSearchTerm?.value || [], searchTerm)
+
+    this._items$.next(resultSearch);
+    this.patchStateWithoutFetch({
+      paginator: this._tableState$.value.paginator.recalculatePaginator(
+        resultSearch.length
+      ),
+    });
+  }
+
   // DELETE
   delete(id: any): Observable<any> {
     this._isLoading$.next(true);
@@ -180,6 +193,7 @@ export abstract class TableService<T> {
     const request = this.find(this._params$.value)
       .pipe(
         tap((res: TableResponseModel<T>) => {
+          this.baseForSearchTerm.next(res.items);
           this._items$.next(res.items);
           this.patchStateWithoutFetch({
             paginator: this._tableState$.value.paginator.recalculatePaginator(

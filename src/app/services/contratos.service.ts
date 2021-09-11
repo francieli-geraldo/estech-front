@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { exhaustMap, map } from 'rxjs/operators';
 import { TableService, TableResponseModel, BaseModel } from '../_metronic/shared/crud-table';
-import { baseFilter } from '../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../environments/environment';
 import { Contrato } from '../models/contrato.model';
 
