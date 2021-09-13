@@ -68,7 +68,7 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   filterForm() {
     this.filterGroup = this.fb.group({
-      dateFilter: [this.todayDatepicker(new Date())],
+      dateFilter: [new Date().toISOString().slice(0, 10)],
       grupoId: ["1"]
     });
     this.subscriptions.push(

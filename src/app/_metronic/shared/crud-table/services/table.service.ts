@@ -21,14 +21,14 @@ const DEFAULT_STATE: ITableState = {
 
 export abstract class TableService<T> {
   // Private fields
-  private baseForSearchTerm = new BehaviorSubject<T[]>([]);
-  private _items$ = new BehaviorSubject<T[]>([]);
-  private _isLoading$ = new BehaviorSubject<boolean>(false);
-  private _isFirstLoading$ = new BehaviorSubject<boolean>(true);
-  private _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
-  private _errorMessage = new BehaviorSubject<string>('');
-  private _subscriptions: Subscription[] = [];
-  private _params$ = new BehaviorSubject<any>({});
+  protected baseForSearchTerm = new BehaviorSubject<T[]>([]);
+  protected _items$ = new BehaviorSubject<T[]>([]);
+  protected _isLoading$ = new BehaviorSubject<boolean>(false);
+  protected _isFirstLoading$ = new BehaviorSubject<boolean>(true);
+  protected _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
+  protected _errorMessage = new BehaviorSubject<string>('');
+  protected _subscriptions: Subscription[] = [];
+  protected _params$ = new BehaviorSubject<any>({});
 
 
   // Getters
