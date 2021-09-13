@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {InlineSVGModule} from 'ng-inline-svg';
 import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {CRUDTableModule} from '../../_metronic/shared/crud-table';
-import { ContratosModule } from '../contratos/contratos.module';
 import { ExportAsModule } from 'ngx-export-as';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { LancamentosRoutingModule } from './lancamentos-routing.module';

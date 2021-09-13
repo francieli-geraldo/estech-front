@@ -6,29 +6,33 @@ import {
   NgbDateParserFormatter,
 } from "@ng-bootstrap/ng-bootstrap";
 import { defineLocale, locale } from "moment";
-import { of, Subscription } from "rxjs";
-import { catchError, first, tap } from "rxjs/operators";
+import { Observable, of, Subscription } from "rxjs";
+import { catchError, debounceTime, distinctUntilChanged, first, map, switchMap, tap } from "rxjs/operators";
 import { Contrato } from "src/app/models/contrato.model";
+import { Paciente } from "src/app/models/paciente.model";
 import { ContratosService } from "src/app/services/contratos.service";
 import { GruposService } from "src/app/services/grupos.service";
+import { PacientesService } from "src/app/services/pacientes.service";
 import { ProgramasService } from "src/app/services/programas.service";
 import {
   CustomAdapter,
   CustomDateParserFormatter,
 } from "src/app/_metronic/core";
+import { GroupingState, PaginatorState } from "src/app/_metronic/shared/crud-table";
 
 const EMPTY_CONTRATO: any = {
   
   id: undefined,
   programId: 0,
   groupId: 0,
-
+  pacienteId: 0, 
   startingWeight: 0,
   goal: 0,
 
   hiringDate: "",
   startDate: "",
-  notes: ""  
+  notes: "" 
+   
 };
 
 @Component({
@@ -44,41 +48,64 @@ export class FormContratoModalComponent implements OnInit {
   
   @Input() id: number;
   @Input() register: Contrato;
-  isLoading$;
-  formContrato: FormGroup;
+  
   private subscriptions: Subscription[] = [];
+
   minDate;
   minDateConclusao;
-  maxDate = new Date(2020, 0, 1);
+  
+  isLoading$;
+  formContrato: FormGroup;
+  isSearchPaciente: boolean = false;
+  
+  isLoading: boolean;
+  paginatorPaciente: PaginatorState;
+  groupingPaciente: GroupingState;
 
+  
   constructor(
+    public pacienteService: PacientesService,
     private registersService: ContratosService,
     public programasService: ProgramasService,
     public gruposService: GruposService,
     private fb: FormBuilder,
     public modal: NgbActiveModal
   ) {}
+  
+  formatMatches = (value: any) => value.name || '';
 
   ngOnInit(): void {
+    
+    this.pacienteService.fetch();
+    this.groupingPaciente = this.pacienteService.grouping;
+    this.paginatorPaciente = this.pacienteService.paginator;
 
     this.programasService.fetch();
     this.gruposService.fetch();
 
     this.minDate = this.minDatepicker(new Date());
     this.isLoading$ = this.registersService.isLoading$;
+
     this.loadRegister();
+
+    this.formContrato.valueChanges.subscribe((val)=>{
+      this.pacienteService.findByDescription(val)
+    })
   }
 
   loadRegister() {
-    if (!this.id) {
-      this.register = EMPTY_CONTRATO;
+    if (!this.id) { 
+      this.register = EMPTY_CONTRATO 
     }     
     this.loadForm();
   }
 
-  loadForm() {
-    
-    this.formContrato = this.fb.group({
+  loadForm() {    
+    this.formContrato = this.fb.group({      
+      pacienteId: [
+        this.register.pacienteId,
+        Validators.compose([Validators.nullValidator]),
+      ],
       programId: [
         this.register.programId,
         Validators.compose([Validators.nullValidator]),
@@ -162,7 +189,8 @@ export class FormContratoModalComponent implements OnInit {
   }
 
   private prepareRegister() {
-    const formData = this.formContrato.value;
+    const formData = this.formContrato.value;    
+    this.register.pacienteId = Number(formData.pacienteId);
     this.register.programId = Number(formData.programId);
     this.register.groupId = Number(formData.groupId);
     this.register.startDate = formData.startDate;
@@ -225,6 +253,11 @@ export class FormContratoModalComponent implements OnInit {
   }
 
   searchPaciente() {
-
+    this.isSearchPaciente = true;
   }
+
+  paginate(paginator: PaginatorState) {
+    this.pacienteService.patchState({ paginator });
+  }
+
 }

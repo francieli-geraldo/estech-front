@@ -1,31 +1,14 @@
-<div class="row mb-6">
-    <div class="col-lg-6 col-xl-4">
-        <div class="form-text pt-2">
-            <b>Grupos: </b> {{ form?.grupoId || "Todos" }}
-        </div>
-    </div>
-    <div class="col-lg-6 col-xl-4">
-        <div class="form-text pt-2">
-            <b>Situação: </b> {{ form?.status || "Todos" }}
-        </div>
-    </div>
-    <div class="col-lg-6 col-xl-4">
-        <div class="form-text pt-2">
-            <b>Semana: </b> {{ form?.initialDate || "Todas" }}
-        </div>
-    </div>
-</div>
-
 <table class="table" id="tablerelatorio">
     
     <thead class="bg-default">
         <tr>
-            <th colspan="9">Relatório de Evolução Total</th>
+            <th colspan="10">Relatório de Evolução Total</th>
         </tr>
         <tr>
             <th>Grupo</th>
             <th>Paciente</th>
             <th>Programa</th>
+            <th>Status</th>
             <th>% Postagens</th>
             <th>% Balança</th>
             <th>Evolução Total(kg)</th>
@@ -35,41 +18,17 @@
         </tr>
     </thead>
     <tbody>
-        <!-- <ng-container *ngFor="let dt of data">
-            <tr *ngFor="let paciente of dt.pacientes; let i = index" [attr.data-index]="i">
-                <td *ngIf="i == 0" [attr.rowspan]="dt.pacientes.length">{{dt.grupo}}</td>
-                <td>{{paciente.nome}}</td>
-                <td>{{paciente.programa}}</td>
-                <td>{{paciente.c}}</td>
-                <td>{{paciente.lm}}</td>
-                <td>{{paciente.a}}</td>
-                <td>{{paciente.lt}}</td>
-                <td>{{paciente.j}}</td>
-                <td>{{paciente.h}}</td>
-                <td>{{paciente.postagens}}</td>
-                <td>{{paciente.balanca}}</td>
-                <td>{{paciente.p_balanca}}</td>
-                <td>{{paciente.evolucao}}</td>
-                <td>{{paciente.objetivo}}</td>
-                <td>{{paciente.observacao}}</td>
-            </tr>
-            <tr style="background-color: #ebedf3;">
-                <td >Total</td>
-                <td></td>
-                <td></td>
-                <td>{{dt.total.c}}</td>
-                <td>{{dt.total.lm}}</td>
-                <td>{{dt.total.a}}</td>
-                <td>{{dt.total.lt}}</td>
-                <td>{{dt.total.j}}</td>
-                <td>{{dt.total.h}}</td>
-                <td>{{dt.total.postagens}}</td>
-                <td>{{dt.total.balanca}}</td>
-                <td>{{dt.total.p_balanca}}</td>
-                <td>{{dt.total.evolucao}}</td>
-                <td>{{dt.total.objetivo}}</td>
-                <td>{{dt.total.observacao}}</td>
-            </tr>
-        </ng-container> -->
+          <tr *ngFor="let report of service$ | async">
+            <td>{{ report.groupName }}</td>
+            <td>{{ report.patientName }}</td>
+            <td>{{ report.programName }}</td>
+            <td>{{ report.status }}</td>
+            <td>{{ report.postingPercentage }}</td>
+            <td>{{ report.balancePercentage }}</td>
+            <td>{{ report.evolutionPeriod }}</td>
+            <td>{{ report.goal }}</td>
+            <td>{{ report.goalPercentage }}</td>
+            <td>{{ report.notesTotal }}</td>
+          </tr>   
     </tbody>
 </table>

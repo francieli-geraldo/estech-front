@@ -126,11 +126,23 @@ export class RelatoriosComponent implements OnInit {
 
     this.reportForm.controls['report'].valueChanges.subscribe(value => {
       if (value == 'periodic-reports') {
+      
         this.reportForm.get('initialDate').setValidators(Validators.required)
         this.reportForm.get('finalDate').setValidators(Validators.required)
-      } else {
+        this.reportForm.get('status').setValidators(Validators.required)
+      
+      } else if(value == 'completed-report'){        
+        
+        this.reportForm.get('status').clearValidators();
         this.reportForm.get('initialDate').clearValidators();
         this.reportForm.get('finalDate').clearValidators();
+        
+      } else {
+        
+        this.reportForm.get('status').setValidators(Validators.required)
+        this.reportForm.get('initialDate').clearValidators();
+        this.reportForm.get('finalDate').clearValidators();
+
       }
       this.reportForm.patchValue({ groupId: '', initialDate: '', finalDate: '', status: '' });
       this.isDisabled = true;

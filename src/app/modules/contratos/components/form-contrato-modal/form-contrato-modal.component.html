@@ -9,196 +9,182 @@
       </ng-container>
     </div>
   </div>
+
   <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+
     <ng-container *ngIf="isLoading$ | async">
       <div class="overlay-layer bg-transparent">
         <div class="spinner spinner-lg spinner-success"></div>
       </div>
     </ng-container>
 
-    <div class="row align-middle mb-3 pl-2" *ngIf="!id">
-      <div class="col-lg-4">
-        <label class="h6"><b>Paciente:</b></label>
-        <button class="ml-2 btn btn-outline-primary " (click)="searchPaciente()">
-          <span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
-            class="svg-icon svg-icon-md ">
-          </span>
-          Procurar
-        </button>
-      </div>
-    </div>
-
-    <div class="row mb-6">
-      <div class="col-lg-6 col-xl-4 h6">
-        <div class="col-2 float-left pl-2 "><b>Nome:</b></div>
-        <div class="col-10 float-left">Francieli Ferreira da Silva Gonzaga</div>
-      </div>
-      <div class="col-lg-6 col-xl-4 h6">
-        <div class="col-2 float-left pl-2"><b>Celular:</b></div>
-        <div class="col-10 float-left">+55 41 98475-8333</div>
-      </div>
-      <div class="col-lg-6 col-xl-4 h6">
-        <div class="col-2 float-left pl-2"><b>CPF:</b></div>
-        <div class="col-10 float-left">119.088.059-86</div>
-      </div>
-    </div>
-
     <ng-container *ngIf="register">
+
+      <!-- EXIBINDO DADOS FORMULARIO -->
+      <div class="row mb-6">
+        <div class="col-lg-6 col-xl-4 h6">
+          <div class="col-2 float-left pl-2 "><b>Nome:</b></div>
+          <div class="col-10 float-left">Francieli Ferreira da Silva Gonzaga</div>
+        </div>
+        <div class="col-lg-6 col-xl-4 h6">
+          <div class="col-2 float-left pl-2"><b>Celular:</b></div>
+          <div class="col-10 float-left">+55 41 98475-8333</div>
+        </div>
+        <div class="col-lg-6 col-xl-4 h6">
+          <div class="col-2 float-left pl-2"><b>CPF:</b></div>
+          <div class="col-10 float-left">119.088.059-86</div>
+        </div>
+      </div>
+
+
       <form action="#" class="form form-label-right" [formGroup]="formContrato">
-        <div class="form-group row">
 
-          <div class="col-lg-3">
-            <label>Data de início</label>
-            <div class="input-group input-group-solid">
-              <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
-                autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #startDate="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('startDate')" [class.is-valid]="isControlValid('startDate')"
-                formControlName="startDate" readonly="true" [minDate]="minDate" [disabled]="!!id" />
-              <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
-                <span class="input-group-text">
-                  <i class="text-dark-50 flaticon-calendar"></i>
-                </span>
-              </div>
-            </div>
+        <!-- LABEL, BUTTON AND INPUT PACIENTES-->
+        <div class="form-group row align-middle mb-3 pl-2" *ngIf="!id">          
+          <div class="col-lg-2 col-md-2">
+            <label class="h6"><b>Paciente:</b></label>            
           </div>
 
-          <div class="col-lg-3">
-            <label>Data de conclusão</label>
-            <div class="input-group input-group-solid">
-              <input type="text" name="hiringDate" class="form-control form-control-lg form-control-solid"
-                autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #hiringDate="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('hiringDate')" [class.is-valid]="isControlValid('hiringDate')"
-                formControlName="hiringDate" readonly="true" [minDate]="minDateConclusao" />
-              <div class="input-group-append" (click)="isDisabled() ? false : hiringDate.toggle()">
-                <span class="input-group-text">
-                  <i class="text-dark-50 flaticon-calendar"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3">
-            <label>Programa</label>
-            <select class="form-control form-control-lg form-control-solid" name="programId"
-              [class.is-invalid]="isControlInvalid('programId')" formControlName="programId">              
-              <option  value="0" disabled>Selecione</option>
-              <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">{{register.name}}</option>
-            </select>
-          </div>
-          
-          <div class="col-lg-3">
-            <label>Grupo</label>
-            <select class="form-control form-control-lg form-control-solid" name="groupId"
-              [class.is-invalid]="isControlInvalid('groupId')" formControlName="groupId">
-              <option value="0" disabled>Selecione</option>
-              <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}</option>
-            </select>
+          <button class="ml-2 btn btn-outline-primary " (click)="searchPaciente()" [hidden]="isSearchPaciente">
+            <span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
+              class="svg-icon svg-icon-md ">
+            </span>
+            Procurar
+          </button>
+
+          <div class="col-lg-10  col-md-8" [hidden]="!isSearchPaciente">
+            <input type="text" class="form-control" [formControlName]="pacienteId" />
           </div>
         </div>
 
-        <div class="form-group row">
-          <div class="col-lg-3">
-            <label class="form-label">Peso Inícial</label>
-            <input type="number" class="form-control form-control-lg form-control-solid" name="startingWeight"
-              placeholder="Peso Inícial" autocomplete="off" [class.is-invalid]="isControlInvalid('startingWeight')"
-              [class.is-valid]="isControlValid('startingWeight')" formControlName="startingWeight"
-              (change)="sumObjetivo()" />
-          </div>
+        <!-- FORM PACIENTES-->
+        <div class="col-lg-12" [hidden]="isSearchPaciente">
+          <div class="form-group row">
 
-          <div class="col-lg-3">
-            <label class="form-label">Meta</label>
-            <input type="number" class="form-control form-control-lg form-control-solid" name="goal" placeholder="Meta"
-              autocomplete="off" [class.is-invalid]="isControlInvalid('goal')" [class.is-valid]="isControlValid('goal')"
-              formControlName="goal" (change)="sumObjetivo()" />
+            <div class="col-lg-3">
+              <label>Data de início</label>
+              <div class="input-group input-group-solid">
+                <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #startDate="ngbDatepicker"
+                  [class.is-invalid]="isControlInvalid('startDate')" [class.is-valid]="isControlValid('startDate')"
+                  formControlName="startDate" readonly="true" [minDate]="minDate" [disabled]="!!id" />
+                <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
+                  <span class="input-group-text">
+                    <i class="text-dark-50 flaticon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-3">
+              <label>Data de conclusão</label>
+              <div class="input-group input-group-solid">
+                <input type="text" name="hiringDate" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #hiringDate="ngbDatepicker"
+                  [class.is-invalid]="isControlInvalid('hiringDate')" [class.is-valid]="isControlValid('hiringDate')"
+                  formControlName="hiringDate" readonly="true" [minDate]="minDateConclusao" />
+                <div class="input-group-append" (click)="isDisabled() ? false : hiringDate.toggle()">
+                  <span class="input-group-text">
+                    <i class="text-dark-50 flaticon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-3">
+              <label>Programa</label>
+              <select class="form-control form-control-lg form-control-solid" name="programId"
+                [class.is-invalid]="isControlInvalid('programId')" formControlName="programId">
+                <option value="0" disabled>Selecione</option>
+                <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">{{register.name}}
+                </option>
+              </select>
+            </div>
+  
+            <div class="col-lg-3">
+              <label>Grupo</label>
+              <select class="form-control form-control-lg form-control-solid" name="groupId"
+                [class.is-invalid]="isControlInvalid('groupId')" formControlName="groupId">
+                <option value="0" disabled>Selecione</option>
+                <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}
+                </option>
+              </select>
+            </div>
           </div>
-          
-          <div class="col-lg-3">
-            <label class="form-label">Objetivo</label>
-            <input type="number" class="form-control form-control-lg form-control-solid" name="objetivo"
-              placeholder="Objetivo" autocomplete="off" formControlName="objetivo" value="{{sumObjetivo()}}" disabled />
+  
+          <div class="form-group row">
+            <div class="col-lg-3">
+              <label class="form-label">Peso Inícial</label>
+              <input type="number" class="form-control form-control-lg form-control-solid" name="startingWeight"
+                placeholder="Peso Inícial" autocomplete="off" [class.is-invalid]="isControlInvalid('startingWeight')"
+                [class.is-valid]="isControlValid('startingWeight')" formControlName="startingWeight"
+                (change)="sumObjetivo()" />
+            </div>
+  
+            <div class="col-lg-3">
+              <label class="form-label">Meta</label>
+              <input type="number" class="form-control form-control-lg form-control-solid" name="goal" placeholder="Meta"
+                autocomplete="off" [class.is-invalid]="isControlInvalid('goal')" [class.is-valid]="isControlValid('goal')"
+                formControlName="goal" (change)="sumObjetivo()" />
+            </div>
+  
+            <div class="col-lg-3">
+              <label class="form-label">Objetivo</label>
+              <input type="number" class="form-control form-control-lg form-control-solid" name="objetivo"
+                placeholder="Objetivo" autocomplete="off" formControlName="objetivo" value="{{sumObjetivo()}}" disabled />
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <div class="col-lg-12">
+              <label class="form-label">Observação</label>
+              <textarea type="text" class="form-control form-control-lg form-control-solid" name="notes"
+                placeholder="Observação" autocomplete="off" [class.is-invalid]="isControlInvalid('notes')"
+                [class.is-valid]="isControlValid('notes')" formControlName="notes"></textarea>
+            </div>
           </div>
         </div>
+        
 
         
-        <div class="form-group row">
-          <div class="col-lg-12">
-            <label class="form-label">Observação</label>
-            <textarea type="text" class="form-control form-control-lg form-control-solid" name="notes"
-              placeholder="Observação" autocomplete="off" [class.is-invalid]="isControlInvalid('notes')"
-              [class.is-valid]="isControlValid('notes')" formControlName="notes"></textarea>
-            </div>
-          </div>
+        <!-- LISTA PACIENTES -->
 
-        <!-- <div class="separator separator-dashed my-8"></div>
+        <div class="table-responsive angular-bootstrap-table" [hidden]="!isSearchPaciente">
+          <table class="table table-head-custom table-vertical-center overflow-hidden">
+            <thead>
+              <th class="selection-cell-header"></th>
+              <th> NOME </th>
+              <th> CELULAR </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let register of pacienteService.items$ | async">
+                <td class="selection-cell">
+                  <label class="checkbox checkbox-single">
+                    <input type="checkbox" 
+                      (click)="groupingPaciente.clearRows([]) && groupingPaciente.selectRow(register.id)"
+                      [checked]="groupingPaciente.clearRows([]) && groupingPaciente.isRowSelected(register.id)" />
+                    <span></span>
+                  </label>
+                </td>
+                <td>{{ register.name }}</td>
+                <td>{{ register.phone }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" 
+        [paginator]="paginatorPaciente" 
+        [isLoading]="isLoading" 
+        (paginate)="paginate($event)"></app-paginator>
+        
 
-        <div class="form-group row">  
-          <div class="col-lg-1">      
-            <label>Plus ?</label>     
-            <span class="switch switch-outline switch-icon switch-success">
-              <label>
-                <input type="checkbox" checked="checked"  name="plus"
-                [class.is-invalid]="isControlInvalid('plus')" formControlName="plus"/>
-                <span></span>
-              </label>
-            </span>
-          </div>
-
-          <div class="col-lg-3">
-            <label>Data de contratação plus</label>
-            <div class="input-group input-group-solid">
-              <input type="text" 
-                name="dt_contratacao_plus" 
-                class="form-control form-control-lg form-control-solid"
-                autocomplete="off" 
-                placeholder="dd/mm/yyyy" ngbDatepicker 
-                #dt_contratacao_plus="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('dt_contratacao_plus')" 
-                [class.is-valid]="isControlValid('dt_contratacao_plus')"
-                formControlName="dt_contratacao_plus" 
-                readonly="true"
-                value="{{!!formContrato.value.plus ? register.dt_contratacao_plus : '' }}"
-                [disabled]="!!!formContrato.value.plus"
-              >
-              <div class="input-group-append" (click)="!!formContrato.value.plus ? dt_contratacao_plus.toggle() : false">
-                <span class="input-group-text">
-                  <i class="text-dark-50 flaticon-calendar"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3">
-            <label>Data de conclusão plus</label>
-            <div class="input-group input-group-solid">
-              <input type="text" 
-                name="dt_cancelamento_plus" 
-                class="form-control form-control-lg form-control-solid"
-                autocomplete="off" 
-                placeholder="dd/mm/yyyy" ngbDatepicker 
-                #dt_cancelamento_plus="ngbDatepicker"
-                [class.is-invalid]="isControlInvalid('dt_cancelamento_plus')" 
-                [class.is-valid]="isControlValid('dt_cancelamento_plus')"
-                formControlName="dt_cancelamento_plus" 
-                readonly="true"
-                value="{{!!formContrato.value.plus ? register.dt_cancelamento_plus : '' }}"
-                [disabled]="!!!formContrato.value.plus"
-              />
-              <div class="input-group-append" (click)="!!formContrato.value.plus ? dt_cancelamento_plus.toggle() : false">
-                <span class="input-group-text">
-                  <i class="text-dark-50 flaticon-calendar"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-
-        </div> -->
 
       </form>
     </ng-container>
   </div>
+  
   <div class="modal-footer">
-    
+
     <ng-container *ngIf="!!id">
       <button type="button" class="btn btn-danger btn-elevate mr-2" (click)="modal.dismiss()">
         Excluir

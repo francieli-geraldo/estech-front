@@ -4,6 +4,9 @@ import { Programa } from "./programa.model";
 
 export interface Contrato extends BaseModel {
   id: number;
+  
+  pacienteId: number;
+  
   program: Programa;
   group: Grupo;
   programId: number;  

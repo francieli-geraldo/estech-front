@@ -34,7 +34,7 @@ export class RelatorioSemanalComponent implements OnInit {
 
   ngOnInit(){
    
-    const report = this.form.report;    
+    const report = 'periodic';    
     const params = Object.assign({}, this.form);
 
     if(params['status'] == "ALL"){

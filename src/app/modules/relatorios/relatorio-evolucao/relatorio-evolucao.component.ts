@@ -21,11 +21,14 @@ export class RelatorioEvolucaoComponent implements OnInit {
 
   ngOnInit(){
    
-    const report = this.form.report;    
+    const report = 'total-evolution';    
     const params = Object.assign({}, this.form);
+    if(params['status'] == "ALL"){ delete params["status"] }
     delete params["report"];
+    delete params["initialDate"];
+    delete params["finalDate"];
 
-    this.service$ = this.reportsService.getReport({ report, params });
+    this.service$ = this.reportsService.getReport({ report, params })
 
   }
 }

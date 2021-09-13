@@ -13,14 +13,14 @@ export class ReportsService extends TableService<Relatorio> implements OnDestroy
   
   private loading = new BehaviorSubject<boolean>(false);
 
-  API_URL = `${environment.apiUrl}/`;
+  API_URL = `${environment.apiUrl}/reports`;
   constructor(@Inject(HttpClient) http, ) {
     super(http);
   }
     
   getReport( { report, params }  ): Observable<any> {    
     this.loading.next(false);
-    return this.http.get(`${this.API_URL}${report}`, { params } ).pipe( 
+    return this.http.get(`${this.API_URL}/${report}`, { params } ).pipe( 
       map((response) => {        
         return response['content'];
       }),     

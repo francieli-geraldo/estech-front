@@ -21,12 +21,14 @@ export class RelatorioConcluidoComponent implements OnInit {
 
   ngOnInit(){
    
-    const report = this.form.report;    
+    const report = 'periodic';    
     const params = Object.assign({}, this.form);
+    params['status'] = 'COMPLETED'
     delete params["report"];
+    delete params["initialDate"];
+    delete params["finalDate"];
 
-    this.service$ = this.reportsService.getReport({ report, params });
-
+    this.service$ = this.reportsService.getReport({ report, params })
   }
 
 }

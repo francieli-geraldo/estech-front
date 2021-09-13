@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {InlineSVGModule} from 'ng-inline-svg';
-import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {CRUDTableModule} from '../../_metronic/shared/crud-table';
 import {WidgetsModule} from '../../_metronic/partials/content/widgets/widgets.module';
 import {DropdownMenusModule} from '../../_metronic/partials/content/dropdown-menus/dropdown-menus.module';
@@ -39,7 +39,8 @@ import { ListContratosComponent } from './components/list-contratos/list-contrat
     InlineSVGModule,
     CRUDTableModule,
     NgbModalModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    NgbTypeaheadModule
   ],
   entryComponents: [
     FormContratoModalComponent,

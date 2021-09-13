@@ -36,6 +36,7 @@
                         <div [hidden]="isShowReport">
                             <div class="form-group m-0">
                                 <div class="row pt-6">
+                                    <!-- periodic -->
                                     <div class="col-lg-4">
                                         <label class="option">
                                             <span class="option-control">
@@ -44,7 +45,7 @@
                                                     <span></span>
                                                 </span>
                                             </span>
-                                            <span class="option-label">
+                                            <span class="option-label" style="cursor: pointer;">
                                                 <span class="option-head">
                                                     <span class="option-title">
                                                         Periódico
@@ -56,6 +57,7 @@
                                             </span>
                                         </label>
                                     </div>
+                                    <!-- full -->
                                     <div class="col-lg-4">
                                         <label class="option">
                                             <span class="option-control">
@@ -65,7 +67,7 @@
                                                     <span></span>
                                                 </span>
                                             </span>
-                                            <span class="option-label">
+                                            <span class="option-label" style="cursor: pointer;">
                                                 <span class="option-head">
                                                     <span class="option-title">
                                                         Evolução total
@@ -78,6 +80,7 @@
                                             </span>
                                         </label>
                                     </div>
+                                    <!-- completed -->
                                     <div class="col-lg-4">
                                         <label class="option">
                                             <span class="option-control">
@@ -86,7 +89,7 @@
                                                     <span></span>
                                                 </span>
                                             </span>
-                                            <span class="option-label">
+                                            <span class="option-label" style="cursor: pointer;">
                                                 <span class="option-head">
                                                     <span class="option-title">
                                                         Concluídos
@@ -126,16 +129,18 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-4">
-                                    <label class="form-text text-muted"><b>Situação</b></label>
-                                    <select class="form-control" name="status" placeholder="Selecione" autocomplete="off" formControlName="status">
-                                        <option value="" disabled selected>Selecione</option>
-                                        <option value="ALL">Todos</option>
-                                        <option value="ACTIVE">Ativo</option>
-                                        <option value="CANCELED">Cancelado</option>                                        
-                                        <option value="COMPLETED">Concluído</option>
-                                    </select>
-                                </div>
+                                <ng-container *ngIf="this.reportForm.value.report == 'periodic-reports' || this.reportForm.value.report == 'full-report'">
+                                    <div class="col-lg-4">
+                                        <label class="form-text text-muted"><b>Situação</b></label>
+                                        <select class="form-control" name="status" placeholder="Selecione" autocomplete="off" formControlName="status">
+                                            <option value="" disabled selected>Selecione</option>
+                                            <option value="ALL">Todos</option>
+                                            <option value="ACTIVE">Ativo</option>
+                                            <option value="CANCELED">Cancelado</option>                                        
+                                            <option value="COMPLETED">Concluído</option>
+                                        </select>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
