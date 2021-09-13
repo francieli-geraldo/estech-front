@@ -32,32 +32,25 @@
         </div>
       </div>
 
-       <!-- LABEL INPUT PACIENTE -->
-       <div class="form-group row align-middle mb-3 pl-2" *ngIf="!id">
-
-        <div class="col-lg-2 col-md-2">
-          <label class="h6"><b>Paciente:</b></label>
-        </div>
-        
-        <div class="col-lg-10  col-md-8">
-          <div class="col-lg">
-            <input type="text" 
-              class="form-control" 
-              placeholder="Pesquisar" 
-              [ngbTypeahead]="search"                     
-              [resultFormatter]="resultFormatBandListValue"
-              [inputFormatter]="inputFormatBandListValue"
-              [(ngModel)]="pacienteIdContrato"
-            />
-          </div>
-        </div>
-      </div>
-
       <!-- FORM CONTRATO-->
       <form action="#" class="form form-label-right" [formGroup]="formContrato">
         <div class="col-lg-12">
           <div class="form-group row">
-            <div class="col-lg-3">
+            <div class="col-lg-12">
+              <label>Paciente</label>
+              <div class="input-group input-group-solid">
+                <input type="text" 
+                  class="form-control form-control-lg form-control-solid" 
+                  placeholder="Pesquisar" 
+                  [ngbTypeahead]="search"                     
+                  [resultFormatter]="resultFormatBandListValue"
+                  [inputFormatter]="inputFormatBandListValue"
+                  [(ngModel)]="pacienteIdContrato"
+                />
+              </div>
+            </div>
+
+            <div class="col-lg-6">
               <label>Data de início</label>
               <div class="input-group input-group-solid">
                 <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
@@ -72,7 +65,7 @@
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>Data de conclusão</label>
               <div class="input-group input-group-solid">
                 <input type="text" name="hiringDate" class="form-control form-control-lg form-control-solid"
@@ -87,7 +80,7 @@
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>Programa</label>
               <select class="form-control form-control-lg form-control-solid" name="programId"
                 [class.is-invalid]="isControlInvalid('programId')" formControlName="programId">
@@ -98,7 +91,7 @@
               </select>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>Grupo</label>
               <select class="form-control form-control-lg form-control-solid" name="groupId"
                 [class.is-invalid]="isControlInvalid('groupId')" formControlName="groupId">
@@ -110,7 +103,7 @@
           </div>
 
           <div class="form-group row">
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label class="form-label">Peso Inícial</label>
               <input type="number" class="form-control form-control-lg form-control-solid" name="startingWeight"
                 placeholder="Peso Inícial" autocomplete="off" [class.is-invalid]="isControlInvalid('startingWeight')"
@@ -118,14 +111,14 @@
                 (change)="sumObjetivo()" />
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label class="form-label">Meta</label>
               <input type="number" class="form-control form-control-lg form-control-solid" name="goal"
                 placeholder="Meta" autocomplete="off" [class.is-invalid]="isControlInvalid('goal')"
                 [class.is-valid]="isControlValid('goal')" formControlName="goal" (change)="sumObjetivo()" />
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label class="form-label">Objetivo</label>
               <input type="number" class="form-control form-control-lg form-control-solid" name="objetivo"
                 placeholder="Objetivo" autocomplete="off" formControlName="objetivo" value="{{sumObjetivo()}}"
