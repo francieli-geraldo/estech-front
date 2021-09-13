@@ -63,7 +63,9 @@ export class PacientesComponent
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;
     this.sorting = this.service.sorting;
-    const sb = this.service.isLoading$.subscribe(res => this.isLoading = res);
+    const sb = this.service.isLoading$.subscribe(
+      (res) => (this.isLoading = res)
+    );
     this.subscriptions.push(sb);
   }
 

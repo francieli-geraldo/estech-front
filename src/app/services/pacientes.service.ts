@@ -16,16 +16,17 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
   }
 
   // READ
-  find(tableState): Observable<TableResponseModel<Paciente>> {
-    return this.http.get<Paciente[]>(this.API_URL).pipe(
+  find(params): Observable<TableResponseModel<Paciente>> {
+    return this.http.get<Paciente[]>(this.API_URL, { params }).pipe(
       map((response: Paciente[]) => {        
         return {
           items: response['content'],
-          total: response['totalElements']  
+          total: response['totalElements']
         };
       })
     );
   }
+
   
   findByDescriptionPaciente( search ): Observable<any> {
     return this.http.get(`${this.API_URL}/summaries?search=${search}`).pipe( 
