@@ -26,6 +26,17 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
       })
     );
   }
+  
+  findByDescriptionPaciente( search ): Observable<any> {
+    return this.http.get(`${this.API_URL}/summaries?search=${search}`).pipe( 
+      map((response: any) => {                
+        return response?.content || []
+      }),
+      catchError(err => {
+        return []
+      })
+    )
+  }
  
   getById(id : number): Observable<any>{
     return this.http.get<Paciente>(`${this.API_URL}/${id}`).pipe(

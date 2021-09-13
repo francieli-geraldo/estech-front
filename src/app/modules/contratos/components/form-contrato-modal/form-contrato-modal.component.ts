@@ -20,19 +20,16 @@ import {
 } from "src/app/_metronic/core";
 import { GroupingState, PaginatorState } from "src/app/_metronic/shared/crud-table";
 
-const EMPTY_CONTRATO: any = {
-  
+const EMPTY_CONTRATO: any = {  
   id: undefined,
   programId: 0,
   groupId: 0,
   pacienteId: 0, 
   startingWeight: 0,
   goal: 0,
-
   hiringDate: "",
   startDate: "",
-  notes: "" 
-   
+  notes: ""
 };
 
 @Component({
@@ -55,13 +52,15 @@ export class FormContratoModalComponent implements OnInit {
   minDateConclusao;
   
   isLoading$;
+  
   formContrato: FormGroup;
-  isSearchPaciente: boolean = false;
+  searchGroup: FormGroup;
   
   isLoading: boolean;
   paginatorPaciente: PaginatorState;
   groupingPaciente: GroupingState;
 
+  pacienteIdContrato;
   
   constructor(
     public pacienteService: PacientesService,
@@ -75,22 +74,33 @@ export class FormContratoModalComponent implements OnInit {
   formatMatches = (value: any) => value.name || '';
 
   ngOnInit(): void {
-    
-    this.pacienteService.fetch();
-    this.groupingPaciente = this.pacienteService.grouping;
-    this.paginatorPaciente = this.pacienteService.paginator;
-
+    this.pacienteIdContrato = 0;
     this.programasService.fetch();
     this.gruposService.fetch();
-
     this.minDate = this.minDatepicker(new Date());
     this.isLoading$ = this.registersService.isLoading$;
-
     this.loadRegister();
 
-    this.formContrato.valueChanges.subscribe((val)=>{
-      this.pacienteService.findByDescription(val)
-    })
+  }
+
+  resultFormatBandListValue(value: any) {            
+    return `${value?.name} - ${value?.phone || '*'}` ;
+  } 
+
+  inputFormatBandListValue(value: any)   {
+    if(value){
+      return `${value?.name} - ${value?.phone || '*'}`;
+    }else{
+      return ''
+    }
+  }
+
+  search = (text$: Observable<string>) => {
+    return text$.pipe(      
+        debounceTime(200), 
+        distinctUntilChanged(),        
+        switchMap(val => this.pacienteService.findByDescriptionPaciente(val))          
+    );                 
   }
 
   loadRegister() {
@@ -102,8 +112,8 @@ export class FormContratoModalComponent implements OnInit {
 
   loadForm() {    
     this.formContrato = this.fb.group({      
-      pacienteId: [
-        this.register.pacienteId,
+      patientId: [
+        this.register.patientId,
         Validators.compose([Validators.nullValidator]),
       ],
       programId: [
@@ -138,6 +148,10 @@ export class FormContratoModalComponent implements OnInit {
         Validators.compose([Validators.nullValidator]),
       ],           
       notes: [
+        this.register.notes,
+        Validators.compose([Validators.nullValidator]),
+      ],
+      objetivo: [
         this.register.notes,
         Validators.compose([Validators.nullValidator]),
       ]
@@ -190,7 +204,7 @@ export class FormContratoModalComponent implements OnInit {
 
   private prepareRegister() {
     const formData = this.formContrato.value;    
-    this.register.pacienteId = Number(formData.pacienteId);
+    this.register.patientId = Number(this.pacienteIdContrato.id);
     this.register.programId = Number(formData.programId);
     this.register.groupId = Number(formData.groupId);
     this.register.startDate = formData.startDate;
@@ -250,10 +264,6 @@ export class FormContratoModalComponent implements OnInit {
       month: Number(String(day.getMonth() + 1).padStart(2, "0")),
       day: Number(String(day.getDate()).padStart(2, "0"))
     };
-  }
-
-  searchPaciente() {
-    this.isSearchPaciente = true;
   }
 
   paginate(paginator: PaginatorState) {

@@ -32,11 +32,11 @@
           Informações do Paciente
         </a>
       </li>
-      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.CONTRATOS_TAB)">
+      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.CONTRATOS_TAB)" *ngIf="id != 0">
         <a class="nav-link" data-toggle="tab" role="button" [attr.aria-selected]="activeTabId === tabs.CONTRATOS_TAB"
           [class.active]="activeTabId === tabs.CONTRATOS_TAB"> Contratos</a>
       </li>
-      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.LANCAMENTOS_TAB)">
+      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.LANCAMENTOS_TAB)" *ngIf="id != 0">
         <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.LANCAMENTOS_TAB"
           [class.active]="activeTabId === tabs.LANCAMENTOS_TAB">Lançamentos diários</a>
       </li>
@@ -65,15 +65,12 @@
             <div class="col-lg-6">
               <label>Data de nascimento</label>
               <div class="input-group input-group-solid">
-                <input type="text" name="birthDate" class="form-control form-control-lg form-control-solid"
-                  autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #d="ngbDatepicker"
-                  [class.is-invalid]="isControlInvalid('birthDate')"
-                  [class.is-valid]="isControlValid('birthDate')" formControlName="birthDate" readonly="true" />
-                <div class="input-group-append" (click)="d.toggle()">
-                  <span class="input-group-text">
-                    <i class="text-dark-50 flaticon-calendar"></i>
-                  </span>
-                </div>
+                <input type="date" 
+                  name="birthDate" 
+                  class="form-control form-control-lg form-control-solid"
+                  
+                  placeholder="dd/mm/yyyy" 
+                  formControlName="birthDate"/>
               </div>
             </div>
           </div>
@@ -102,11 +99,11 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="activeTabId === tabs.CONTRATOS_TAB">
+    <ng-container *ngIf="id != 0 && activeTabId === tabs.CONTRATOS_TAB">
       <app-list-contratos [paciente]="paciente.id"></app-list-contratos>
     </ng-container>
 
-    <ng-container *ngIf="activeTabId === tabs.LANCAMENTOS_TAB">
+    <ng-container *ngIf="id != 0 && activeTabId === tabs.LANCAMENTOS_TAB">
       <app-list-lancamentos [paciente]="paciente.id"></app-list-lancamentos>
     </ng-container>
 

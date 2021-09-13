@@ -20,8 +20,8 @@
 
     <ng-container *ngIf="register">
 
-      <!-- EXIBINDO DADOS FORMULARIO -->
-      <div class="row mb-6">
+      <!-- EXIBINDO DADOS PACIENTE -->
+      <div class="row mb-6" *ngIf="!!id">
         <div class="col-lg-6 col-xl-4 h6">
           <div class="col-2 float-left pl-2 "><b>Nome:</b></div>
           <div class="col-10 float-left">Francieli Ferreira da Silva Gonzaga</div>
@@ -30,37 +30,33 @@
           <div class="col-2 float-left pl-2"><b>Celular:</b></div>
           <div class="col-10 float-left">+55 41 98475-8333</div>
         </div>
-        <div class="col-lg-6 col-xl-4 h6">
-          <div class="col-2 float-left pl-2"><b>CPF:</b></div>
-          <div class="col-10 float-left">119.088.059-86</div>
+      </div>
+
+       <!-- LABEL INPUT PACIENTE -->
+       <div class="form-group row align-middle mb-3 pl-2" *ngIf="!id">
+
+        <div class="col-lg-2 col-md-2">
+          <label class="h6"><b>Paciente:</b></label>
+        </div>
+        
+        <div class="col-lg-10  col-md-8">
+          <div class="col-lg">
+            <input type="text" 
+              class="form-control" 
+              placeholder="Pesquisar" 
+              [ngbTypeahead]="search"                     
+              [resultFormatter]="resultFormatBandListValue"
+              [inputFormatter]="inputFormatBandListValue"
+              [(ngModel)]="pacienteIdContrato"
+            />
+          </div>
         </div>
       </div>
 
-
+      <!-- FORM CONTRATO-->
       <form action="#" class="form form-label-right" [formGroup]="formContrato">
-
-        <!-- LABEL, BUTTON AND INPUT PACIENTES-->
-        <div class="form-group row align-middle mb-3 pl-2" *ngIf="!id">          
-          <div class="col-lg-2 col-md-2">
-            <label class="h6"><b>Paciente:</b></label>            
-          </div>
-
-          <button class="ml-2 btn btn-outline-primary " (click)="searchPaciente()" [hidden]="isSearchPaciente">
-            <span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
-              class="svg-icon svg-icon-md ">
-            </span>
-            Procurar
-          </button>
-
-          <div class="col-lg-10  col-md-8" [hidden]="!isSearchPaciente">
-            <input type="text" class="form-control" [formControlName]="pacienteId" />
-          </div>
-        </div>
-
-        <!-- FORM PACIENTES-->
-        <div class="col-lg-12" [hidden]="isSearchPaciente">
+        <div class="col-lg-12">
           <div class="form-group row">
-
             <div class="col-lg-3">
               <label>Data de início</label>
               <div class="input-group input-group-solid">
@@ -75,7 +71,7 @@
                 </div>
               </div>
             </div>
-  
+
             <div class="col-lg-3">
               <label>Data de conclusão</label>
               <div class="input-group input-group-solid">
@@ -90,17 +86,18 @@
                 </div>
               </div>
             </div>
-  
+
             <div class="col-lg-3">
               <label>Programa</label>
               <select class="form-control form-control-lg form-control-solid" name="programId"
                 [class.is-invalid]="isControlInvalid('programId')" formControlName="programId">
                 <option value="0" disabled>Selecione</option>
-                <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">{{register.name}}
+                <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">
+                  {{register.name}}
                 </option>
               </select>
             </div>
-  
+
             <div class="col-lg-3">
               <label>Grupo</label>
               <select class="form-control form-control-lg form-control-solid" name="groupId"
@@ -111,7 +108,7 @@
               </select>
             </div>
           </div>
-  
+
           <div class="form-group row">
             <div class="col-lg-3">
               <label class="form-label">Peso Inícial</label>
@@ -120,21 +117,22 @@
                 [class.is-valid]="isControlValid('startingWeight')" formControlName="startingWeight"
                 (change)="sumObjetivo()" />
             </div>
-  
+
             <div class="col-lg-3">
               <label class="form-label">Meta</label>
-              <input type="number" class="form-control form-control-lg form-control-solid" name="goal" placeholder="Meta"
-                autocomplete="off" [class.is-invalid]="isControlInvalid('goal')" [class.is-valid]="isControlValid('goal')"
-                formControlName="goal" (change)="sumObjetivo()" />
+              <input type="number" class="form-control form-control-lg form-control-solid" name="goal"
+                placeholder="Meta" autocomplete="off" [class.is-invalid]="isControlInvalid('goal')"
+                [class.is-valid]="isControlValid('goal')" formControlName="goal" (change)="sumObjetivo()" />
             </div>
-  
+
             <div class="col-lg-3">
               <label class="form-label">Objetivo</label>
               <input type="number" class="form-control form-control-lg form-control-solid" name="objetivo"
-                placeholder="Objetivo" autocomplete="off" formControlName="objetivo" value="{{sumObjetivo()}}" disabled />
+                placeholder="Objetivo" autocomplete="off" formControlName="objetivo" value="{{sumObjetivo()}}"
+                disabled />
             </div>
           </div>
-  
+
           <div class="form-group row">
             <div class="col-lg-12">
               <label class="form-label">Observação</label>
@@ -144,45 +142,13 @@
             </div>
           </div>
         </div>
-        
 
-        
-        <!-- LISTA PACIENTES -->
-
-        <div class="table-responsive angular-bootstrap-table" [hidden]="!isSearchPaciente">
-          <table class="table table-head-custom table-vertical-center overflow-hidden">
-            <thead>
-              <th class="selection-cell-header"></th>
-              <th> NOME </th>
-              <th> CELULAR </th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let register of pacienteService.items$ | async">
-                <td class="selection-cell">
-                  <label class="checkbox checkbox-single">
-                    <input type="checkbox" 
-                      (click)="groupingPaciente.clearRows([]) && groupingPaciente.selectRow(register.id)"
-                      [checked]="groupingPaciente.clearRows([]) && groupingPaciente.isRowSelected(register.id)" />
-                    <span></span>
-                  </label>
-                </td>
-                <td>{{ register.name }}</td>
-                <td>{{ register.phone }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" 
-        [paginator]="paginatorPaciente" 
-        [isLoading]="isLoading" 
-        (paginate)="paginate($event)"></app-paginator>
-        
+      </form>    
 
 
-      </form>
     </ng-container>
   </div>
-  
+
   <div class="modal-footer">
 
     <ng-container *ngIf="!!id">

@@ -50,7 +50,6 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
   loadPaciente() {
     const sb = this.route.paramMap.pipe(
       switchMap(params => {
-        // get id from URL
         this.id = Number(params.get('id'));
         if (this.id || this.id > 0) {
           return this.pacientesService.getItemById(this.id);
