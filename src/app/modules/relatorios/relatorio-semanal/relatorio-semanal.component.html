@@ -1,27 +1,10 @@
 <section  [@fadeInOut]>
-    <div class="row mb-6">
-        <div class="col-lg-6 col-xl-4">
-            <div class="form-text pt-2">
-                <b>Grupos: </b> {{ form?.grupoId || "Todos" }}
-            </div>
-        </div>
-        <div class="col-lg-6 col-xl-4">
-            <div class="form-text pt-2">
-                <b>Situação: </b> {{ form?.status || "Todos" }}
-            </div>
-        </div>
-        <div class="col-lg-6 col-xl-4">
-            <div class="form-text pt-2">
-                <b>Semana: </b> {{ form?.initialDate || "Todas" }}
-            </div>
-        </div>
-    </div>
-    
+        
     <table class="table" id="tablerelatorio">
         
         <thead class="bg-default">
             <tr>
-                <th colspan="15">Relatório Semanal</th>
+                <th colspan="15">Relatório Semanal - {{ this.form.initialDate | date:'dd/MM/yyyy' }} - {{ this.form.finalDate | date:'dd/MM/yyyy' }} </th>
             </tr>
             <tr>
                 <th>Grupo</th>

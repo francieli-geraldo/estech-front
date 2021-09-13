@@ -40,6 +40,10 @@ export class RelatorioSemanalComponent implements OnInit {
     if(params['status'] == "ALL"){
       delete params["status"];
     }
+
+    if(!params['patientId']){ delete params['patientId'] }
+
+
     delete params["report"];
 
     this.service$ = this.reportsService.getReport({ report, params });

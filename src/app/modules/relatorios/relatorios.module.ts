@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RelatoriosRoutingModule } from './relatorios-routing.module';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CRUDTableModule } from 'src/app/_metronic/shared/crud-table';
-import { NgbDatepickerModule, NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { RelatorioSemanalComponent } from './relatorio-semanal/relatorio-semanal.component';
 import { RelatorioEvolucaoComponent } from './relatorio-evolucao/relatorio-evolucao.component';
 import { RelatorioConcluidoComponent } from './relatorio-concluido/relatorio-concluido.component';
@@ -33,7 +33,8 @@ import { InputsModule } from 'src/app/_metronic/shared/inputs';
     NgbModalModule,
     NgbDatepickerModule,
     NgbDropdownModule,
-    ExportAsModule
+    ExportAsModule,
+    NgbTypeaheadModule
   ],
 })
 export class RelatoriosModule { }

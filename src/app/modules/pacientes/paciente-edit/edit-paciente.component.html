@@ -32,14 +32,14 @@
           Informações do Paciente
         </a>
       </li>
-      <li class="nav-item cursor-pointer" (click)="changeTab(tabs.CONTRATOS_TAB)" *ngIf="id != 0">
+      <!-- <li class="nav-item cursor-pointer" (click)="changeTab(tabs.CONTRATOS_TAB)" *ngIf="id != 0">
         <a class="nav-link" data-toggle="tab" role="button" [attr.aria-selected]="activeTabId === tabs.CONTRATOS_TAB"
           [class.active]="activeTabId === tabs.CONTRATOS_TAB"> Contratos</a>
       </li>
       <li class="nav-item cursor-pointer" (click)="changeTab(tabs.LANCAMENTOS_TAB)" *ngIf="id != 0">
         <a class="nav-link" data-toggle="tab" role="tab" [attr.aria-selected]="activeTabId === tabs.LANCAMENTOS_TAB"
           [class.active]="activeTabId === tabs.LANCAMENTOS_TAB">Lançamentos diários</a>
-      </li>
+      </li> -->
     </ul>
 
     <ng-container *ngIf="activeTabId === tabs.INFOMACOES_PACIENTE_TAB">
@@ -99,13 +99,13 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="id != 0 && activeTabId === tabs.CONTRATOS_TAB">
+    <!-- <ng-container *ngIf="id != 0 && activeTabId === tabs.CONTRATOS_TAB">
       <app-list-contratos [paciente]="paciente.id"></app-list-contratos>
     </ng-container>
 
     <ng-container *ngIf="id != 0 && activeTabId === tabs.LANCAMENTOS_TAB">
       <app-list-lancamentos [paciente]="paciente.id"></app-list-lancamentos>
-    </ng-container>
+    </ng-container> -->
 
   </div>
 </div>

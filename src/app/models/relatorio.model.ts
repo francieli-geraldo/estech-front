@@ -6,6 +6,7 @@ export interface Relatorio extends BaseModel {
   groupId: string;
   initialDate: string;
   finalDate: string;
+  patientId: string;
 }
 
 

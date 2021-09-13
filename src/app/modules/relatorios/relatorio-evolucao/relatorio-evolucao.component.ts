@@ -11,24 +11,47 @@ import { ReportsService } from 'src/app/services/reports.service';
 })
 export class RelatorioEvolucaoComponent implements OnInit {
 
-  @Input() form: any;  
+  @Input() form: any;
   @Output() output = new EventEmitter();
- 
+
   service: FullReport[];
   service$: Observable<FullReport[]>;
 
   constructor(private reportsService: ReportsService) { }
 
-  ngOnInit(){
-   
-    const report = 'total-evolution';    
+  ngOnInit() {
+
+    const report = 'total-evolution';
     const params = Object.assign({}, this.form);
-    if(params['status'] == "ALL"){ delete params["status"] }
+    if (params['status'] == "ALL") { delete params["status"] }
+
+    if (!params['patientId']) { delete params['patientId'] }
+
     delete params["report"];
     delete params["initialDate"];
     delete params["finalDate"];
 
     this.service$ = this.reportsService.getReport({ report, params })
 
+  }
+
+  getStatus(value) {
+    switch (value) {
+      case "ACTIVE":
+        console.log(value);            
+        return 'Ativo';
+      case "CONCLUDED":
+        console.log(value);
+        return 'Concluído';
+      case "CANCELED":
+        console.log(value);
+        return 'Cancelado';
+      case "COMPLETED":
+        console.log(value);
+        return 'Concluído';
+      default:
+        console.log(value);
+        return '';
+    }
   }
 }

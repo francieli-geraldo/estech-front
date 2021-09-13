@@ -24,6 +24,9 @@ export class RelatorioConcluidoComponent implements OnInit {
     const report = 'periodic';    
     const params = Object.assign({}, this.form);
     params['status'] = 'COMPLETED'
+        
+    if(!params['patientId']){ delete params['patientId'] }
+      
     delete params["report"];
     delete params["initialDate"];
     delete params["finalDate"];

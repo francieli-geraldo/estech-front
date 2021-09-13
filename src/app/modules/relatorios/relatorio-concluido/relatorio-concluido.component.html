@@ -20,10 +20,9 @@
     
     <thead class="bg-default">
         <tr>
-            <th colspan="17">Relatório de Concluído</th>
+            <th colspan="18">Relatório de Concluído</th>
         </tr>
         <tr>
-            <th>Grupo</th>
             <th>Paciente</th>
             <th>Programa</th>
             <th>Data Inicío</th>
@@ -44,12 +43,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let report of service$ | async">
-            <td>{{ report.groupName  }}</td>
             <td>{{ report.patientName  }}</td>
             <td>{{ report.programName  }}</td>
-            <td>{{ report.status  }}</td>
-            <td>{{ report.startDate  }}</td>
-            <td>{{ report.dateConclusion  }}</td>
+            <td>{{ report.startDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ report.dateConclusion | date:'dd/MM/yyyy' }}</td>
             <td>{{ report.breakfastTotal  }}</td>
             <td>{{ report.morningSnackTotal  }}</td>
             <td>{{ report.lunchTotal  }}</td>

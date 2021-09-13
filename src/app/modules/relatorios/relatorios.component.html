@@ -6,19 +6,20 @@
                 <div class="d-flex justify-content-between border-bottom pb-5">
                     <div class="mr-2">
                         <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
-                            (click)="destroyReport()"
-                            [hidden]="!isShowReport">
+                            (click)="destroyReport()" [hidden]="!isShowReport">
                             Voltar
                         </div>
                     </div>
                     <div>
-                        <button [hidden]="isShowReport"  class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                            (click)="generateReport()" [disabled]="isDisabled">
+                        <button [hidden]="isShowReport"
+                            class="btn btn-success font-weight-bold text-uppercase px-9 py-4" (click)="generateReport()"
+                            [disabled]="isDisabled">
                             Gerar Relatório
                         </button>
 
                         <div [hidden]="!isShowReport" ngbDropdown>
-                            <a class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownExport" ngbDropdownToggle >
+                            <a class="btn btn-success font-weight-bold text-uppercase px-9 py-4" id="dropdownExport"
+                                ngbDropdownToggle>
                                 Exportar
                                 <i class="ki ki-arrow-down pl-2" style="font-size: .8em;"></i>
                             </a>
@@ -41,7 +42,8 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="periodic-reports" formControlName="report" />
+                                                    <input type="radio" value="periodic-reports"
+                                                        formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -85,7 +87,8 @@
                                         <label class="option">
                                             <span class="option-control">
                                                 <span class="radio">
-                                                    <input type="radio" value="completed-report" formControlName="report" />
+                                                    <input type="radio" value="completed-report"
+                                                        formControlName="report" />
                                                     <span></span>
                                                 </span>
                                             </span>
@@ -110,37 +113,47 @@
                                 <i class="fa fa-filter" style="color: black; font-weight: 600;"></i>
                                 Filtros
                             </label>
-                            <div class="row">                                
+                            <div class="row">
                                 <ng-container *ngIf="this.reportForm.value.report == 'periodic-reports'">
                                     <div class="col-lg-4">
                                         <label class="form-text text-muted"><b>Período</b></label>
-                                        <date-period-input [inputMaxDate]="maxDate"
-                                        [fcInitialDate]="'initialDate'"
-                                        [fcFinalDate]="'finalDate'"
-                                        [formGroupBase]="reportForm"></date-period-input>
+                                        <date-period-input [inputMaxDate]="maxDate" [fcInitialDate]="'initialDate'"
+                                            [fcFinalDate]="'finalDate'" [formGroupBase]="reportForm">
+                                        </date-period-input>
                                     </div>
                                 </ng-container>
 
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Grupo</b></label>
-                                    <select class="form-control" name="groupId" autocomplete="off" formControlName="groupId">
-                                        <option value="" disabled selected>Selecione</option>                                        
-                                        <option *ngFor="let grupo of grupoService.items$ | async" value="{{grupo.id}}">{{grupo.name}}</option>                                       
+                                    <select class="form-control" name="groupId" autocomplete="off"
+                                        formControlName="groupId">
+                                        <option value="" disabled selected>Selecione</option>
+                                        <option *ngFor="let grupo of grupoService.items$ | async" value="{{grupo.id}}">
+                                            {{grupo.name}}</option>
                                     </select>
                                 </div>
 
-                                <ng-container *ngIf="this.reportForm.value.report == 'periodic-reports' || this.reportForm.value.report == 'full-report'">
+                                <ng-container
+                                    *ngIf="this.reportForm.value.report == 'periodic-reports' || this.reportForm.value.report == 'full-report'">
                                     <div class="col-lg-4">
                                         <label class="form-text text-muted"><b>Situação</b></label>
-                                        <select class="form-control" name="status" placeholder="Selecione" autocomplete="off" formControlName="status">
+                                        <select class="form-control" name="status" placeholder="Selecione"
+                                            autocomplete="off" formControlName="status">
                                             <option value="" disabled selected>Selecione</option>
                                             <option value="ALL">Todos</option>
                                             <option value="ACTIVE">Ativo</option>
-                                            <option value="CANCELED">Cancelado</option>                                        
+                                            <option value="CANCELED">Cancelado</option>
                                             <option value="COMPLETED">Concluído</option>
                                         </select>
                                     </div>
                                 </ng-container>
+
+                                <div class="col-lg-4">
+                                    <label class="form-text text-muted"><b>Paciente</b></label>
+                                    <input type="text" class="form-control" placeholder="Pesquisar"
+                                        [ngbTypeahead]="search" [resultFormatter]="resultFormatBandListValue"
+                                        [inputFormatter]="inputFormatBandListValue" formControlName="patientId" />
+                                </div>
                             </div>
                         </div>
                     </div>
