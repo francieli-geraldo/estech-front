@@ -1,3 +1,4 @@
+import { Paciente } from 'src/app/models/paciente.model';
 import { BaseModel } from "../_metronic/shared/crud-table";
 import { Grupo } from "./grupo.model";
 import { Programa } from "./programa.model";
@@ -6,6 +7,7 @@ export interface Contrato extends BaseModel {
   id: number;
   
   patientId: number;
+  patient: Paciente;
   
   program: Programa;
   group: Grupo;

@@ -3,20 +3,18 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {
   NgbActiveModal,
   NgbDateAdapter,
-  NgbDateParserFormatter,
+  NgbDateParserFormatter
 } from "@ng-bootstrap/ng-bootstrap";
-import { defineLocale, locale } from "moment";
 import { Observable, of, Subscription } from "rxjs";
-import { catchError, debounceTime, distinctUntilChanged, first, map, switchMap, tap } from "rxjs/operators";
+import { catchError, debounceTime, distinctUntilChanged, switchMap, tap } from "rxjs/operators";
 import { Contrato } from "src/app/models/contrato.model";
-import { Paciente } from "src/app/models/paciente.model";
 import { ContratosService } from "src/app/services/contratos.service";
 import { GruposService } from "src/app/services/grupos.service";
 import { PacientesService } from "src/app/services/pacientes.service";
 import { ProgramasService } from "src/app/services/programas.service";
 import {
   CustomAdapter,
-  CustomDateParserFormatter,
+  CustomDateParserFormatter
 } from "src/app/_metronic/core";
 import { GroupingState, PaginatorState } from "src/app/_metronic/shared/crud-table";
 
@@ -24,7 +22,7 @@ const EMPTY_CONTRATO: any = {
   id: undefined,
   programId: 0,
   groupId: 0,
-  pacienteId: 0, 
+  patientId: 0, 
   startingWeight: 0,
   goal: 0,
   hiringDate: "",

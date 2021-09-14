@@ -40,15 +40,12 @@ export class RelatorioEvolucaoComponent implements OnInit {
       case "ACTIVE":
         console.log(value);            
         return 'Ativo';
-      case "CONCLUDED":
+      case "COMPLETED":
         console.log(value);
         return 'Concluído';
       case "CANCELED":
         console.log(value);
         return 'Cancelado';
-      case "COMPLETED":
-        console.log(value);
-        return 'Concluído';
       default:
         console.log(value);
         return '';

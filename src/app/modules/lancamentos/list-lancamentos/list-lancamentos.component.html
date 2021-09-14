@@ -5,12 +5,12 @@
     <div class="form-group row">
       <div class="col-lg-12">
         <div class="row" [formGroup]="filterGroup">
-          <div class="col-lg-3">
-            <label>Data de lançamento</label>
+          <div class="col-lg-6">
+            <label>Data do lançamento</label>
             <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input>
           </div>
 
-          <div class="col-lg-3">
+          <div class="col-lg-6">
             <label for="typeahead-focus">Grupo</label>
             <select class="form-control cursor-pointer" placeholder="Grupo" name="grupoId" formControlName="grupoId">
               <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}
