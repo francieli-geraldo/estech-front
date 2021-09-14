@@ -66,8 +66,8 @@
               [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
         </th>
         <th>
-          CÓDIGO
-          <app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+          PACIENTE
+          <app-sort-icon column="patient" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
             (sort)="sort($event)"></app-sort-icon>
         </th>
         <th>
@@ -125,7 +125,7 @@
               <span></span>
             </label>
           </td>
-          <td>{{ register.id }}</td>
+          <td>{{ register?.patient?.name || '*' }}</td>
           <td>
             <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 'CANCELED'"
               [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-primary]="register.status === 'COMPLETED'">
