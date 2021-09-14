@@ -18,10 +18,10 @@ export class ProgramasService extends TableService<Programa> implements OnDestro
   // READ
   find(params): Observable<TableResponseModel<Programa>> {
     return this.http.get<Programa[]>(this.API_URL, { params }).pipe(
-      map((response: Programa[]) => {        
+      map((response: any) => {        
         return {
-          items: response['content'],
-          total: response['totalElements']
+          items: response?.content || [] ,
+          total: response?.totalElements || 0
         };
       })
     );

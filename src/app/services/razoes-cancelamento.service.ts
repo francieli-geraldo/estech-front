@@ -18,10 +18,10 @@ export class RazoesCancelamentoService extends TableService<RazaoCancelamento> i
   // READ
   find(params): Observable<TableResponseModel<RazaoCancelamento>> {
     return this.http.get<RazaoCancelamento[]>(this.API_URL, { params }).pipe(
-      map((response: RazaoCancelamento[]) => {        
+      map((response: any) => {        
         return {
-          items: response['content'],
-          total: response['totalElements']
+          items: response?.content || [] ,
+          total: response?.totalElements || 0
         };
       })
     );

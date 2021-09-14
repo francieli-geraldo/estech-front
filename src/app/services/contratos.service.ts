@@ -17,10 +17,10 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
 
   find(params): Observable<TableResponseModel<Contrato>> {
     return this.http.get<Contrato[]>(this.API_URL, { params }).pipe(
-      map((response: Contrato[]) => {        
+      map((response: any) => {        
         return {
-          items: response['content'],
-          total: response['totalElements']  
+          items: response?.content || [] ,
+          total: response?.totalElements || 0
         };
       })
     );

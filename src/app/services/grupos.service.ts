@@ -17,12 +17,11 @@ export class GruposService extends TableService<Grupo> implements OnDestroy {
 
   find(params): Observable<TableResponseModel<Grupo>> {
     return this.http.get<Grupo[]>(this.API_URL, {params}).pipe(
-      map((response: Grupo[]) => {          
-        const result: TableResponseModel<Grupo> = {
-          items: response['content'],
-          total: response['totalElements']
+      map((response: any) => {        
+        return {
+          items: response?.content || [] ,
+          total: response?.totalElements || 0
         };
-        return result;
       })
     );
   }
