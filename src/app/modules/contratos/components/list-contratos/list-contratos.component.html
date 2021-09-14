@@ -5,7 +5,7 @@
     <div class="form-group row">
       <div class="col-lg-12">
         <div class="row" [formGroup]="filterGroup">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <small class="form-text text-muted">Situação</small>
             <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">              
               <option  value="">Todos</option>
@@ -14,12 +14,25 @@
               <option value="CANCELED">Cancelado</option>
             </select>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <small class="form-text text-muted">Programa</small>
-            <select class="form-control" placeholder="Filtro por Programa" name="type" formControlName="type">
+            <select class="form-control" placeholder="Filtro por Programa" name="programId" formControlName="programId">
               <option value="">Todos</option>              
               <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">{{register.name}}</option>
             </select>
+          </div>
+
+          <div class="col-lg-4">
+            <small class="form-text text-muted">Paciente</small>
+            <input type="text" 
+                class="form-control" 
+                placeholder="Pesquisar" 
+                [ngbTypeahead]="search"                     
+                [resultFormatter]="resultFormatBandListValue"
+                [inputFormatter]="inputFormatBandListValue"
+                [(ngModel)]="pacienteIdContrato"
+                formControlName="patientId"
+              />
           </div>
         </div>
       </div>

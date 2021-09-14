@@ -258,6 +258,18 @@ export abstract class TableService<T> {
         const newParamsPage = Object.assign(this._params$.value, params_paginator);
         this._params$.next(newParamsPage);
         break;
+      case 'filter':
+        Object.keys(this._tableState$.value.filter).map((val)=>{
+          if(!!!this._tableState$.value.filter[val]){
+            delete this._params$.value[val];            
+            delete this._tableState$.value.filter[val]
+          }else{
+            const params_filter: any = this._tableState$.value.filter;
+            const newParamsFilter = Object.assign(this._params$.value, params_filter );
+            this._params$.next(newParamsFilter);
+          }
+        })
+        break;
     }
 
   }

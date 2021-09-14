@@ -68,7 +68,7 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   filterForm() {
     this.filterGroup = this.fb.group({
-      dateFilter: [new Date().toISOString().slice(0, 10)],
+      dateFilter: [this.todayDatepicker(new Date())],
       grupoId: ["1"]
     });
     this.subscriptions.push(
@@ -140,7 +140,7 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
   }
 
   todayDatepicker(day: Date) {
-    let arrayDay = day.toLocaleDateString().split('/');
-    return `${arrayDay[2]}-${("00" + arrayDay[1]).slice(-2)}-${("00" + arrayDay[0]).slice(-2)}`;
+    let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
+    return `${year}-${("00" + month).slice(-2)}-${("00" + date).slice(-2)}`;
   }
 }

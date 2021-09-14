@@ -1,14 +1,15 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subscription } from "rxjs";
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { Observable, Subscription } from "rxjs";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../../_metronic/shared/crud-table";
 import { ContratosService } from "../../../../services/contratos.service";
 import { CancelContratoModalComponent } from "../cancel-contrato-modal/cancel-contrato-modal.component";
 import { DeleteContratoModalComponent } from "../delete-contrato-modal/delete-contrato-modal.component";
 import { FormContratoModalComponent } from "../form-contrato-modal/form-contrato-modal.component";
 import { ProgramasService } from "src/app/services/programas.service";
+import { PacientesService } from "src/app/services/pacientes.service";
 
 @Component({
   selector: "app-list-contratos",
@@ -24,7 +25,6 @@ export class ListContratosComponent
     ISortView,
     IFilterView,
     IGroupingView,
-    ISearchView,
     IFilterView {
 
   @Input() paciente: number;
@@ -40,13 +40,13 @@ export class ListContratosComponent
     private fb: FormBuilder,
     private modalService: NgbModal,
     public service: ContratosService,
-    public programasService: ProgramasService
+    public programasService: ProgramasService,
+    public pacienteService: PacientesService
   ) {}
 
   // angular lifecircle hooks
   ngOnInit(): void {
 
-    // this.searchForm();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;
@@ -68,7 +68,8 @@ export class ListContratosComponent
   filterForm() {
     this.filterGroup = this.fb.group({
       status: [""],
-      type: [""]
+      programId: [""],
+      patientId: [""]
     });
     this.subscriptions.push(
       this.filterGroup.controls.status.valueChanges.subscribe(() =>
@@ -76,44 +77,40 @@ export class ListContratosComponent
       )
     );
     this.subscriptions.push(
-      this.filterGroup.controls.type.valueChanges.subscribe(() => this.filter())
+      this.filterGroup.controls.programId.valueChanges.subscribe(() => 
+        this.filter()
+      )
+    );
+    
+    this.subscriptions.push(
+      this.filterGroup.controls.patientId.valueChanges.subscribe(() => {
+        if (typeof this.filterGroup.get('patientId').value === 'object') {
+          this.filter();
+        }else{
+          if (this.filterGroup.get('patientId').value === '') {
+            this.filter();
+          }
+        }
+      })
     );
   }
 
   filter() {
     const filter = {};
     const status = this.filterGroup.get("status").value;
-    if (status) {
-      filter["status"] = status;
+    filter["status"] = status;
+    
+    const programId = this.filterGroup.get("programId").value;
+    filter["programId"] = programId;
+    
+    const patientId = this.filterGroup.get("patientId").value;
+    if (typeof this.filterGroup.get("patientId").value === 'object') {
+      filter["patientId"] = patientId.id;
+    }else{
+      filter["patientId"] = undefined;
     }
-
-    const type = this.filterGroup.get("type").value;
-    if (type) {
-      filter["type"] = type;
-    }
+    
     this.service.patchState({ filter });
-  }
-
-  // search
-  searchForm() {
-    this.searchGroup = this.fb.group({
-      searchTerm: [""],
-    });
-    const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
-      .pipe(
-        /*
-    The user can type quite quickly in the input box, and that could trigger a lot of server requests. With this operator,
-    we are limiting the amount of server requests emitted to a maximum of one every 150ms
-    */
-        debounceTime(150),
-        distinctUntilChanged()
-      )
-      .subscribe((val) => this.search(val));
-    this.subscriptions.push(searchEvent);
-  }
-
-  search(searchTerm: string) {
-    this.service.patchState({ searchTerm });
   }
 
   // sorting
@@ -207,5 +204,26 @@ export class ListContratosComponent
       () => {}
     );
   }
+
+  resultFormatBandListValue(value: any) {            
+    return `${value?.name} - ${value?.phone || '*'}` ;
+  } 
+
+  inputFormatBandListValue(value: any)   {
+    if(value){
+      return `${value?.name} - ${value?.phone || '*'}`;
+    }else{
+      return ''
+    }
+  }
+
+  search = (text$: Observable<string>) => {
+    return text$.pipe(      
+        debounceTime(200), 
+        distinctUntilChanged(),        
+        switchMap(val => this.pacienteService.findByDescriptionPaciente(val))          
+    );                 
+  }
+
 
 }
