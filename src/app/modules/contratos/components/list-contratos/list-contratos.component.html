@@ -10,7 +10,7 @@
             <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">              
               <option  value="">Todos</option>
               <option value="ACTIVE">Ativo</option>
-              <option value="CONCLUDED">Concluído</option>
+              <option value="COMPLETED">Concluído</option>
               <option value="CANCELED">Cancelado</option>
             </select>
           </div>
@@ -115,9 +115,9 @@
           <td>{{ register.id }}</td>
           <td>
             <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 'CANCELED'"
-              [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-primary]="register.status === 'CONCLUDED'">
+              [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-primary]="register.status === 'COMPLETED'">
               <ng-container *ngIf="register.status === 'ACTIVE'">Ativo</ng-container>
-              <ng-container *ngIf="register.status === 'CONCLUDED'">Concluído</ng-container>
+              <ng-container *ngIf="register.status === 'COMPLETED'">Concluído</ng-container>
               <ng-container *ngIf="register.status === 'CANCELED'">Cancelado</ng-container>
             </span>
           </td>
