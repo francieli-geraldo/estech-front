@@ -51,4 +51,12 @@ export class RelatorioEvolucaoComponent implements OnInit {
         return '';
     }
   }
+
+  showWeight(value){
+    return (value !== '' && !!value) ? parseFloat(value).toFixed(3).replace('.',',') : '0,000';
+  }
+
+  showPercent(value){
+    return (value !== '' && !!value) ? parseFloat(value).toFixed(2).replace('.',',') : '0,00';
+  }
 }

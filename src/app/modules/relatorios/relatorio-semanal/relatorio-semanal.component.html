@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>Grupo</th>
-                <th>Nome</th>
+                <th>Paciente</th>
                 <th>Programa</th>
                 <th>C</th>
                 <th>LM</th>
@@ -38,11 +38,11 @@
                 <td>{{ report?.afternoonSnackTotal || '0' }}</td>
                 <td>{{ report?.dinnerTotal || '0' }}</td>
                 <td>{{ report?.hiitTotal || '0' }}</td>
-                <td>{{ report?.postingPercentage || '00.00' }}</td>
-                <td>{{ report?.balanceTotal || '0' }}</td>
-                <td>{{ report?.balancePercentage || '00' }}</td>
-                <td>{{ report?.evolutionPeriod || '00.000' }}</td>
-                <td>{{ report?.goal || '00.000' }}</td>
+                <td>{{ showPercent(report?.postingPercentage) }}</td>
+                <td>{{ report?.balanceTotal }}</td>
+                <td>{{ showPercent(report?.balancePercentage) }}</td>
+                <td>{{ showWeight(report?.evolutionPeriod) }}</td>
+                <td>{{ showWeight(report?.goal) }}</td>
                 <td>{{ report?.notesTotal || '0' }}</td>
             </tr>
         </tbody>

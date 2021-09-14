@@ -1,12 +1,12 @@
 <table class="table" id="tablerelatorio">    
     <thead class="bg-default">
         <tr>
-            <th colspan="18">Relatório de Concluído</th>
+            <th colspan="18">Relatório de Contratos Concluído</th>
         </tr>
         <tr>
             <th>Paciente</th>
             <th>Programa</th>
-            <th>Data Inicío</th>
+            <th>Data Início</th>
             <th>Conclusão</th>
             <th>C</th>
             <th>LM</th>
@@ -34,11 +34,11 @@
             <td>{{ report.afternoonSnackTotal  }}</td>
             <td>{{ report.dinnerTotal  }}</td>
             <td>{{ report.hiitTotal  }}</td>
-            <td>{{ report.postingPercentage  }}</td>
+            <td>{{ showPercent(report.postingPercentage)  }}</td>
             <td>{{ report.balanceTotal  }}</td>
-            <td>{{ report.balancePercentage  }}</td>
-            <td>{{ report.evolutionPeriod  }}</td>
-            <td>{{ report.goal  }}</td>
+            <td>{{ showPercent(report.balancePercentage)  }}</td>
+            <td>{{ showWeight(report.evolutionPeriod)  }}</td>
+            <td>{{ showWeight(report.goal)  }}</td>
             <td>{{ report.notesTotal  }}</td>
         </tr> 
     </tbody>

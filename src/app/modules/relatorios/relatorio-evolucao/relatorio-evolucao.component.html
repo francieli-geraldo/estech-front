@@ -8,7 +8,7 @@
             <th>Grupo</th>
             <th>Paciente</th>
             <th>Programa</th>
-            <th>Status</th>
+            <th>Situação</th>
             <th>% Postagens</th>
             <th>% Balança</th>
             <th>Evolução Total</th>
@@ -23,11 +23,11 @@
             <td>{{ report.patientName }}</td>
             <td>{{ report.programName }}</td>
             <td>{{ getStatus(report.status) }}</td>
-            <td>{{ report.postingPercentage }}</td>
-            <td>{{ report.balancePercentage }}</td>
-            <td>{{ report.evolutionPeriod }}</td>
-            <td>{{ report.goal }}</td>
-            <td>{{ report.goalPercentage }}</td>
+            <td>{{ showPercent(report.postingPercentage) }}</td>
+            <td>{{ showPercent(report.balancePercentage) }}</td>
+            <td>{{ showWeight(report.evolutionPeriod) }}</td>
+            <td>{{ showWeight(report.goal) }}</td>
+            <td>{{ showPercent(report.goalPercentage) }}</td>
             <td>{{ report.notesTotal }}</td>
           </tr>   
     </tbody>
