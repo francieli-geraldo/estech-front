@@ -1,3 +1,4 @@
+import { CoreModule } from './../../_metronic/core/core.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RelatoriosComponent } from './relatorios.component';
@@ -22,6 +23,7 @@ import { InputsModule } from 'src/app/_metronic/shared/inputs';
     RelatorioConcluidoComponent
   ],  
   imports: [
+    CoreModule,
     CommonModule,
     InputsModule,
     HttpClientModule,

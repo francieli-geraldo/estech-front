@@ -1,3 +1,4 @@
+import { CoreModule } from './../../_metronic/core/core.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -31,6 +32,7 @@ import { ListContratosComponent } from './components/list-contratos/list-contrat
     ListContratosComponent   
   ],
   imports: [
+    CoreModule,
     CommonModule,
     HttpClientModule,
     FormsModule,
