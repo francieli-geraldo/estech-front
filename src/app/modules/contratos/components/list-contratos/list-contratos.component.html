@@ -40,7 +40,7 @@
   <!-- end: Filtration form -->
 
   <!-- begin: Grouping -->
-  <ng-container *ngIf="grouping.getSelectedRowsCount()">
+  <!-- <ng-container *ngIf="grouping.getSelectedRowsCount()">
     <div class="form">
       <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
         <div class="col-xl-12">
@@ -53,17 +53,17 @@
         </div>
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->
   <!-- end: Grouping -->
 
   <!-- begin:Table -->
   <div class="table-responsive angular-bootstrap-table">
     <table class="table table-head-custom table-vertical-center overflow-hidden">
       <thead>
-        <th class="selection-cell-header" data-row-selection="true">
+        <!-- <th class="selection-cell-header" data-row-selection="true">
           <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
               [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-        </th>
+        </th> -->
         <th>
           PACIENTE
           <app-sort-icon column="patient" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
@@ -118,12 +118,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let register of service.items$ | async">
-          <td class="selection-cell">
+          <!-- <td class="selection-cell">
             <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(register.id)"
                 [checked]="grouping.isRowSelected(register.id)" />
               <span></span>
             </label>
-          </td>
+          </td> -->
           <td>{{ register?.patient?.name || '*' }}</td>
           <td>
             <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 'CANCELED'"
