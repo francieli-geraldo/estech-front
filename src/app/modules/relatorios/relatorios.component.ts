@@ -156,7 +156,7 @@ export class RelatoriosComponent implements OnInit {
         this.reportForm.get('finalDate').clearValidators();
 
       }
-      this.reportForm.patchValue({ groupId: '', initialDate: '', finalDate: '', status: '' });
+      this.reportForm.patchValue({ groupId: '', initialDate: '', finalDate: '', status: 'ACTIVE' });
       this.isDisabled = true;
     });
 
