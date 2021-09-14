@@ -15,14 +15,13 @@ export interface Contrato extends BaseModel {
   groupId: number;
   status: string;
   
-  startingWeight: string;
-  goal: string;
-  objetivo: string;
+  startingWeight: number;
+  goal: number;
+  objetivo: number;
   
   hiringDate: string;
   startDate: string;
   notes: string;
-
 
   dateConclusion: string;
   cancellationDate: string;

@@ -20,8 +20,6 @@ const EMPTY_PACIENTE: Paciente = {
   selector: 'app-form-paciente-modal',
   templateUrl: './form-paciente-modal.component.html',
   styleUrls: ['./form-paciente-modal.component.scss'],
-  // NOTE: For this example we are only providing current component, but probably
-  // NOTE: you will w  ant to provide your main App Module
   providers: [
     {provide: NgbDateAdapter, useClass: CustomAdapter},
     {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}

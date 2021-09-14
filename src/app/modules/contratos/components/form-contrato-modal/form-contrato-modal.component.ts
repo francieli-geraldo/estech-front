@@ -35,9 +35,9 @@ const EMPTY_CONTRATO: any = {
   templateUrl: "./form-contrato-modal.component.html",
   styleUrls: ["./form-contrato-modal.component.scss"],
   providers: [
-    { provide: NgbDateAdapter, useClass: CustomAdapter },
-    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
-  ],
+    {provide: NgbDateAdapter, useClass: CustomAdapter},
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
+  ]
 })
 export class FormContratoModalComponent implements OnInit {
   
@@ -78,7 +78,6 @@ export class FormContratoModalComponent implements OnInit {
     this.minDate = this.minDatepicker(new Date());
     this.isLoading$ = this.registersService.isLoading$;
     this.loadRegister();
-
   }
 
   resultFormatBandListValue(value: any) {            
@@ -109,22 +108,34 @@ export class FormContratoModalComponent implements OnInit {
   }
 
   loadForm() {    
+
+    this.pacienteIdContrato =  this.register?.program?.id || this.register.programId;
+    
     this.formContrato = this.fb.group({      
       patientId: [
-        this.register.patientId,
+        this.register?.patient?.id || this.register.patientId,
         Validators.compose([Validators.nullValidator]),
       ],
       programId: [
-        this.register.programId,
+        this.register?.program?.id || this.register.programId,
         Validators.compose([Validators.nullValidator]),
       ],
-      groupId: [this.register.groupId, Validators.compose([Validators.nullValidator])],
-      status: [this.register.status, Validators.compose([Validators.nullValidator])],
+      groupId: [
+        this.register?.group?.id || this.register.groupId, 
+        Validators.compose([Validators.nullValidator])
+      ],
+      status: [
+        this.register.status, 
+        Validators.compose([Validators.nullValidator])
+      ],
       startingWeight: [
         this.register.startingWeight,
         Validators.compose([Validators.nullValidator]),
       ],
-      goal: [this.register.goal, Validators.compose([Validators.nullValidator])], 
+      goal: [
+        this.register.goal, 
+        Validators.compose([Validators.nullValidator])
+      ], 
       hiringDate: [
         this.register.hiringDate,
         Validators.compose([Validators.nullValidator]),
@@ -150,7 +161,7 @@ export class FormContratoModalComponent implements OnInit {
         Validators.compose([Validators.nullValidator]),
       ],
       objetivo: [
-        this.register.notes,
+        ((this.register.goal || 0) - (this.register?.startingWeight || 0)).toFixed(3),
         Validators.compose([Validators.nullValidator]),
       ]
     });
@@ -202,7 +213,7 @@ export class FormContratoModalComponent implements OnInit {
 
   private prepareRegister() {
     const formData = this.formContrato.value;    
-    this.register.patientId = Number(this.pacienteIdContrato.id);
+    this.register.patientId = Number(this.pacienteIdContrato?.id || this.pacienteIdContrato);
     this.register.programId = Number(formData.programId);
     this.register.groupId = Number(formData.groupId);
     this.register.startDate = formData.startDate;
@@ -239,11 +250,7 @@ export class FormContratoModalComponent implements OnInit {
 
   sumObjetivo() {
     const formData = this.formContrato.value;
-    let sum;
-    if (formData.startingWeight && formData.goal) {       
-       sum = (formData.goal - formData.startingWeight).toFixed(3)
-    }
-    return sum;
+    return ((formData?.goal || 0) - (formData?.startingWeight || 0)).toFixed(3)    
   }
 
   isDisabled() {    
@@ -266,6 +273,12 @@ export class FormContratoModalComponent implements OnInit {
 
   paginate(paginator: PaginatorState) {
     this.pacienteService.patchState({ paginator });
+  }
+
+  changeWeight(event){ 
+    if(event.target.value !== ''){
+      event.target.value = parseFloat(event.target.value).toFixed(3);
+    }
   }
 
 }
