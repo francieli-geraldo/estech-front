@@ -10,7 +10,7 @@ import { Contrato } from '../models/contrato.model';
   providedIn: 'root'
 })
 export class ContratosService extends TableService<Contrato> implements OnDestroy {
-  API_URL = `${environment.apiUrl}/1/agreements`;
+  API_URL = `${environment.apiUrl}/agreements`;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }

@@ -24,7 +24,7 @@ const EMPTY_CONTRATO: any = {
   id: undefined,
   programId: 0,
   groupId: 0,
-  pacienteId: 0, 
+  patientId: 0, 
   startingWeight: 0,
   goal: 0,
   hiringDate: "",
