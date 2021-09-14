@@ -38,11 +38,11 @@
                 <td>{{ report?.afternoonSnackTotal || '0' }}</td>
                 <td>{{ report?.dinnerTotal || '0' }}</td>
                 <td>{{ report?.hiitTotal || '0' }}</td>
-                <td>{{ showPercent(report?.postingPercentage) }}</td>
+                <td>{{ report?.postingPercentage | maskPercentage }}</td>
                 <td>{{ report?.balanceTotal }}</td>
-                <td>{{ showPercent(report?.balancePercentage) }}</td>
-                <td>{{ showWeight(report?.evolutionPeriod) }}</td>
-                <td>{{ showWeight(report?.goal) }}</td>
+                <td>{{ report?.balancePercentage | maskPercentage }}</td>
+                <td>{{ report?.evolutionPeriod | maskWeight }}</td>
+                <td>{{ report?.goal | maskWeight }}</td>
                 <td>{{ report?.notesTotal || '0' }}</td>
             </tr>
         </tbody>

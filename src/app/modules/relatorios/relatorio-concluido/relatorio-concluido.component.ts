@@ -34,12 +34,4 @@ export class RelatorioConcluidoComponent implements OnInit {
     this.service$ = this.reportsService.getReport({ report, params })
   }
 
-  showWeight(value){
-    return (value !== '' && !!value) ? parseFloat(value).toFixed(3).replace('.',',') : '0,000';
-  }
-
-  showPercent(value){
-    return (value !== '' && !!value) ? parseFloat(value).toFixed(2).replace('.',',') : '0,00';
-  }
-  
 }

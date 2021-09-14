@@ -138,9 +138,9 @@
           <td>{{ register.group.name }}</td>
           <td>{{ register.startDate | date:'dd/MM/yyyy' }}</td>
           <td>{{ register.hiringDate | date:'dd/MM/yyyy' }}</td>          
-          <td>{{ register.startingWeight }}</td>
-          <td>{{ register.goal }}</td>
-          <td>{{ (register.goal - register.startingWeight) }}</td>
+          <td>{{ register.startingWeight | maskWeight }}</td>
+          <td>{{ register.goal | maskWeight }}</td>
+          <td>{{ (register.goal - register.startingWeight) | maskWeight }}</td>
           <!-- <td>{{ register.dateConclusion }}</td> -->
           <td style="display: flex;">
             <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
