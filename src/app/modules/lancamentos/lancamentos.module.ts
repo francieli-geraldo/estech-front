@@ -12,6 +12,7 @@ import { LancamentosComponent } from './lancamentos.component';
 import { ListLancamentosComponent } from './list-lancamentos/list-lancamentos.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { InputsModule } from 'src/app/_metronic/shared/inputs';
+import { CoreModule } from 'src/app/_metronic/core';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { InputsModule } from 'src/app/_metronic/shared/inputs';
   ],
   imports: [
     NgxMaskModule.forChild(),
+    CoreModule,
     CommonModule,
     InputsModule,
     HttpClientModule,

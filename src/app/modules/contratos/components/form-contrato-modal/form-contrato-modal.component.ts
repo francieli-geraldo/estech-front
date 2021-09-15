@@ -129,11 +129,11 @@ export class FormContratoModalComponent implements OnInit {
         Validators.compose([Validators.nullValidator])
       ],
       startingWeight: [
-        this.register.startingWeight,
+        this.setValueAroud(this.register.startingWeight),
         Validators.compose([Validators.nullValidator]),
       ],
       goal: [
-        this.register.goal, 
+        this.setValueAroud(this.register.goal), 
         Validators.compose([Validators.nullValidator])
       ], 
       hiringDate: [
@@ -166,7 +166,10 @@ export class FormContratoModalComponent implements OnInit {
       ]
     });
   }
-  
+
+  setValueAroud(value) {
+    return (value !== '' && !!value) ? parseFloat(value).toFixed(3) : 0.000;
+  }
 
   save() {
     this.prepareRegister();

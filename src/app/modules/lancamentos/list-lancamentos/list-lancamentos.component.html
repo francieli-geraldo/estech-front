@@ -98,21 +98,9 @@
               <ng-container *ngIf="register.hiit === true">✔</ng-container>
             </span>
           </td>
+          <td>{{ register.balance.previousWeight | maskWeight}}</td>
           <td>
-            <ng-container *ngIf="!register.editable">{{showWeight(register.balance.previousWeight)}}</ng-container>
-            <ng-container *ngIf="register.editable">
-              <input 
-                type="number"
-                max="600"
-                step=",001"
-                class="input-grid" 
-                [(ngModel)]="register.balance.previousWeight"
-                [value]="register.balance.previousWeight" 
-                (blur)="changeWeight($event)"/>
-            </ng-container>
-          </td>
-          <td>
-            <ng-container *ngIf="!register.editable">{{showWeight(register.balance.currentWeight)}}</ng-container>
+            <ng-container *ngIf="!register.editable">{{ register.balance.currentWeight | maskWeight }}</ng-container>
             <ng-container *ngIf="register.editable">
               <input 
                 type="number"
@@ -124,8 +112,8 @@
                 (blur)="changeWeight($event)"/>
             </ng-container>
           </td>
-          <td>{{ showWeight((register?.balance?.currentWeight || register?.balance?.previousWeight || 0) - (register?.balance?.previousWeight || 0)) }}</td>
-          <td>{{ showWeight(register.balance.accumulatedEvolution - ((register?.balance?.previousWeight || 0) - (register?.balance?.currentWeight || register?.balance?.previousWeight || 0))) }}</td>
+          <td>{{ ((register?.balance?.currentWeight || register?.balance?.previousWeight || 0) - (register?.balance?.previousWeight || 0)) | maskWeight }}</td>
+          <td>{{ showAccumulatedEvolution(register.balance.currentWeight, register) }}</td>
           <td style="display: flex;">
 
             <a *ngIf="!register.editable" title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"

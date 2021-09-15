@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbDateAdapter, NgbDateParserFormatter, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject, Subscription } from "rxjs";
@@ -57,7 +57,20 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
       event.target.value = parseFloat(event.target.value).toFixed(3);
     }
   }
+
+  showAccumulatedEvolution(currentWeight, register) {
+    const balanca = register.balance;
+    const novo = ((balanca?.previousWeight || 0 ) + (balanca?.evolution || 0));    
+    const newInput = balanca?.currentWeight || balanca?.previousWeight || 0;    
+    const calc = novo - newInput;
+    const calcAccumulatedEvolution: any = (balanca?.accumulatedEvolution || 0) - calc;
+    return parseFloat( calcAccumulatedEvolution ).toFixed(3);      
+  }
   
+  setValueAroud(value) {
+    return (value !== '' && !!value) ? parseFloat(value).toFixed(3) : 0.000;
+  }
+
   showWeight(value){
     return (value !== '' && !!value) ? parseFloat(value).toFixed(3).replace('.',',') : '0,000';
   }
@@ -105,7 +118,7 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
       "date": register.date,
       "balance": {
         "informed": register.balance.informed,
-        "currentWeight": parseFloat(register.balance.currentWeight)
+        "currentWeight": parseFloat(register.balance.currentWeight).toFixed(3)
       },
       "breakfast": register.breakfast,
       "morningSnack": register.morningSnack,
@@ -125,6 +138,8 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   startEdit(register) {
     this.previousLancamentos[register.date] = Object.assign({}, register);
+
+    register.balance.currentWeight = this.setValueAroud(register.balance.currentWeight)
     register.editable = true;
   }
 
