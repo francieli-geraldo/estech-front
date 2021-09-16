@@ -21,6 +21,8 @@ const EMPTY_PACIENTE: Paciente = {
   styleUrls: ['./edit-paciente.component.scss']
 })
 export class EditPacienteComponent implements OnInit, OnDestroy {
+  
+  currentDate : Date = new Date();
   id: number;
   paciente: Paciente;
   previous: Paciente;

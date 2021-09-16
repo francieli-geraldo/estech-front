@@ -44,9 +44,8 @@ export class ListContratosComponent
     public pacienteService: PacientesService
   ) {}
 
-  // angular lifecircle hooks
   ngOnInit(): void {
-
+    this.service.setDefaults();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;

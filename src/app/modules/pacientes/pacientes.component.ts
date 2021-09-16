@@ -53,8 +53,9 @@ export class PacientesComponent
   ) { }
 
   // angular lifecircle hooks
-  ngOnInit(): void {
-    this.searchForm();
+  ngOnInit(): void {    
+    this.searchForm();    
+    this.service.setDefaults();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;

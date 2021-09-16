@@ -30,22 +30,17 @@
         </div>
       </div>
 
-      <div class="form-group row" *ngIf="!id">
+      <div class="form-group" *ngIf="!id">
         <div class="col-lg-12">
           <label>Paciente</label>
           <div class="input-group input-group-solid">
-            <input type="text" 
-              class="form-control form-control-lg form-control-solid" 
-              placeholder="Pesquisar" 
-              [ngbTypeahead]="search"                     
-              [resultFormatter]="resultFormatBandListValue"
-              [inputFormatter]="inputFormatBandListValue"
-              [(ngModel)]="pacienteIdContrato"
-            />
+            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Pesquisar"
+              [ngbTypeahead]="search" [resultFormatter]="resultFormatBandListValue"
+              [inputFormatter]="inputFormatBandListValue" [(ngModel)]="pacienteIdContrato" />
           </div>
         </div>
       </div>
-      
+
 
       <!-- FORM CONTRATO-->
       <form action="#" class="form form-label-right" [formGroup]="formContrato">
@@ -55,42 +50,31 @@
             <div class="col-lg-6">
               <label>Data de início</label>
               <div class="input-group input-group-solid">
-                <input type="text" 
-                  name="startDate" 
-                  class="form-control form-control-lg form-control-solid"
-                  autocomplete="off" 
-                  placeholder="dd/mm/yyyy" 
-                  ngbDatepicker 
-                  #startDate="ngbDatepicker"
-                  [class.is-invalid]="isControlInvalid('startDate')" 
-                  [class.is-valid]="isControlValid('startDate')"
-                  formControlName="startDate" 
-                  readonly="true" 
-                  [minDate]="minDate" 
-                  [disabled]="!!id" />
-                <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
-                  <span class="input-group-text">
-                    <i class="text-dark-50 flaticon-calendar"></i>
-                  </span>
-                </div>
+                <ng-container *ngIf="!!id">
+                  <input type="date" name="startDate" class="form-control form-control-lg form-control-solid"
+                    placeholder="dd/mm/yyyy" disabled formControlName="startDate" />
+                </ng-container>
+                <ng-container *ngIf="!!!id">
+                  <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
+                    autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #startDate="ngbDatepicker"
+                    [class.is-invalid]="isControlInvalid('startDate')" [class.is-valid]="isControlValid('startDate')"
+                    formControlName="startDate" readonly="true" [minDate]="minDate" [disabled]="!!id" />
+                  <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
+                    <span class="input-group-text">
+                      <i class="text-dark-50 flaticon-calendar"></i>
+                    </span>
+                  </div>
+                </ng-container>
               </div>
             </div>
 
             <div class="col-lg-6">
               <label>Data de conclusão</label>
               <div class="input-group input-group-solid">
-                <input type="text" 
-                  name="hiringDate" 
-                  class="form-control form-control-lg form-control-solid"
-                  autocomplete="off" 
-                  placeholder="dd/mm/yyyy" 
-                  ngbDatepicker 
-                  #hiringDate="ngbDatepicker"
-                  [class.is-invalid]="isControlInvalid('hiringDate')" 
-                  [class.is-valid]="isControlValid('hiringDate')"
-                  formControlName="hiringDate" 
-                  readonly="true" 
-                  [minDate]="minDateConclusao" />
+                <input type="text" name="hiringDate" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #hiringDate="ngbDatepicker"
+                  [class.is-invalid]="isControlInvalid('hiringDate')" [class.is-valid]="isControlValid('hiringDate')"
+                  formControlName="hiringDate" readonly="true" [minDate]="minDateConclusao" />
                 <div class="input-group-append" (click)="isDisabled() ? false : hiringDate.toggle()">
                   <span class="input-group-text">
                     <i class="text-dark-50 flaticon-calendar"></i>
@@ -126,35 +110,19 @@
           <div class="form-group row">
             <div class="col-lg-4">
               <label class="form-label">Peso Inícial</label>
-              <input 
-                type="number"
-                max="600"
-                step=",001"
-                class="form-control form-control-lg form-control-solid"
+              <input type="number" max="600" step=",001" class="form-control form-control-lg form-control-solid"
                 [class.is-invalid]="isControlInvalid('startingWeight')"
-                [class.is-valid]="isControlValid('startingWeight')" 
-                placeholder="Peso Inícial" 
-                autocomplete="off" 
-                formControlName="startingWeight"
-                name="startingWeight"
-                (blur)="changeWeight($event)"/>
+                [class.is-valid]="isControlValid('startingWeight')" placeholder="Peso Inícial" autocomplete="off"
+                formControlName="startingWeight" name="startingWeight" (blur)="changeWeight($event)" />
             </div>
 
             <div class="col-lg-4">
               <label class="form-label">Meta</label>
-              
-              <input 
-                type="number"
-                max="600"
-                step=",001"
-                class="form-control form-control-lg form-control-solid"
-                [class.is-invalid]="isControlInvalid('goal')"
-                [class.is-valid]="isControlValid('goal')" 
-                placeholder="Meta" 
-                autocomplete="off" 
-                formControlName="goal"
-                name="goal"
-                (blur)="changeWeight($event)"/>
+
+              <input type="number" max="600" step=",001" class="form-control form-control-lg form-control-solid"
+                [class.is-invalid]="isControlInvalid('goal')" [class.is-valid]="isControlValid('goal')"
+                placeholder="Meta" autocomplete="off" formControlName="goal" name="goal"
+                (blur)="changeWeight($event)" />
             </div>
 
             <div class="col-lg-4">
@@ -175,7 +143,7 @@
           </div>
         </div>
 
-      </form>    
+      </form>
 
 
     </ng-container>

@@ -22,6 +22,8 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
+  currentDate : Date = new Date();
+
   @Input() paciente: number;
   paginator: PaginatorState;
   sorting: SortState;
@@ -46,6 +48,8 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   // angular lifecircle hooks
   ngOnInit(): void {
+    
+    this.service.setDefaults();
     this.gruposService.fetch();
     this.pacientesService.fetch();
     this.filterForm();

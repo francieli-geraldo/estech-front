@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ContratosService } from "../../services/contratos.service";

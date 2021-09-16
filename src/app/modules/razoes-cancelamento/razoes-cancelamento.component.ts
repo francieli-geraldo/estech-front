@@ -41,7 +41,8 @@ private subscriptions: Subscription[] = [];
   // angular lifecircle hooks
   ngOnInit(): void {
     this.filterForm();
-    this.searchForm();
+    this.searchForm();    
+    this.service.setDefaults();
     this.service.fetch();
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;

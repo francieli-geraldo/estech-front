@@ -7,7 +7,13 @@
         <div class="row" [formGroup]="filterGroup">
           <div class="col-lg-6">
             <label>Data do lançamento</label>
-            <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input>
+            <input type="date" 
+                  name="dateFilter" 
+                  class="form-control cursor-pointer"                
+                  placeholder="dd/mm/yyyy" 
+                  max="{{currentDate|date:'yyyy-MM-dd'}}"                  
+                  formControlName="dateFilter"/>
+            <!-- <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input> -->
           </div>
 
           <div class="col-lg-6">

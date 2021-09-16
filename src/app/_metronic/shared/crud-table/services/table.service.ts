@@ -234,6 +234,7 @@ export abstract class TableService<T> {
     this._isLoading$.next(true);
     this._tableState$.next(DEFAULT_STATE);
     this._errorMessage.next('');
+    this._params$.next({});
   }
 
   // Base Methods
