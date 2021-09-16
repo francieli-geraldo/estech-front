@@ -102,7 +102,7 @@ export class FormContratoModalComponent implements OnInit {
 
   loadRegister() {
     if (!this.id) { 
-      this.register = EMPTY_CONTRATO 
+      this.register = Object.assign({}, EMPTY_CONTRATO); 
     }     
     this.loadForm();
   }

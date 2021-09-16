@@ -56,7 +56,7 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
         if (this.id || this.id > 0) {
           return this.pacientesService.getItemById(this.id);
         }
-        return of(EMPTY_PACIENTE);
+        return of(Object.assign({}, EMPTY_PACIENTE));
       }),
       catchError((errorMessage) => {
         this.errorMessage = errorMessage;
@@ -139,6 +139,8 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log('Cadastrar paciente destruido');
+    
     this.subscriptions.forEach(sb => sb.unsubscribe());
   }
 

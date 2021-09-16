@@ -23,7 +23,6 @@ export class PaginatorComponent implements OnInit {
     this.pageEnd = paginatorTeste.pageSize;
   }
 
-
   pageChange(num: number) {
     this.paginator.page = num;
     this.paginate.emit(this.paginator);

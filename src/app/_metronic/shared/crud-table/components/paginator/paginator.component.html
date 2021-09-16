@@ -30,7 +30,7 @@
     </option>
     </select>
     <span class="react-bootstrap-table-pagin ation-total">
-      Mostrando registros {{ pageInit }} - {{ pageEnd }} de {{ paginator.total }}
+      Mostrando registros {{ pageInit }} - {{ (paginator.pageSize < paginator.total)  ? pageEnd : paginator.total }} de {{ paginator.total }}
     </span>
   <!-- end: pageSize -->
 </div>
