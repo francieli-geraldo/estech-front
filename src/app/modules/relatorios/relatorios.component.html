@@ -149,7 +149,11 @@
                                     </div>
                                 </ng-container>
 
-                                <div class="col-lg-12">
+                                <div 
+                                [class.col-lg-12]="this.reportForm.value.report == 'periodic-reports'"
+                                [class.col-lg-8]="this.reportForm.value.report == 'completed-report'"
+                                [class.col-lg-4]="this.reportForm.value.report == 'full-report'"                                
+                                >
                                     <label class="form-text text-muted"><b>Paciente</b></label>
                                     <input type="text" class="form-control" placeholder="Pesquisar"
                                         [ngbTypeahead]="search" [resultFormatter]="resultFormatBandListValue"
