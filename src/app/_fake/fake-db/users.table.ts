@@ -61,7 +61,7 @@ export class UsersTable {
       password: 'Bdrc@gVLozIC65bRlWo$cuSUDp',
       email: 'francieligeraldo@gmail.com',
       authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbf',
-      refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e55',
+      refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e52',
       roles: [2], // Manager
       pic: './assets/media/users/31637803.jpg',
       fullname: 'Francieli F Geraldo',
@@ -114,8 +114,8 @@ export class UsersTable {
       username: 'alineortiz',
       password: 'iLAbOc5LUFndRzLHnISfILbKP6',
       email: 'alineeduarda_ortiz@hotmail.com',
-      authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbf',
-      refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e55',
+      authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbd',
+      refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e53',
       roles: [2], // Manager
       pic: './assets/media/users/2120090504.png',
       fullname: 'Aline Ortiz',
@@ -168,8 +168,8 @@ export class UsersTable {
       username: 'evilinsilva',
       password: 'Df5ZuP5r7jdP8n5YrZpX6nlHpq',
       email: 'evilin08.silva@outlook.com',
-      authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbf',
-      refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e55',
+      authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbr',
+      refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e54',
       roles: [2], // Manager
       pic: './assets/media/users/2120090504.png',
       fullname: 'Evilin Silva',
