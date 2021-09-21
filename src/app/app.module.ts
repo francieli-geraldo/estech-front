@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/splash-screen.module';
 import { NgxMaskModule } from 'ngx-mask';
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
 registerLocaleData(localePt);
@@ -71,6 +71,10 @@ function appInitializer(authService: AuthService) {
         },
       },
     },
+    { 
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy
+    }
   ],
   bootstrap: [AppComponent],
 })
