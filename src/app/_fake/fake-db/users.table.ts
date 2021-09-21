@@ -171,7 +171,7 @@ export class UsersTable {
       authToken: 'auth-token-6829bba69dd3421d8762-991e9e806dbr',
       refreshToken: 'auth-token-f8e4c61a318e4d618b6c199ef96b9e54',
       roles: [2], // Manager
-      pic: './assets/media/users/2120090504.png',
+      pic: './assets/media/users/2120090506.png',
       fullname: 'Evilin Silva',
       firstname: 'Evilin',
       lastname: 'Silva',
