@@ -150,14 +150,14 @@ export class RelatoriosComponent implements OnInit {
         this.reportForm.get('finalDate').clearValidators();
         
       } else {
-        
         this.reportForm.get('status').setValidators(Validators.required)
         this.reportForm.get('initialDate').clearValidators();
         this.reportForm.get('finalDate').clearValidators();
-
       }
-      this.reportForm.patchValue({ groupId: '', initialDate: '', finalDate: '', status: 'ACTIVE' });
-      this.isDisabled = true;
+      this.grupoService.items$.subscribe(val => {
+        this.reportForm.patchValue({ groupId: val[0]?.id, initialDate: '', finalDate: '', status: 'ACTIVE' })    
+      })  
+      this.isDisabled = this.reportForm.invalid;;
     });
 
     this.reportForm.controls['status'].valueChanges.subscribe(value => {
@@ -182,8 +182,13 @@ export class RelatoriosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.grupoService.fetch();    
+    this.grupoService.fetch();  
+    
     this.loadForm();
+
+    this.grupoService.items$.subscribe(val => {
+      this.reportForm.patchValue({ groupId: val[0]?.id, initialDate: '', finalDate: '', status: 'ACTIVE' })    
+    })  
   }
 
   ngOnDestroy() {

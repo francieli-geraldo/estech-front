@@ -60,7 +60,7 @@ export class DatePeriodInputComponent implements OnInit {
       this.toDate = null; 
       this.formGroupBase.patchValue({
         initialDate: this.formatDateRequest(this.fromDate), 
-        finalDate: null 
+        finalDate: this.formatDateRequest(this.fromDate) 
       })    
       this.showDatePeriod = `${this.formatDate(this.fromDate)} - dd/mm/yyyy`;
     } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {      
@@ -75,7 +75,7 @@ export class DatePeriodInputComponent implements OnInit {
       this.toDate = null;            
       this.formGroupBase.patchValue({
         initialDate: this.formatDateRequest(this.fromDate), 
-        finalDate: null 
+        finalDate: this.formatDateRequest(this.fromDate) 
       })
       this.showDatePeriod = `${this.formatDate(this.fromDate)} - dd/mm/yyyy`;
     }

@@ -126,11 +126,10 @@
 
                                 <div class="col-lg-4">
                                     <label class="form-text text-muted"><b>Grupo</b></label>
-                                    <select class="form-control" name="groupId" autocomplete="off"
-                                        formControlName="groupId">
-                                        <option value="" disabled selected>Selecione</option>
+                                    <select class="form-control" name="groupId" autocomplete="off" formControlName="groupId">
                                         <option *ngFor="let grupo of grupoService.items$ | async" value="{{grupo.id}}">
-                                            {{grupo.name}}</option>
+                                            {{grupo.name}}
+                                        </option>
                                     </select>
                                 </div>
 

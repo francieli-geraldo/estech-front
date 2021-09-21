@@ -58,7 +58,7 @@
                   <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
                     autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #startDate="ngbDatepicker"
                     [class.is-invalid]="isControlInvalid('startDate')" [class.is-valid]="isControlValid('startDate')"
-                    formControlName="startDate" readonly="true" [minDate]="minDate" [disabled]="!!id" />
+                    formControlName="startDate" readonly="true" [disabled]="!!id" />
                   <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
                     <span class="input-group-text">
                       <i class="text-dark-50 flaticon-calendar"></i>

@@ -42,6 +42,7 @@
         <th>LT</th>
         <th>J</th>
         <th>H</th>
+        <th>B</th>
         <th>Peso anterior</th>
         <th>Peso atual</th>
         <th>Evolução</th>
@@ -102,6 +103,14 @@
               (click)="register.editable ? changeValueRegister(register,'hiit') : false">
               <ng-container *ngIf="register.hiit === false">X</ng-container>
               <ng-container *ngIf="register.hiit === true">✔</ng-container>
+            </span>
+          </td>
+          <td>
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.balance.informed === false"
+              [class.label-light-success]="register.balance.informed === true" [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register.balance,'informed') : false">
+              <ng-container *ngIf="register.balance.informed === false">X</ng-container>
+              <ng-container *ngIf="register.balance.informed === true">✔</ng-container>
             </span>
           </td>
           <td>{{ register.balance.previousWeight | maskWeight}}</td>

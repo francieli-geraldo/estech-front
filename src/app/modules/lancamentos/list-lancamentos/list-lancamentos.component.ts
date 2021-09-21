@@ -142,16 +142,16 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   startEdit(register) {
     this.previousLancamentos[register.date] = Object.assign({}, register);
-
+    this.previousLancamentos[register.date].balance = Object.assign({}, register.balance);
     register.balance.currentWeight = this.setValueAroud(register.balance.currentWeight)
     register.editable = true;
   }
 
   cancelEditCreate(register, row) {
-    register.editable = false;
     Object.keys(register).forEach(item => {
-      register[item] = this.previousLancamentos[register.date][item]
+      register[item] = this.previousLancamentos[register.date][item];
     });
+    register.editable = false;
   }
 
   changeValueRegister(register, field) {
