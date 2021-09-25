@@ -1,12 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, of, Subscription, Observer } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../_models/user.model';
 import { AuthModel } from '../_models/auth.model';
 import { AuthHTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { AuthHTTPServiceFake } from './auth-http/fake/auth-fake-http.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -31,33 +31,36 @@ export class AuthService implements OnDestroy {
     this.currentUserSubject.next(user);
   }
 
-  constructor(    
-    private authHttpServiceFake: AuthHTTPServiceFake,
+  constructor(
     private authHttpService: AuthHTTPService,
-    private router: Router
+    private router: Router,
+    protected _sanitizer: DomSanitizer
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
     this.currentUserSubject = new BehaviorSubject<UserModel>(undefined);
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
-    const subscr = this.getUserByToken().subscribe();
-    this.unsubscribe.push(subscr);
+    // const subscr = this.getUserByToken().subscribe();
+    // this.unsubscribe.push(subscr);
   }
 
   // public methods
-  login(email: string, password: string): Observable<UserModel> {
+  login(username: string, password: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.authHttpServiceFake.login(email, password).pipe(
+    return this.authHttpService.login(username, password).pipe(
       map((auth: AuthModel) => {
         const result = this.setAuthFromLocalStorage(auth);
         return result;
       }),
-      switchMap(() => this.getUserByToken()),
+      switchMap(() => this.getUserByUsername(username)),
+      switchMap(() => this.getUserPicture()),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);
       }),
-      finalize(() => this.isLoadingSubject.next(false))
+      finalize(() => {
+        this.isLoadingSubject.next(false);
+      })
     );
   }
 
@@ -68,14 +71,14 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  getUserByToken(): Observable<UserModel> {
+  getUserByUsername(username): Observable<any> {
     const auth = this.getAuthFromLocalStorage();
-    if (!auth || !auth.authToken) {
+    if (!auth || !auth.token) {
       return of(undefined);
     }
 
     this.isLoadingSubject.next(true);
-    return this.authHttpServiceFake.getUserByToken(auth.authToken).pipe(
+    return this.authHttpService.getUserByUsername(username, auth.token).pipe(
       map((user: UserModel) => {
         if (user) {
           this.currentUserSubject = new BehaviorSubject<UserModel>(user);
@@ -88,10 +91,30 @@ export class AuthService implements OnDestroy {
     );
   }
 
+  getUserPicture(): Observable<any> {
+    const auth = this.getAuthFromLocalStorage();
+    if (!auth || !auth.token) {
+      return of(undefined);
+    }
+
+    this.isLoadingSubject.next(true);
+    return this.authHttpService.getUserPicture(this.currentUserSubject['_value'].id, auth.token).pipe(
+      map((res: any) => {
+        if (res?.avatar) {
+          this.currentUserSubject['_value'].pic = `${res?.avatar}`;
+        } else {
+          this.getImageBase64('./assets/media/users/default.jpg');
+        }
+        return true;
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
   // need create new user then login
   registration(user: UserModel): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.authHttpServiceFake.createUser(user).pipe(
+    return this.authHttpService.createUser(user).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
       }),
@@ -106,7 +129,7 @@ export class AuthService implements OnDestroy {
 
   forgotPassword(email: string): Observable<boolean> {
     this.isLoadingSubject.next(true);
-    return this.authHttpServiceFake
+    return this.authHttpService
       .forgotPassword(email)
       .pipe(finalize(() => this.isLoadingSubject.next(false)));
   }
@@ -114,7 +137,7 @@ export class AuthService implements OnDestroy {
   // private methods
   private setAuthFromLocalStorage(auth: AuthModel): boolean {
     // store auth authToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
-    if (auth && auth.authToken) {
+    if (!!auth?.token) {
       localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
       return true;
     }
@@ -136,4 +159,41 @@ export class AuthService implements OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+
+  getImageBase64(imageUrl: string) {
+    return this.getBase64ImageFromURL(imageUrl).subscribe((base64Data: string) => {
+      this.currentUserSubject['_value'].pic = base64Data;
+    });
+  }
+
+  getBase64ImageFromURL(url: string): Observable<string> {
+    return Observable.create((observer: Observer<string>) => {
+      let img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = url;
+      if (!img.complete) {
+        img.onload = () => {
+          observer.next(this.getBase64Image(img));
+          observer.complete();
+        };
+        img.onerror = err => {
+          observer.error(err);
+        };
+      } else {
+        observer.next(this.getBase64Image(img));
+        observer.complete();
+      }
+    });
+  }
+
+  getBase64Image(img: HTMLImageElement): string {
+    var canvas: HTMLCanvasElement = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    let dataURL: string = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
+
 }
