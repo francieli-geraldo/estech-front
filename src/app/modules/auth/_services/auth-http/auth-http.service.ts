@@ -29,22 +29,20 @@ export class AuthHTTPService {
     });
   }
 
-  getUserByUsername(username, token): Observable<any> {
-    const httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<UserModel>(`${API_USERS_URL}/users/${username}`, {
-      headers: httpHeaders
+  // Your server should check email => If email exists send link to the user and return true | If email doesn't exist return false
+  resetPassword(token, id, password): Observable<boolean> {
+    return this.http.post<boolean>(`${API_USERS_URL}/reset-password/${token}`, {
+      id,
+      password
     });
   }
 
-  getUserPicture(id, token): Observable<any> {
-    const httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<any>(`${API_USERS_URL}/users/${id}/avatar`, {
-      headers: httpHeaders      
-    });
+  getUserByUsername(username): Observable<any> {
+    return this.http.get<UserModel>(`${API_USERS_URL}/users/${username}`);
+  }
+
+  getUserPicture(id): Observable<any> {
+    return this.http.get<any>(`${API_USERS_URL}/users/${id}/avatar`);
   }
 
 }

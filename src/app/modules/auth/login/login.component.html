@@ -1,5 +1,21 @@
 <!--begin::Signin-->
 <div class="login-form login-signin">
+  <ng-container *ngIf="hasErrorUnauthorized">
+    <div
+      class="mb-10 alert alert-custom alert-light-warning alert-dismissible"
+    >
+      <div class="alert-text">Token expirado, para sua segurança inicie um novo processo para redefinir sua senha.</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="hasResetSuccess">
+    <div
+      class="mb-10 alert alert-custom alert-light-success alert-dismissible"
+    >
+      <div class="alert-text">Senha redefinida com sucesso!</div>
+    </div>
+  </ng-container>
+
   <!--begin::Form-->
   <form class="form" [formGroup]="loginForm" novalidate="novalidate" id="kt_login_signin_form" (ngSubmit)="submit()">
     <!--begin::Title-->
@@ -30,20 +46,27 @@
     <div class="form-group">
       <div class="d-flex justify-content-between mt-n5">
         <label class="font-size-h6 font-weight-bolder text-dark pt-5">Senha</label>
-        <a routerLink="/auth/forgot-password" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5" id="kt_login_forgot">
-          Esqueceu a senha?
-        </a>
       </div>
 
       <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" name="password"
         autocomplete="off" formControlName="password" />
+        
+      <div class="d-flex justify-content-end mt-n5">        
+        <a routerLink="/auth/recuperar-senha"
+          class="text-primary font-size-h7 font-weight-bolder text-hover-primary pt-8" id="kt_login_forgot">
+          Esqueceu a senha?
+        </a>
+      </div>
     </div>
     <!--end::Form group-->
 
     <!--begin::Action-->
     <div class="pb-lg-0 pb-5">
-      <button type="submit" id="kt_login_signin_submit"
-        class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" [disabled]="loginForm.invalid">
+      <button 
+        type="submit" 
+        id="kt_login_signin_submit"
+        class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" 
+        [disabled]="loginForm.invalid">
         Entrar
       </button>
 

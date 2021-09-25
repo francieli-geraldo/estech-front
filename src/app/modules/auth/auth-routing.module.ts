@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {LogoutComponent} from './logout/logout.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -19,16 +20,24 @@ const routes: Routes = [
       },
       {
         path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'login/:exception',
         component: LoginComponent,
         data: {returnUrl: window.location.pathname}
       },
       {
-        path: 'registration',
-        component: RegistrationComponent
+        path: 'recuperar-senha',
+        component: ForgotPasswordComponent
       },
       {
-        path: 'forgot-password',
-        component: ForgotPasswordComponent
+        path: 'redefinir-senha',
+        component: ResetPasswordComponent
+      },
+      {
+        path: 'redefinir-senha/:token',
+        component: ResetPasswordComponent
       },
       {
         path: 'logout',

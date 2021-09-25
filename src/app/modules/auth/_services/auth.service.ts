@@ -78,7 +78,7 @@ export class AuthService implements OnDestroy {
     }
 
     this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserByUsername(username, auth.token).pipe(
+    return this.authHttpService.getUserByUsername(username).pipe(
       map((user: UserModel) => {
         if (user) {
           this.currentUserSubject = new BehaviorSubject<UserModel>(user);
@@ -98,7 +98,7 @@ export class AuthService implements OnDestroy {
     }
 
     this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserPicture(this.currentUserSubject['_value'].id, auth.token).pipe(
+    return this.authHttpService.getUserPicture(this.currentUserSubject['_value'].id).pipe(
       map((res: any) => {
         if (res?.avatar) {
           this.currentUserSubject['_value'].pic = `${res?.avatar}`;
@@ -130,6 +130,21 @@ export class AuthService implements OnDestroy {
   forgotPassword(username: string): Observable<boolean> {
     this.isLoadingSubject.next(true);
     return this.authHttpService.forgotPassword(username).pipe(
+        map((res: any) => {
+          // console.log(res);          
+          return true;
+        }),
+        catchError((err) => {
+          // console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+      );
+  }
+
+  resetPassword(token: string, id: number, password: string ): Observable<boolean> {
+    this.isLoadingSubject.next(true);
+    return this.authHttpService.resetPassword(token, id, password).pipe(
         map((res: any) => {
           // console.log(res);          
           return true;

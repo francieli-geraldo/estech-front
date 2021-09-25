@@ -17,6 +17,7 @@ import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/sp
 import { NgxMaskModule } from 'ngx-mask';
 import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { Interceptor } from './modules/auth/auth.interceptor.module';
 
 registerLocaleData(localePt);
 
@@ -44,6 +45,7 @@ function appInitializer(authService: AuthService) {
     AppRoutingModule,
     InlineSVGModule.forRoot(),
     NgbModule,
+    Interceptor
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'},

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { UserModel } from '../_models/user.model';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   // };
   loginForm: FormGroup;
   hasError: boolean;
+  
+  hasErrorUnauthorized: boolean;
+  hasResetSuccess: boolean;
+
   returnUrl: string;
   isLoading$: Observable<boolean>;
 
@@ -43,11 +47,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.route.paramMap.pipe(
+      map(params => {
+        const exception = params.get('exception');
+        if (exception == 'unauthorized') {
+          this.hasErrorUnauthorized = true;          
+        }else if(exception == 'reset-success'){
+          this.hasResetSuccess = true;          
+        } 
+        return exception;
+      }),
+    ).subscribe();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
     this.initForm();
-    // get return url from route parameters or default to '/'
-    this.returnUrl =
-        this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
-    }
+  }
 
   // convenience getter for easy access to form fields
   get f() {

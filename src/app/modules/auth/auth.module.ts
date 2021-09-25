@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthComponent } from './auth.component';
 import {TranslationModule} from '../i18n/translation.module';
@@ -16,6 +17,7 @@ import { Interceptor } from './auth.interceptor.module';
     LoginComponent,
     RegistrationComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
     LogoutComponent,
     AuthComponent,
   ],
@@ -25,8 +27,7 @@ import { Interceptor } from './auth.interceptor.module';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    Interceptor
+    HttpClientModule
   ]
 })
 export class AuthModule {}
