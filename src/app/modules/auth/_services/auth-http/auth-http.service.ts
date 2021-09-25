@@ -23,9 +23,9 @@ export class AuthHTTPService {
   }
 
   // Your server should check email => If email exists send link to the user and return true | If email doesn't exist return false
-  forgotPassword(email: string): Observable<boolean> {
+  forgotPassword(username: string): Observable<boolean> {
     return this.http.post<boolean>(`${API_USERS_URL}/forgot-password`, {
-      email,
+      username,
     });
   }
 
