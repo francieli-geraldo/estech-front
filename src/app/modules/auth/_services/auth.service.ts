@@ -144,7 +144,7 @@ export class AuthService implements OnDestroy {
     return false;
   }
 
-  private getAuthFromLocalStorage(): AuthModel {
+  getAuthFromLocalStorage(): AuthModel {
     try {
       const authData = JSON.parse(
         localStorage.getItem(this.authLocalStorageToken)
@@ -160,13 +160,13 @@ export class AuthService implements OnDestroy {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  getImageBase64(imageUrl: string) {
+  private getImageBase64(imageUrl: string) {
     return this.getBase64ImageFromURL(imageUrl).subscribe((base64Data: string) => {
       this.currentUserSubject['_value'].pic = base64Data;
     });
   }
 
-  getBase64ImageFromURL(url: string): Observable<string> {
+  private getBase64ImageFromURL(url: string): Observable<string> {
     return Observable.create((observer: Observer<string>) => {
       let img = new Image();
       img.crossOrigin = "Anonymous";
@@ -186,7 +186,7 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  getBase64Image(img: HTMLImageElement): string {
+  private getBase64Image(img: HTMLImageElement): string {
     var canvas: HTMLCanvasElement = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
