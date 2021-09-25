@@ -129,9 +129,17 @@ export class AuthService implements OnDestroy {
 
   forgotPassword(username: string): Observable<boolean> {
     this.isLoadingSubject.next(true);
-    return this.authHttpService
-      .forgotPassword(username)
-      .pipe(finalize(() => this.isLoadingSubject.next(false)));
+    return this.authHttpService.forgotPassword(username).pipe(
+        map((res: any) => {
+          // console.log(res);          
+          return true;
+        }),
+        catchError((err) => {
+          // console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+      );
   }
 
   // private methods
