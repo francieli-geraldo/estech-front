@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  appVersion: 'v726demo2',
+  appVersion: 'v727demo2',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: false,
-  apiUrl: 'https://cc58-190-89-107-7.ngrok.io/v1'
+  apiUrl: 'https://9c8d-190-89-107-4.ngrok.io/v1'
 };
 
 /*
