@@ -22,11 +22,7 @@ import { Interceptor } from './modules/auth/auth.interceptor.module';
 registerLocaleData(localePt);
 
 function appInitializer(authService: AuthService) {
-  return () => {
-    // return new Promise((resolve) => {
-    //   authService.getUserByToken().subscribe().add(resolve);
-    // });
-  };
+  return () => { return authService.getUserByToken() };
 }
 
 @NgModule({

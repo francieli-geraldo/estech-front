@@ -66,6 +66,7 @@ export class AuthService implements OnDestroy {
 
   logout() {
     localStorage.removeItem(this.authLocalStorageToken);
+    localStorage.removeItem(`${this.authLocalStorageToken}-user`);
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
@@ -98,10 +99,11 @@ export class AuthService implements OnDestroy {
     }
 
     this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserPicture(this.currentUserSubject['_value'].id).pipe(
+    return this.authHttpService.getUserPicture(this.currentUserSubject.value.id).pipe(
       map((res: any) => {
         if (res?.avatar) {
-          this.currentUserSubject['_value'].pic = `${res?.avatar}`;
+          this.currentUserSubject.value.pic = `${res?.avatar}`;
+          this.setUserFromLocalStorage(this.currentUserSubject.value);
         } else {
           this.getImageBase64('./assets/media/users/default.jpg');
         }
@@ -109,6 +111,15 @@ export class AuthService implements OnDestroy {
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
+  }
+
+  getUserByToken(): UserModel {
+    const user = this.getUserFromLocalStorage();
+    if (!user) {
+      this.logout();
+    }
+    this.currentUserSubject = new BehaviorSubject<UserModel>(user);
+    return user;
   }
 
   // need create new user then login
@@ -157,16 +168,6 @@ export class AuthService implements OnDestroy {
       );
   }
 
-  // private methods
-  private setAuthFromLocalStorage(auth: AuthModel): boolean {
-    // store auth authToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
-    if (!!auth?.token) {
-      localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
-      return true;
-    }
-    return false;
-  }
-
   getAuthFromLocalStorage(): AuthModel {
     try {
       const authData = JSON.parse(
@@ -179,13 +180,38 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  getUserFromLocalStorage(): UserModel {
+    try {
+      const authData = JSON.parse( localStorage.getItem(`${this.authLocalStorageToken}-user`) );
+      return authData;
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
+  }
+
+  // private methods
+  private setAuthFromLocalStorage(auth: AuthModel): boolean {
+    // store auth authToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
+    if (!!auth?.token) {
+      localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
+      return true;
+    }
+    return false;
+  }
+
+  private setUserFromLocalStorage(user: UserModel): boolean {
+    if (!!user?.id) {
+      localStorage.setItem(`${this.authLocalStorageToken}-user`, JSON.stringify(user));
+      return true;
+    }
+    return false;
   }
 
   private getImageBase64(imageUrl: string) {
     return this.getBase64ImageFromURL(imageUrl).subscribe((base64Data: string) => {
-      this.currentUserSubject['_value'].pic = base64Data;
+      this.currentUserSubject.value.pic = base64Data;
+      this.setUserFromLocalStorage(this.currentUserSubject.value);
     });
   }
 
@@ -219,4 +245,7 @@ export class AuthService implements OnDestroy {
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   }
 
+  ngOnDestroy() {
+    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
 }

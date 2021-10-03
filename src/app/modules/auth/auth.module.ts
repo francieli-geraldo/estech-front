@@ -10,8 +10,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { LogoutComponent } from './logout/logout.component';
 import { AuthComponent } from './auth.component';
 import {TranslationModule} from '../i18n/translation.module';
-import { Interceptor } from './auth.interceptor.module';
-
 @NgModule({
   declarations: [
     LoginComponent,

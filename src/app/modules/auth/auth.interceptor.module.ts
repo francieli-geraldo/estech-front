@@ -6,19 +6,17 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AuthService } from '.';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
-export class HttpsRequestInterceptor implements HttpInterceptor {
+export class HttpsAuthInterceptor implements HttpInterceptor {
 
   constructor(private auth: AuthService){ }
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
+  intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
     const auth = this.auth.getAuthFromLocalStorage();
     const dupReq = req.clone({
       headers: req.headers.set('authorization', (auth?.token) ? 'Bearer ' + auth.token : ''),
@@ -27,13 +25,29 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
   }
 }
 
+
+@Injectable()
+export class HttpsErrorInterceptor implements HttpInterceptor {
+    constructor(private auth: AuthService){ }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(request).pipe(catchError(err => {
+            if (err.status === 401) {
+                // auto logout if 401 response returned from api
+                this.auth.logout();
+                document.location.reload();
+            }
+
+            const error = err.error.message || err.statusText;
+            return throwError(error);
+        }))
+    }
+}
+
 @NgModule({
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpsRequestInterceptor,
-      multi: true,
-    },
+    { useClass: HttpsAuthInterceptor, provide: HTTP_INTERCEPTORS,  multi: true },
+    { useClass: HttpsErrorInterceptor, provide: HTTP_INTERCEPTORS,  multi: true },
   ],
 })
 
