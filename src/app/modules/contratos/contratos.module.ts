@@ -6,8 +6,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {InlineSVGModule} from 'ng-inline-svg';
 import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {CRUDTableModule} from '../../_metronic/shared/crud-table';
-import {WidgetsModule} from '../../_metronic/partials/content/widgets/widgets.module';
-import {DropdownMenusModule} from '../../_metronic/partials/content/dropdown-menus/dropdown-menus.module';
 import { ContratosComponent } from './contratos.component';
 import { FormContratoModalComponent } from './components/form-contrato-modal/form-contrato-modal.component';
 import { DeleteContratoModalComponent } from './components/delete-contrato-modal/delete-contrato-modal.component';
