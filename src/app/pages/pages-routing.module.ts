@@ -8,6 +8,11 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
         path: 'pacientes',
         loadChildren: () =>
           import('../modules/pacientes/pacientes.module').then((m) => m.PacientesModule),
