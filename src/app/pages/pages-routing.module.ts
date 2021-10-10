@@ -48,11 +48,6 @@ const routes: Routes = [
           import('../modules/lancamentos/lancamentos.module').then((m) => m.LancamentosModule),
       },
       {
-        path: 'builder',
-        loadChildren: () =>
-          import('./builder/builder.module').then((m) => m.BuilderModule),
-      },
-      {
         path: 'user-management',
         loadChildren: () =>
           import('../modules/user-management/user-management.module').then(

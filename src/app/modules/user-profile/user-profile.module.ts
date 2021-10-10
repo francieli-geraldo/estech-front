@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {InlineSVGModule} from 'ng-inline-svg';
 import {NgbDropdownModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {CRUDTableModule} from '../../_metronic/shared/crud-table';
-import {WidgetsModule} from '../../_metronic/partials/content/widgets/widgets.module';
 import {DropdownMenusModule} from '../../_metronic/partials/content/dropdown-menus/dropdown-menus.module';
 import {UserProfileComponent} from './user-profile.component';
 import {ProfileOverviewComponent} from './profile-overview/profile-overview.component';
@@ -42,8 +41,7 @@ import {ProfileCardComponent} from './_components/profile-card/profile-card.comp
     UserProfileRoutingModule,
     DropdownMenusModule,
     NgbDropdownModule,
-    NgbTooltipModule,
-    WidgetsModule
+    NgbTooltipModule
   ]
 })
 export class UserProfileModule {}
