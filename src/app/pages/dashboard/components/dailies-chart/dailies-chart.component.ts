@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-dailies-chart',
   templateUrl: './dailies-chart.component.html',
+  styleUrls: ['./dailies-chart.component.scss'],
 })
 export class DailiesChartComponent {
   
@@ -20,6 +21,7 @@ export class DailiesChartComponent {
       series: [44, 55],
       chart: {
         width: '100%',
+        maxHeight: '50vh',
         type: "pie",        
       },
       labels: ["Pendentes", "Lançados"],

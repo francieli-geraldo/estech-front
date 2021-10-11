@@ -1,0 +1,40 @@
+.linha-vertical {
+    height: 100%;
+    border: 1px solid #e4e6ef;
+    margin: 2px;
+}
+
+
+.input-filter-group{
+    display: inline-flex;
+    min-width: 16vw;
+    width: 32vw;
+    justify-items: center;
+    align-items: center;    
+}
+
+.card-toolbar {
+    margin-left: auto !important; 
+    margin-right: 15px !important;
+}
+
+@media (max-width: 920px) {
+    .container-chart{
+        flex-direction: column;
+    }
+ 
+    .linha-vertical{
+        margin-bottom: 19px;
+    }
+}
+
+@media (max-width: 620px) {
+    .input-filter-group{
+        width: 100%;
+    }
+    
+    .card-toolbar {
+        margin-right: 0px !important;
+    }
+
+}

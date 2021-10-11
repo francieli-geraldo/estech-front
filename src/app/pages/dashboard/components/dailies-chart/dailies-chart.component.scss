@@ -1,0 +1,15 @@
+.linha-vertical {
+    height: 100%;
+    border: 1px solid #e4e6ef;
+    margin: 2px;
+}
+
+@media (max-width: 920px) {
+    .container-chart{
+        flex-direction: column;
+    }
+ 
+    .linha-vertical{
+        margin-bottom: 19px;
+    }
+}

@@ -63,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'lancamentos',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
       {

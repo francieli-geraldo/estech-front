@@ -3,10 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-dailies-chart-group',
   templateUrl: './dailies-chart-group.component.html',
-  styles: [`.linha-vertical {
-    height: 100%;
-    border: 1px solid #e4e6ef;
-  }`]
+  styleUrls: ['./dailies-chart-group.component.scss'],
 })
 
 export class DailiesChartGroupComponent implements OnInit {
