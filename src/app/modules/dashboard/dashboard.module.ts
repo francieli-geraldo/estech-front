@@ -7,6 +7,8 @@ import { DailiesChartGroupComponent } from './components/dailies-chart-group/dai
 import { DailiesChartComponent } from './components/dailies-chart/dailies-chart.component';
 import { DropdownMenusModule } from 'src/app/_metronic/partials/content/dropdown-menus/dropdown-menus.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { InlineSVGModule } from 'ng-inline-svg';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
   ],
   exports: [ DashboardComponent ],
   imports: [
-    CommonModule, 
+    CommonModule,
     DropdownMenusModule,
+    InlineSVGModule,
     NgApexchartsModule,
+    NgbDropdownModule,
     RouterModule.forChild([
       {
         path: '',

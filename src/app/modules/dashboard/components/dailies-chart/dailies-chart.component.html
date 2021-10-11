@@ -2,23 +2,26 @@
   <div class="card-header border-0 pt-5">
     <h3 class="card-title font-weight-bolder">Lançamntos Diários</h3>
     <div class="card-toolbar">
-      <div class="dropdown dropdown-inline" ngbDropdown placement="bottom-right" class="dropdown dropdown-inline"
-        title="Quick actions">
-        <a ngbDropdownToggle class="btn btn-clean btn-hover-light-primary btn-sm btn-icon cursor-pointer">
+      <div
+        ngbDropdown
+        placement="bottom-right"
+        class="dropdown dropdown-inline"
+        title="Quick actions"
+      >
+        <a
+          ngbDropdownToggle
+          class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
           <i class="ki ki-bold-more-hor"></i>
         </a>
-        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
-          <ul class="navi navi-hover py-5">
-            <li class="navi-item">
-              <a class="navi-link cursor-pointer">
-                <span class="navi-icon">
-                  <i class="flaticon-eye"></i>
-                </span>
-                <span class="navi-text">Esconder tabela</span>
-                <span class="navi-text d-none">Mostrar tabela</span>
-              </a>
-            </li>
-          </ul>
+        <div
+          ngbDropdownMenu
+          class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+        >
+          <app-dropdown-hide-table></app-dropdown-hide-table>
         </div>
       </div>
     </div>
