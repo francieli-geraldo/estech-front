@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DailiesChartGroupComponent implements OnInit {
+  
   chartOptions: any = {};
+  isHide: boolean = false;
 
   constructor() {
   }
@@ -65,5 +67,11 @@ export class DailiesChartGroupComponent implements OnInit {
       },      
       colors: ['#1BC5BD', '#F64E60'],
     };
+  }
+
+  
+  hideTable(result) {
+    this.isHide = result;    
+    console.log(result);    
   }
 }

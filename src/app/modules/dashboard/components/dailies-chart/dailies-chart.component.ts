@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dailies-chart',
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class DailiesChartComponent {
   
   chartOptions: any = {};
+  isHide: boolean = false;
 
   constructor() {
   }
@@ -31,5 +32,10 @@ export class DailiesChartComponent {
         inverseOrder: true
       }
     };
+  }
+
+  hideTable(result) {
+    this.isHide = result;    
+    console.log(result);    
   }
 }

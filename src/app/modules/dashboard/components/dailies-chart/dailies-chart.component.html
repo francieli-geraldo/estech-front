@@ -21,7 +21,7 @@
           ngbDropdownMenu
           class="dropdown-menu dropdown-menu-md dropdown-menu-right"
         >
-          <app-dropdown-hide-table></app-dropdown-hide-table>
+          <app-dropdown-hide-table (onHide)="hideTable($event)"></app-dropdown-hide-table>
         </div>
       </div>
     </div>
@@ -37,10 +37,10 @@
         </div>
       </div>
 
-      <div class="linha-vertical"></div>
+      <div [hidden]="isHide" class="linha-vertical"></div>
 
-      <div class="col-lg-6">
-        <app-dailies-table></app-dailies-table>
+      <div [hidden]="isHide" class="col-lg-6">
+        <app-dailies-table ></app-dailies-table>
       </div>
 
     </div>

@@ -4,6 +4,10 @@
     margin: 2px;
 }
 
+.container-chart {    
+    justify-content: center;
+}
+
 @media (max-width: 920px) {
     .container-chart{
         flex-direction: column;

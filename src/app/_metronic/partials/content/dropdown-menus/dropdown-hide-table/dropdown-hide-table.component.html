@@ -4,8 +4,8 @@
       <span class="navi-icon">
         <i class="flaticon-eye"></i>
       </span>
-      <span class="navi-text">Esconder tabela</span>
-      <span class="navi-text d-none">Mostrar tabela</span>
+      <span class="navi-text" [hidden]="isHide"  (click)="hideTable()">Esconder tabela</span>
+      <span class="navi-text" [hidden]="!isHide"  (click)="hideTable()">Mostrar tabela</span>
     </a>
   </li>
 </ul>
