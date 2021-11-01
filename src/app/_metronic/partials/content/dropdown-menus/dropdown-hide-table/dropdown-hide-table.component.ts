@@ -7,7 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class DropdownHideTableComponent implements OnInit {
 
   @Output() onHide: EventEmitter<boolean> = new EventEmitter();
-  isHide: boolean = false;
+  isHide: boolean = true;
 
   constructor() {}
 

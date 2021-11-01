@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class DailiesChartComponent {
   
   chartOptions: any = {};
-  isHide: boolean = false;
+  isHide: boolean = true;
 
   constructor() {
   }
@@ -28,8 +28,7 @@ export class DailiesChartComponent {
       labels: ["Pendentes", "Lançados"],
       colors:[ '#F64E60','#1BC5BD'],
       legend: {
-        position: 'top',
-        inverseOrder: true
+        show: false,
       }
     };
   }

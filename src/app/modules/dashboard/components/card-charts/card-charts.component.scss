@@ -1,0 +1,24 @@
+
+
+.container-chart {    
+    justify-content: center;
+    min-width: 50%;
+}
+
+.container-chart app-dailies-chart {
+    min-width: 100%;
+}
+
+.container-chart app-dailies-chart-group {
+    min-width: 100%;
+}
+
+@media (max-width: 920px) {
+    .container-chart{
+        min-width: 100%;
+    }
+ 
+    .linha-vertical{
+        margin-bottom: 19px;
+    }
+}
