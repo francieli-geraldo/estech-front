@@ -109,6 +109,9 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
     if (grupoId) {
       params["groupId"] = grupoId;
     }
+    
+    params["page"] = '0';    
+    params["size"] = '9999';
 
     this.listLancamentos$ = this.service.findParams({ params });
   }

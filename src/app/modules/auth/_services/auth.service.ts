@@ -80,7 +80,7 @@ export class AuthService implements OnDestroy {
 
     this.isLoadingSubject.next(true);
     return this.authHttpService.getUserByUsername(username).pipe(
-      map((user: UserModel) => {
+      map(({data: user}) => {
         if (user) {
           this.currentUserSubject = new BehaviorSubject<UserModel>(user);
         } else {
