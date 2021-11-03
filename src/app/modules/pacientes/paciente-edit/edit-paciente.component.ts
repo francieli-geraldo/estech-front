@@ -62,13 +62,13 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
         this.errorMessage = errorMessage;
         return of(undefined);
       }),
-    ).subscribe((res: Paciente) => {
-      if (!res) {
+    ).subscribe(({ data}) => {
+      if (!data) {
         this.router.navigate(['/pacientes'], { relativeTo: this.route });
       }
 
-      this.paciente = res;
-      this.previous = Object.assign({}, res);
+      this.paciente = data;
+      this.previous = Object.assign({}, data);
       this.loadForm();
     });
     this.subscriptions.push(sb);

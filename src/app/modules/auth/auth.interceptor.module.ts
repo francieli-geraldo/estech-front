@@ -10,6 +10,8 @@ import { Observable, throwError } from 'rxjs';
 import { AuthService } from '.';
 import { catchError } from 'rxjs/operators';
 
+import { Notify } from '../../../assets/js/layout/extended/messages/notify';
+import { MessageBox } from '../../../assets/js/layout/extended/messages/message-box';
 
 @Injectable()
 export class HttpsAuthInterceptor implements HttpInterceptor {
@@ -38,6 +40,15 @@ export class HttpsErrorInterceptor implements HttpInterceptor {
                 document.location.reload();
             }
 
+            if (err.status === 409) {
+              console.log(err);
+              
+              new MessageBox({ 
+                title: 'Erro de Requisição', 
+                message: err.error.errors[0].detail, 
+                type: 'danger' 
+              }).show();              
+            }
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))

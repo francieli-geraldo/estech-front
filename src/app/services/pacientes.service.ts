@@ -18,10 +18,10 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
   // READ
   find(params): Observable<TableResponseModel<Paciente>> {
     return this.http.get<Paciente[]>(this.API_URL, { params }).pipe(
-      map((response: any) => {        
+      map(({ data, meta }: any) => {        
         return {
-          items: response?.content || [] ,
-          total: response?.totalElements || 0
+          items: data || [] ,
+          total: meta?.page?.elements || 0
         };
       })
     );
@@ -30,8 +30,8 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
   
   findByDescriptionPaciente( search ): Observable<any> {
     return this.http.get(`${this.API_URL}/summaries?search=${search}`).pipe( 
-      map((response: any) => {                
-        return response?.content || []
+      map(({ data }: any) => {                
+        return data || []
       }),
       catchError(err => {
         return []
@@ -41,8 +41,8 @@ export class PacientesService extends TableService<Paciente> implements OnDestro
  
   getById(id : number): Observable<any>{
     return this.http.get<Paciente>(`${this.API_URL}/${id}`).pipe(
-      map((response: Paciente) => {        
-        return response;
+      map(({ data }: any) => {        
+        return data;
       }),
       catchError((err) => {
         return of(undefined);

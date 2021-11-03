@@ -44,7 +44,7 @@ export class FormProgramasModalComponent implements OnInit {
 
   loadRegister() {
     if (!this.id) {
-      this.register = EMPTY;
+      this.register = Object.assign({}, EMPTY);
     }     
     this.loadForm();
   }
@@ -82,7 +82,8 @@ export class FormProgramasModalComponent implements OnInit {
 
   create() {
     const sbCreate = this.registersService.create(this.register).pipe(
-      tap(() => {
+      tap(() => {        
+        this.register = Object.assign({}, EMPTY);
         this.modal.close();
       }),
       catchError((errorMessage) => {

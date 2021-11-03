@@ -49,13 +49,12 @@ export class FormPacienteModalComponent implements OnInit, OnDestroy {
       this.loadForm();
     } else {
       const sb = this.registersService.getItemById(this.id).pipe(
-        first(),
         catchError((errorMessage) => {
           this.modal.dismiss(errorMessage);
           return of(EMPTY_PACIENTE);
         })
-      ).subscribe((register: Paciente) => {
-        this.register = register;
+      ).subscribe(({ data }: any) => {
+        this.register = data;
         this.loadForm();
       });
       this.subscriptions.push(sb);

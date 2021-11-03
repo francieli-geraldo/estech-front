@@ -27,8 +27,8 @@ export class LancamentosService extends TableService<Lancamento> implements OnDe
 
   findParams({ params }): Observable<any> {
     return this.http.get(this.API_URL, { params }).pipe(
-      map((response) => {
-        return response;
+      map((response: any) => {
+        return response?.data || [];
       }),
       catchError((err) => {
         return of(undefined);
