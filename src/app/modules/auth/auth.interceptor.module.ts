@@ -41,14 +41,21 @@ export class HttpsErrorInterceptor implements HttpInterceptor {
             }
 
             if (err.status === 409) {
-              console.log(err);
-              
               new MessageBox({ 
-                title: 'Erro de Requisição', 
+                title: 'Erro', 
                 message: err.error.errors[0].detail, 
                 type: 'danger' 
               }).show();              
             }
+
+            if (err.status === 400) {
+              new MessageBox({ 
+                title: 'Erro', 
+                message: err.error.errors[0].detail, 
+                type: 'danger' 
+              }).show();              
+            }
+
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))

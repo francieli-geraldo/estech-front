@@ -6,6 +6,8 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 import { PacientesService } from '../../../services/pacientes.service';
 import { Paciente } from '../../../models/paciente.model';
 
+import { Notify } from '../../../../assets/js/layout/extended/messages/notify';
+
 const EMPTY_PACIENTE: Paciente = {
   id: undefined,
   name: '',
@@ -62,7 +64,8 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
         this.errorMessage = errorMessage;
         return of(undefined);
       }),
-    ).subscribe(({ data}) => {
+    ).subscribe((res) => {
+      let data = res?.data || res;
       if (!data) {
         this.router.navigate(['/pacientes'], { relativeTo: this.route });
       }
@@ -114,7 +117,16 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
 
   edit() {
     const sbUpdate = this.pacientesService.update(this.paciente).pipe(
-      tap(() => this.router.navigate(['/pacientes'])),
+      tap((res) => {
+        if(!res?.id){
+          this.router.navigate(['/pacientes']) 
+          
+          new Notify({ 
+            message: 'Atualizado com sucesso!', 
+            type: 'success' 
+          }).show();  
+        }
+      }),
       catchError((errorMessage) => {
         console.error('UPDATE ERROR', errorMessage);
         return of(this.paciente);
@@ -125,7 +137,16 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
 
   create() {
     const sbCreate = this.pacientesService.create(this.paciente).pipe(
-      tap(() => this.router.navigate(['/pacientes'])),
+      tap((res) => {
+        if(!res?.id){
+          this.router.navigate(['/pacientes']) 
+          
+          new Notify({ 
+            message: 'Cadastrado com sucesso!', 
+            type: 'success' 
+          }).show();  
+        }
+      }),
       catchError((errorMessage) => {
         console.error('UPDATE ERROR', errorMessage);
         return of(this.paciente);

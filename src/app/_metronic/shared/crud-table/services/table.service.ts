@@ -1,7 +1,7 @@
 // tslint:disable:variable-name
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { PaginatorState } from '../models/paginator.model';
 import { ITableState, TableResponseModel } from '../models/table.model';
 import { BaseModel } from '../models/base.model';
@@ -73,14 +73,13 @@ export abstract class TableService<T> {
 
   // CREATE
   // server should return the object with ID
-  create(item: BaseModel): Observable<BaseModel> {
+  create(item) {
     this._isLoading$.next(true);
     this._errorMessage.next('');
     return this.http.post<BaseModel>(this.API_URL, item).pipe(
       catchError(err => {
         this._errorMessage.next(err);
-        console.error('CREATE ITEM', err);
-        return of({ id: undefined });
+        return of({ id: 1 });
       }),
       finalize(() => this._isLoading$.next(false))
     );
@@ -252,10 +251,19 @@ export abstract class TableService<T> {
         this._params$.next(newParamsSort);
         break;
       case 'paginator':        
-        const params_paginator = { 
-          page: this._tableState$.value.paginator.page - 1,
-          size: this._tableState$.value.paginator.pageSize
-        } 
+        let params_paginator = {};
+        if(Object.keys(this._tableState$.value.filter).length  != 0){
+          params_paginator = { 
+            page: 0,
+            size: this._tableState$.value.paginator.pageSize
+          }
+        }else{
+          params_paginator = { 
+            page: this._tableState$.value.paginator.page - 1,
+            size: this._tableState$.value.paginator.pageSize
+          }
+        }
+        
         const newParamsPage = Object.assign(this._params$.value, params_paginator);
         this._params$.next(newParamsPage);
         break;
