@@ -12,6 +12,8 @@ import { DeleteContratoModalComponent } from './components/delete-contrato-modal
 import { CancelContratoModalComponent } from './components/cancel-contrato-modal/cancel-contrato-modal.component';
 import { ContratosRoutingModule } from './contratos-routing.module';
 import { ListContratosComponent } from './components/list-contratos/list-contratos.component';
+import { ReactivateContratoModalComponent } from './components/reactivate-contrato-modal/reactivate-contrato-modal.component';
+import { ConcluedContratoModalComponent } from './components/conclued-contrato-modal/conclued-contrato-modal.component';
 
 
 @NgModule({  
@@ -20,6 +22,8 @@ import { ListContratosComponent } from './components/list-contratos/list-contrat
     FormContratoModalComponent,
     DeleteContratoModalComponent,
     CancelContratoModalComponent,
+    ConcluedContratoModalComponent,
+    ReactivateContratoModalComponent,
     ListContratosComponent 
   ],
   declarations: [
@@ -27,6 +31,8 @@ import { ListContratosComponent } from './components/list-contratos/list-contrat
     FormContratoModalComponent,
     DeleteContratoModalComponent,
     CancelContratoModalComponent,
+    ConcluedContratoModalComponent,
+    ReactivateContratoModalComponent,
     ListContratosComponent   
   ],
   imports: [
@@ -46,6 +52,8 @@ import { ListContratosComponent } from './components/list-contratos/list-contrat
     FormContratoModalComponent,
     DeleteContratoModalComponent,
     CancelContratoModalComponent,
+    ConcluedContratoModalComponent,
+    ReactivateContratoModalComponent,
     ListContratosComponent
   ]
 })

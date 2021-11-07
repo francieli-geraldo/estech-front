@@ -18,7 +18,7 @@
             <small class="form-text text-muted">Programa</small>
             <select class="form-control" placeholder="Filtro por Programa" name="programId" formControlName="programId">
               <option value="">Todos</option>              
-              <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">{{register.name}}</option>
+              <option *ngFor="let register of this.listProgramas$ | async" value="{{register.id}}">{{register.name}}</option>
             </select>
           </div>
 
@@ -142,18 +142,39 @@
           <td>{{ (register.goal - register.startingWeight) | maskWeight }}</td>
           <!-- <td>{{ register.dateConclusion }}</td> -->
           <td style="display: flex;">
-            <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
-              <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                class="svg-icon svg-icon-md svg-icon-primary">
-              </span>
-            </a>
+            <ng-container *ngIf="register.status === 'ACTIVE'">                
+              <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
+                <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-primary">
+                </span>
+              </a>
+            </ng-container>
+            
+            <ng-container *ngIf="register.status != 'ACTIVE'">                
+              <a title="Exibir" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-primary">
+                </span>
+              </a>
+            </ng-container>
 
-            <!-- <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-              (click)="cancelContrato(register.id)">
-              <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
-                class="svg-icon svg-icon-md svg-icon-danger">
-              </span>
-            </a> -->
+            <ng-container *ngIf="register.status === 'ACTIVE'">
+              <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                (click)="cancelContrato(register)">
+                <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-danger">
+                </span>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="register.status === 'CANCELED'">
+              <a title="Reativar contrato" class="btn btn-icon btn-light btn-hover-success btn-sm"
+                (click)="reactivateContrato(register)">
+                <span [inlineSVG]="'./assets/media/svg/icons/Files/File-done.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-success">
+                </span>
+              </a>
+            </ng-container>
+           
           </td>
         </tr>
       </tbody>

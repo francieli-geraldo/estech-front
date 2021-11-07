@@ -8,15 +8,15 @@ import { CustomAdapter, CustomDateParserFormatter } from 'src/app/_metronic/core
 import { Notify } from '../../../../../assets/js/layout/extended/messages/notify';
 
 @Component({
-  selector: 'app-cancel-contrato-modal',
-  templateUrl: './cancel-contrato-modal.component.html',
-  styleUrls: ['./cancel-contrato-modal.component.scss'],
+  selector: 'app-conclued-contrato-modal',
+  templateUrl: './conclued-contrato-modal.component.html',
+  styleUrls: ['./conclued-contrato-modal.component.scss'],
   providers: [
     {provide: NgbDateAdapter, useClass: CustomAdapter},
     {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
   ]  
   })
-export class CancelContratoModalComponent implements OnInit {
+export class ConcluedContratoModalComponent implements OnInit {
 
   @Input() id: number;
   @Input() nomeCliente: string;

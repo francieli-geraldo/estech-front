@@ -27,3 +27,18 @@ export interface Contrato extends BaseModel {
   cancellationDate: string;
   reasonCancellation: string;
 }
+
+
+export interface ReactivateContrato extends BaseModel {
+  id: number;  
+  patientId: number;
+  programId: number;  
+  groupId: number;
+  status: string;  
+  startingWeight: number;
+  goal: number;
+  objetivo: number;  
+  hiringDate: string;
+  startDate: string;
+  notes: string;
+}

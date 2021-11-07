@@ -6,10 +6,13 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../../_metronic/shared/crud-table";
 import { ContratosService } from "../../../../services/contratos.service";
 import { CancelContratoModalComponent } from "../cancel-contrato-modal/cancel-contrato-modal.component";
+import { ConcluedContratoModalComponent } from "../conclued-contrato-modal/conclued-contrato-modal.component";
 import { DeleteContratoModalComponent } from "../delete-contrato-modal/delete-contrato-modal.component";
 import { FormContratoModalComponent } from "../form-contrato-modal/form-contrato-modal.component";
 import { ProgramasService } from "src/app/services/programas.service";
 import { PacientesService } from "src/app/services/pacientes.service";
+import { ReactivateContratoModalComponent } from "../reactivate-contrato-modal/reactivate-contrato-modal.component";
+import { Programa } from "src/app/models/programa.model";
 
 @Component({
   selector: "app-list-contratos",
@@ -35,6 +38,7 @@ export class ListContratosComponent
   filterGroup: FormGroup;
   searchGroup: FormGroup;
   private subscriptions: Subscription[] = [];
+  listProgramas$: Observable<Programa[]>;
 
   constructor(  
     private fb: FormBuilder,
@@ -54,8 +58,14 @@ export class ListContratosComponent
       (res) => (this.isLoading = res)
     );
     this.subscriptions.push(sb);
+    
+    this.listProgramas$ = this.programasService.findParams({ 
+      params: {
+        page: '0',
+        size: '9999',
+      }
+    });
 
-    this.programasService.fetch();
     this.filterForm();
   }
 
@@ -168,9 +178,33 @@ export class ListContratosComponent
     );
   }
 
-  cancelContrato(id: number) {
+  cancelContrato(register) {
     const modalRef = this.modalService.open(CancelContratoModalComponent);
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = register.id;
+    modalRef.componentInstance.nomeCliente = `${register.patient.name} - ${register.patient.phone}`;
+    modalRef.componentInstance.register = register;
+    modalRef.result.then(
+      () => this.service.fetch(),
+      () => {}
+    );
+  }
+  
+  reactivateContrato(register) {
+    const modalRef = this.modalService.open(ReactivateContratoModalComponent);
+    modalRef.componentInstance.id = register.id;
+    modalRef.componentInstance.nomeCliente = `${register.patient.name} - ${register.patient.phone}`;
+    modalRef.componentInstance.register = register;
+    modalRef.result.then(
+      () => this.service.fetch(),
+      () => {}
+    );
+  }
+
+  concluedContrato(register) {
+    const modalRef = this.modalService.open(ConcluedContratoModalComponent);
+    modalRef.componentInstance.id = register.id;
+    modalRef.componentInstance.nomeCliente = `${register.patient.name} - ${register.patient.phone}`;
+    modalRef.componentInstance.register = register;
     modalRef.result.then(
       () => this.service.fetch(),
       () => {}

@@ -85,8 +85,20 @@ export abstract class TableService<T> {
     );
   }
 
+  
+  findParams({ params }): Observable<any> {
+    return this.http.get<BaseModel>(this.API_URL, { params }).pipe(
+      map((response: any) => {
+        return response?.data || [];
+      }),
+      catchError((err) => {
+        return of(undefined);
+      })
+    )
+  }
+
   // READ (Returning filtered list of entities)
-  find(tableState): Observable<TableResponseModel<T>> {
+    find(tableState): Observable<TableResponseModel<T>> {
     const url = this.API_URL + '/find';
     this._errorMessage.next('');
     return this.http.post<TableResponseModel<T>>(url, tableState).pipe(
@@ -118,11 +130,6 @@ export abstract class TableService<T> {
     this._isLoading$.next(true);
     this._errorMessage.next('');
     return this.http.put(url, item).pipe(
-      catchError(err => {
-        this._errorMessage.next(err);
-        console.error('UPDATE ITEM', item, err);
-        return of(item);
-      }),
       finalize(() => this._isLoading$.next(false))
     );
   }
@@ -202,6 +209,13 @@ export abstract class TableService<T> {
         }),
         catchError((err) => {
           this._errorMessage.next(err);
+          this.baseForSearchTerm.next([]);
+          this._items$.next([]);
+          this.patchStateWithoutFetch({
+            paginator: this._tableState$.value.paginator.recalculatePaginator(
+              0
+            ),
+          });
           return of({
             items: [],
             total: 0

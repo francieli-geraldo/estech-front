@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, exhaustMap, finalize, map } from 'rxjs/operators';
 import { TableService, TableResponseModel, BaseModel } from '../_metronic/shared/crud-table';
@@ -34,8 +34,8 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
     return forkJoin(tasks$);
   }
 
-  cancelContrato(id: number): Observable<any> {
-    return this.http.get<Contrato[]>(this.API_URL).pipe();
+  reactvateCancelContrato(id: number, register) {     
+    return this.http.put<any>(`${this.API_URL}/${id}`, register);
   }
 
   ngOnDestroy() {

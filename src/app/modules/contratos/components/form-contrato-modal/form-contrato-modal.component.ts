@@ -8,6 +8,8 @@ import {
 import { Observable, of, Subscription } from "rxjs";
 import { catchError, debounceTime, distinctUntilChanged, switchMap, tap } from "rxjs/operators";
 import { Contrato } from "src/app/models/contrato.model";
+import { Grupo } from "src/app/models/grupo.model";
+import { Programa } from "src/app/models/programa.model";
 import { ContratosService } from "src/app/services/contratos.service";
 import { GruposService } from "src/app/services/grupos.service";
 import { PacientesService } from "src/app/services/pacientes.service";
@@ -18,6 +20,8 @@ import {
 } from "src/app/_metronic/core";
 import { GroupingState, PaginatorState } from "src/app/_metronic/shared/crud-table";
 
+import { Notify } from '../../../../../assets/js/layout/extended/messages/notify';
+
 const EMPTY_CONTRATO: any = {  
   id: undefined,
   programId: 0,
@@ -27,7 +31,8 @@ const EMPTY_CONTRATO: any = {
   goal: 0,
   hiringDate: "",
   startDate: "",
-  notes: ""
+  notes: "",
+  status: "ACTIVE",
 };
 
 @Component({
@@ -45,14 +50,14 @@ export class FormContratoModalComponent implements OnInit {
   @Input() register: Contrato;
   
   private subscriptions: Subscription[] = [];
-
-  minDate;
-  minDateConclusao;
-  
-  isLoading$;
   
   formContrato: FormGroup;
   searchGroup: FormGroup;
+  
+  minDate;
+  minDateConclusao;
+  maxDateStart;
+  isLoading$;
   
   isLoading: boolean;
   paginatorPaciente: PaginatorState;
@@ -60,6 +65,9 @@ export class FormContratoModalComponent implements OnInit {
 
   pacienteIdContrato;
   
+  listProgramas$: Observable<Programa[]>;
+  listGrupos$: Observable<Grupo[]>;
+
   constructor(
     public pacienteService: PacientesService,
     private registersService: ContratosService,
@@ -73,8 +81,22 @@ export class FormContratoModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.pacienteIdContrato = 0;
-    this.programasService.fetch();
-    this.gruposService.fetch();
+
+    this.listProgramas$ = this.programasService.findParams({ 
+      params: {
+        page: '0',
+        size: '9999',
+      }
+    });
+
+    this.listGrupos$ = this.gruposService.findParams({ 
+      params: {
+        page: '0',
+        size: '9999',
+      }
+    });
+    
+    
     this.minDate = this.minDatepicker(new Date());
     this.isLoading$ = this.registersService.isLoading$;
     this.loadRegister();
@@ -113,55 +135,94 @@ export class FormContratoModalComponent implements OnInit {
     
     this.formContrato = this.fb.group({      
       patientId: [
-        this.register?.patient?.id || this.register.patientId,
+        {
+          value: this.register?.patient?.id || this.register.patientId,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],
       programId: [
-        this.register?.program?.id || this.register.programId,
+        {
+          value: this.register?.program?.id || this.register.programId,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],
       groupId: [
-        this.register?.group?.id || this.register.groupId, 
+        {
+          value: this.register?.group?.id || this.register.groupId, 
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator])
       ],
       status: [
-        this.register.status, 
+        {
+          value: this.register.status, 
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator])
       ],
       startingWeight: [
-        this.setValueAroud(this.register.startingWeight),
+        {
+          value: this.setValueAroud(this.register.startingWeight),
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],
       goal: [
-        this.setValueAroud(this.register.goal), 
+        {
+          value: this.setValueAroud(this.register.goal), 
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator])
       ], 
       hiringDate: [
-        this.register.hiringDate,
+        {
+          value: this.register.hiringDate,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],     
       startDate: [
-        this.register.startDate,
+        {
+          value: this.register.startDate,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],           
       dateConclusion: [
-        this.register.dateConclusion,
+        {
+          value: this.register.dateConclusion,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],           
       cancellationDate: [
-        this.register.cancellationDate,
+        {
+          value: this.register.cancellationDate,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],           
       reasonCancellation: [
-        this.register.reasonCancellation,
+        {
+          value: this.register.reasonCancellation,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],           
       notes: [
-        this.register.notes,
+        {
+          value: this.register.notes,
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ],
       objetivo: [
-        ((this.register.goal || 0) - (this.register?.startingWeight || 0)).toFixed(3),
+        {
+          value: ((this.register.goal || 0) - (this.register?.startingWeight || 0)).toFixed(3),
+          disabled: this.register.status != "ACTIVE"
+        },
         Validators.compose([Validators.nullValidator]),
       ]
     });
@@ -184,11 +245,13 @@ export class FormContratoModalComponent implements OnInit {
     const sbUpdate = this.registersService
       .update(this.register)
       .pipe(
-        tap(() => {
-          this.modal.close();
+        tap((res) => {
+          if(!!!res){
+            new Notify({ message: 'Contrato atualizado com sucesso!', type: 'success' }).show();
+            this.modal.close();
+          } 
         }),
         catchError((errorMessage) => {
-          this.modal.dismiss(errorMessage);
           return of(this.register);
         })
       )
@@ -202,11 +265,13 @@ export class FormContratoModalComponent implements OnInit {
     const sbCreate = this.registersService
       .create(this.register)
       .pipe(
-        tap(() => {
-          this.modal.close();
+        tap((res) => {          
+          if(!!!res){
+            new Notify({ message: 'Contrato criado com sucesso!', type: 'success' }).show();
+            this.modal.close();
+          }
         }),
         catchError((errorMessage) => {
-          this.modal.dismiss(errorMessage);
           return of(this.register);
         })
       )
@@ -260,7 +325,9 @@ export class FormContratoModalComponent implements OnInit {
     const formData = this.formContrato.value;
     if(!!formData.startDate){
       let date: any = new Date(formData.startDate);
+      let hiringDate: any = new Date(formData.hiringDate);
       this.minDateConclusao = this.minDatepicker(date.addDays(1));
+      this.maxDateStart = this.minDatepicker(hiringDate);
       return false;
     }
     return true;

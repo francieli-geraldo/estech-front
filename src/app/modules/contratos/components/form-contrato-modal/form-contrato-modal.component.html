@@ -2,8 +2,10 @@
   <div class="modal-header">
     <div class="modal-title h4" id="example-modal-sizes-title-lg">
       <ng-container *ngIf="register">
-        <ng-container *ngIf="register.id">Alterar</ng-container>
-        <ng-container *ngIf="!register.id">Cadastrar</ng-container>
+        <ng-container *ngIf="register.id && register.status == 'ACTIVE'">Alterar</ng-container>
+        <ng-container *ngIf="!register.id">Cadastrar</ng-container>    
+        <ng-container *ngIf="register.status == 'COMPLETED' || register.status == 'CANCELED'">Visualizar</ng-container>        
+
         contrato
         <ng-container *ngIf="register.id">'{{ register.id }}'</ng-container>
       </ng-container>
@@ -21,7 +23,7 @@
     <ng-container *ngIf="register">
 
       <!-- EXIBINDO DADOS PACIENTE -->
-      <div class="col-lg-12" *ngIf="!!id">
+      <div class="col-lg-12 pb-5" *ngIf="!!id">
         <label>Paciente</label>
         <div class="input-group input-group-solid">
           <div class="form-control form-control-lg form-control-solid">
@@ -50,36 +52,16 @@
             <div class="col-lg-6">
               <label>Data de início</label>
               <div class="input-group input-group-solid">
-                <ng-container *ngIf="!!id">
-                  <input type="date" name="startDate" class="form-control form-control-lg form-control-solid"
-                    placeholder="dd/mm/yyyy" disabled formControlName="startDate" />
-                </ng-container>
-                <ng-container *ngIf="!!!id">
-                  <input type="text" name="startDate" class="form-control form-control-lg form-control-solid"
-                    autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #startDate="ngbDatepicker"
-                    [class.is-invalid]="isControlInvalid('startDate')" [class.is-valid]="isControlValid('startDate')"
-                    formControlName="startDate" readonly="true" [disabled]="!!id" />
-                  <div class="input-group-append" (click)="!!!id ? startDate.toggle() : false">
-                    <span class="input-group-text">
-                      <i class="text-dark-50 flaticon-calendar"></i>
-                    </span>
-                  </div>
-                </ng-container>
+                <input type="date" name="startDate" class="form-control form-control-lg form-control-solid"
+                    placeholder="dd/mm/yyyy" formControlName="startDate" />                    
               </div>
             </div>
 
             <div class="col-lg-6">
               <label>Data de conclusão</label>
               <div class="input-group input-group-solid">
-                <input type="text" name="hiringDate" class="form-control form-control-lg form-control-solid"
-                  autocomplete="off" placeholder="dd/mm/yyyy" ngbDatepicker #hiringDate="ngbDatepicker"
-                  [class.is-invalid]="isControlInvalid('hiringDate')" [class.is-valid]="isControlValid('hiringDate')"
-                  formControlName="hiringDate" readonly="true" [minDate]="minDateConclusao" />
-                <div class="input-group-append" (click)="isDisabled() ? false : hiringDate.toggle()">
-                  <span class="input-group-text">
-                    <i class="text-dark-50 flaticon-calendar"></i>
-                  </span>
-                </div>
+                <input type="date" name="hiringDate" class="form-control form-control-lg form-control-solid"
+                    placeholder="dd/mm/yyyy" formControlName="hiringDate" />
               </div>
             </div>
           </div>
@@ -87,10 +69,9 @@
           <div class="form-group row">
             <div class="col-lg-6">
               <label>Programa</label>
-              <select class="form-control form-control-lg form-control-solid" name="programId"
-                [class.is-invalid]="isControlInvalid('programId')" formControlName="programId">
+              <select class="form-control form-control-lg form-control-solid" formControlName="programId">
                 <option value="0" disabled>Selecione</option>
-                <option *ngFor="let register of programasService.items$ | async" value="{{register.id}}">
+                <option *ngFor="let register of listProgramas$ | async" value="{{register.id}}">
                   {{register.name}}
                 </option>
               </select>
@@ -98,10 +79,9 @@
 
             <div class="col-lg-6">
               <label>Grupo</label>
-              <select class="form-control form-control-lg form-control-solid" name="groupId"
-                [class.is-invalid]="isControlInvalid('groupId')" formControlName="groupId">
+              <select class="form-control form-control-lg form-control-solid" formControlName="groupId">
                 <option value="0" disabled>Selecione</option>
-                <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}
+                <option *ngFor="let register of listGrupos$ | async" value="{{register.id}}">{{register.name}}
                 </option>
               </select>
             </div>
@@ -145,7 +125,56 @@
 
       </form>
 
+      <ng-container *ngIf="register.status == 'COMPLETED' || register.status == 'CANCELED'">        
+        <hr>
+        <div class="row col-lg-12">
+          <div class="col-lg-6 pb-5" *ngIf="!!id">
+            <label>Status</label>
+            <div class="input-group input-group-solid">
+              <div class="form-control form-control-lg form-control-solid">
+                <ng-container *ngIf="register.status == 'COMPLETED'">
+                  Concluído
+                </ng-container>
+                <ng-container *ngIf="register.status == 'CANCELED'">        
+                  Cancelado
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          
+          <ng-container *ngIf="register.status == 'CANCELED'">
+            <div class="col-lg-6 pb-5" *ngIf="!!id">
+              <label>Paciente</label>
+              <div class="input-group input-group-solid">
+                <div class="form-control form-control-lg form-control-solid">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          
+          <ng-container *ngIf="register.status == 'COMPLETED'">
+            <div class="col-lg-6 pb-5" *ngIf="!!id">
+              <label>Paciente</label>
+              <div class="input-group input-group-solid">
+                <div class="form-control form-control-lg form-control-solid">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
 
+
+        <div class="col-lg-12 pb-5" *ngIf="!!id">
+          <label>Paciente</label>
+          <div class="input-group input-group-solid">
+            <div class="form-control form-control-lg form-control-solid">
+              teste 1
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      
     </ng-container>
   </div>
 
@@ -157,7 +186,7 @@
       </button>
     </ng-container> -->
 
-    <ng-container *ngIf="register">
+    <ng-container *ngIf="register && register.status == 'ACTIVE'">
       <button type="submit" class="btn btn-success btn-elevate" (click)="save()" [disabled]="formContrato.invalid">
         Salvar
       </button>
