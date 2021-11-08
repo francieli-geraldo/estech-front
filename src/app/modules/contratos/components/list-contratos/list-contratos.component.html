@@ -106,8 +106,7 @@
         </th>
         <th>
           OBJETIVO
-          <app-sort-icon column="objetivo" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-            (sort)="sort($event)"></app-sort-icon>
+          <app-sort-icon column="objetivo" [activeColumn]="sorting.column"></app-sort-icon>
         </th>
         <!-- <th>
           PLUS
@@ -126,8 +125,8 @@
           </td> -->
           <td>{{ register?.patient?.name || '*' }}</td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.status === 'CANCELED'"
-              [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-primary]="register.status === 'COMPLETED'">
+            <span class="label label-lg label-inline w-100" [class.label-light-danger]="register.status === 'CANCELED'"
+              [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-info]="register.status === 'COMPLETED'">
               <ng-container *ngIf="register.status === 'ACTIVE'">Ativo</ng-container>
               <ng-container *ngIf="register.status === 'COMPLETED'">Concluído</ng-container>
               <ng-container *ngIf="register.status === 'CANCELED'">Cancelado</ng-container>
@@ -143,28 +142,28 @@
           <!-- <td>{{ register.dateConclusion }}</td> -->
           <td style="display: flex;">
             <ng-container *ngIf="register.status === 'ACTIVE'">                
-              <a title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
+              <a title="Alterar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
                 </span>
               </a>
 
-              <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-3"
+              <a title="Cancelar" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-3"
                 (click)="cancelContrato(register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-danger">
                 </span>
               </a>
 
-              <a title="Encerrar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-3"
+              <a title="Encerrar" class="btn btn-icon btn-light btn-hover-info btn-sm mx-3"
                 (click)="concluedContrato(register)">
-                <span title="Encerrar contrato"  [inlineSVG]="'./assets/media/svg/icons/Code/Lock-circle.svg'" cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-danger">
+                <span [inlineSVG]="'./assets/media/svg/icons/Code/Lock-circle.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-info ">
                 </span>
               </a>
             </ng-container>
             <ng-container *ngIf="register.status != 'ACTIVE'">                
-              <a title="Exibir" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
+              <a title="Visualizar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
                 </span>
@@ -173,9 +172,9 @@
 
         
             <ng-container *ngIf="register.status != 'ACTIVE'">
-              <a title="Reativar contrato" class="btn btn-icon btn-light btn-hover-success btn-sm"
+              <a title="Reativar" class="btn btn-icon btn-light btn-hover-success btn-sm"
                 (click)="reactivateContrato(register)">
-                <span [inlineSVG]="'./assets/media/svg/icons/Files/File-done.svg'" cacheSVG="true"
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Unlock.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-success">
                 </span>
               </a>

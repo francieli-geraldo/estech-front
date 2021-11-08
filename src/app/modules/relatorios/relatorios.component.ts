@@ -12,6 +12,7 @@ import { RelatorioSemanalComponent } from "./relatorio-semanal/relatorio-semanal
 import { RelatorioEvolucaoComponent } from "./relatorio-evolucao/relatorio-evolucao.component";
 import { RelatorioConcluidoComponent } from "./relatorio-concluido/relatorio-concluido.component";
 import { PacientesService } from "src/app/services/pacientes.service";
+import { Grupo } from "src/app/models/grupo.model";
 
 
 @Component({
@@ -54,6 +55,8 @@ export class RelatoriosComponent implements OnInit {
   generateRelatorio: string;
 
   pacienteIdSearch: number;
+
+  listGrupos$: Observable<Grupo[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -184,6 +187,14 @@ export class RelatoriosComponent implements OnInit {
   ngOnInit() {
     this.grupoService.fetch();  
     
+    
+    this.listGrupos$ = this.grupoService.findParams({ 
+      params: {
+        page: '0',
+        size: '9999',
+      }
+    });
+
     this.loadForm();
 
     this.grupoService.items$.subscribe(val => {

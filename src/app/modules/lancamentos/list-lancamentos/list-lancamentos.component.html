@@ -19,7 +19,7 @@
           <div class="col-lg-6">
             <label for="typeahead-focus">Grupo</label>
             <select class="form-control cursor-pointer" placeholder="Grupo" name="grupoId" formControlName="grupoId">
-              <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">{{register.name}}
+              <option *ngFor="let register of listGrupos$ | async" value="{{register.id}}">{{register.name}}
               </option>
             </select>
           </div>
@@ -131,7 +131,7 @@
           <td>{{ showAccumulatedEvolution(register.balance.currentWeight, register) }}</td>
           <td style="display: flex;">
 
-            <a *ngIf="!register.editable" title="Editar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+            <a *ngIf="!register.editable" title="Alterar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
               (click)="startEdit(register)">
               <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-primary">

@@ -88,7 +88,7 @@ private subscriptions: Subscription[] = [];
   }
 
   // search
-  searchForm() {
+  searchForm() {    
     this.searchGroup = this.fb.group({
       searchTerm: [""],
     });
@@ -98,7 +98,7 @@ private subscriptions: Subscription[] = [];
         debounceTime(400),
         distinctUntilChanged(),
       )
-      .subscribe((val) => this.service.filterByDescription(val));
+      .subscribe((val) => this.service.patchState({ filter: { search: val } })); 
     this.subscriptions.push(searchEvent);
   }  
 

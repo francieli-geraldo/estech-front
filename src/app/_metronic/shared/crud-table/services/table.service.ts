@@ -252,6 +252,9 @@ export abstract class TableService<T> {
 
   // Base Methods
   public patchState(patch: Partial<any>) {
+    if(patch?.hasOwnProperty('filter')){
+      this._tableState$.value.paginator.page = 0; 
+    }      
     this.patchStateWithoutFetch(patch);
     this.resolveParams(Object.keys(patch)[0])
     this.fetch();
@@ -264,18 +267,10 @@ export abstract class TableService<T> {
         const newParamsSort = Object.assign(this._params$.value, params_sort);
         this._params$.next(newParamsSort);
         break;
-      case 'paginator':        
-        let params_paginator = {};
-        if(Object.keys(this._tableState$.value.filter).length  != 0){
-          params_paginator = { 
-            page: 0,
-            size: this._tableState$.value.paginator.pageSize
-          }
-        }else{
-          params_paginator = { 
-            page: this._tableState$.value.paginator.page - 1,
-            size: this._tableState$.value.paginator.pageSize
-          }
+      case 'paginator':                 
+        let params_paginator = { 
+          page: this._tableState$.value.paginator.page - 1,
+          size: this._tableState$.value.paginator.pageSize
         }
         
         const newParamsPage = Object.assign(this._params$.value, params_paginator);

@@ -39,7 +39,7 @@ private subscriptions: Subscription[] = [];
  
   // angular lifecircle hooks
   ngOnInit(): void {
-    this.filterForm();
+    // this.filterForm();
     this.searchForm();
     this.service.setDefaults();
     this.service.fetch();
@@ -97,8 +97,9 @@ private subscriptions: Subscription[] = [];
         map(value => value.trim()),
         debounceTime(400),
         distinctUntilChanged(),
-      )
-      .subscribe((val) => this.service.filterByDescription(val));
+      ).subscribe(
+        (val) => this.service.patchState({ filter: { search: val } })
+      ) 
     this.subscriptions.push(searchEvent);
   }
 

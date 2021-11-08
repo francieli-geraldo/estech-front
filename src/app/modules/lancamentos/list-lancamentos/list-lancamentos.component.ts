@@ -10,6 +10,7 @@ import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core
 import { PacientesService } from "src/app/services/pacientes.service";
 import { Lancamento } from "src/app/models/Lancamento.model";
 import { HttpClient } from "@angular/common/http";
+import { Grupo } from "src/app/models/grupo.model";
 
 @Component({
   selector: "app-list-lancamentos",
@@ -37,6 +38,7 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   listLancamentos$: Observable<Lancamento[]>;
 
+  listGrupos$: Observable<Grupo[]>;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -50,7 +52,14 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
   ngOnInit(): void {
     
     this.service.setDefaults();
-    this.gruposService.fetch();
+
+    this.listGrupos$ = this.gruposService.findParams({ 
+      params: {
+        page: '0',
+        size: '9999',
+      }
+    });
+
     this.pacientesService.fetch();
     this.filterForm();
     this.filter();
