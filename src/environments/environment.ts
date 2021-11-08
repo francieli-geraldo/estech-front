@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v727demo2',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: false,
-  apiUrl: 'https://e09c-190-89-107-43.ngrok.io/v1'
+  apiUrl: 'http://2f0f-190-89-107-4.ngrok.io/v1'
 };
 
 /*

@@ -54,7 +54,7 @@ Thumbs.db
 .vs/VSWorkspaceState.json
 
 #build 
-/producao
+# /producao
 
 db.json
 upload.py
