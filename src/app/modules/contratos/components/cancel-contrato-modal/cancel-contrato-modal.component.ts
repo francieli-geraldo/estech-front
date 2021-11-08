@@ -48,8 +48,7 @@ export class CancelContratoModalComponent implements OnInit {
     this.register.groupId = this.register.group.id;
     this.register.programId = this.register.program.id;
     
-    const sb = this.service.reactvateCancelContrato(this.id, this.register).pipe(
-      delay(1000), // Remove it from your code (just for showing loading)
+    const sb = this.service.updateStatusContrato(this.id, this.register).pipe(
       tap(() => {        
         new Notify({ message: 'Contrato cancelado com sucesso!', type: 'success' }).show();
         this.modal.close()

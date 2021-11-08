@@ -18,9 +18,12 @@
     </ng-container>
 
     <ng-container *ngIf="isEditable">
+      <hr>
+      <label class="mt-4">Data de cancelamento </label>
       <input type="date" name="startDate" class="form-control form-control-lg form-control-solid"
         placeholder="dd/mm/yyyy" max="{{currentDate|date:'yyyy-MM-dd'}}" [(ngModel)]="cancellationDate" (ngModelChange)="onChange($event)"/>
-
+        
+      <label class="mt-4">Motivo do cancelamento </label>
       <textarea type="text" class="form-control form-control-lg form-control-solid mt-5"  [(ngModel)]="reasonCancellation"
           placeholder="Motivo do cancelamento" autocomplete="off" ></textarea>      
     </ng-container>

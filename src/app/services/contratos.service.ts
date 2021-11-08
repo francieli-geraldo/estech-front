@@ -34,7 +34,7 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
     return forkJoin(tasks$);
   }
 
-  reactvateCancelContrato(id: number, register) {     
+  updateStatusContrato(id: number, register) {     
     return this.http.put<any>(`${this.API_URL}/${id}`, register);
   }
 

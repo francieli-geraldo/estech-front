@@ -3,6 +3,14 @@
 </div>
 <div class="modal-body">  
   <span>Tem certeza de que deseja <b>reativar</b> este contrato?</span>
+
+  
+  <ng-container *ngIf="isEditable && register.status == 'COMPLETED'">
+    <hr>
+    <label class="mt-4">Nova data de conclusão </label>
+    <input type="date" name="startDate" class="form-control form-control-lg form-control-solid"
+      placeholder="dd/mm/yyyy" min="{{currentDate | date:'yyyy-MM-dd'}}" [(ngModel)]="newHiringDate" (ngModelChange)="onChange($event)"/>    
+  </ng-container>
 </div>
 
 <div class="modal-footer">
@@ -11,8 +19,23 @@
       Não
     </button>&nbsp;
     
-    <button type="button" class="btn btn-primary btn-elevate" (click)="reactivate()">
-      Sim
-    </button>
+    <ng-container *ngIf="!isEditable && register.status == 'COMPLETED'">
+      <button type="button" class="btn btn-primary btn-elevate" (click)="showFieldObservacao()">
+        Sim
+      </button>        
+    </ng-container>
+
+    <ng-container *ngIf="register.status == 'CANCELED'">
+      <button type="button" class="btn btn-primary btn-elevate" (click)="reactivate()">
+        Sim
+      </button>        
+    </ng-container>
+          
+    <ng-container *ngIf="isEditable && register.status == 'COMPLETED'">
+      <button type="button" class="btn btn-primary btn-elevate" (click)="reactivate()" [disabled]="isDisabled && register.status == 'COMPLETED' ">
+        Salvar
+      </button>        
+    </ng-container>
+    
   </div>
 </div>

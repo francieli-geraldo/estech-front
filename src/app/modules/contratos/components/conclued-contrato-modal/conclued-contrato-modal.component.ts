@@ -25,8 +25,7 @@ export class ConcluedContratoModalComponent implements OnInit {
   isLoading = false;
   isEditable = false;
   isDisabled = true;
-  reasonCancellation: string = '';
-  cancellationDate: Date;
+  dateConclusion: Date;
   subscriptions: Subscription[] = [];
 
   currentDate : Date = new Date();
@@ -40,18 +39,16 @@ export class ConcluedContratoModalComponent implements OnInit {
     this.isEditable = true;
   }
 
-  cancel() {    
+  conclude() {    
     this.isLoading = true;
-    this.register.reasonCancellation = this.reasonCancellation;
-    this.register.cancellationDate = this.cancellationDate;
-    this.register.status = 'CANCELED';
+    this.register.dateConclusion = this.dateConclusion;
+    this.register.status = 'COMPLETED';
     this.register.groupId = this.register.group.id;
     this.register.programId = this.register.program.id;
     
-    const sb = this.service.reactvateCancelContrato(this.id, this.register).pipe(
-      delay(1000), // Remove it from your code (just for showing loading)
+    const sb = this.service.updateStatusContrato(this.id, this.register).pipe(
       tap(() => {        
-        new Notify({ message: 'Contrato cancelado com sucesso!', type: 'success' }).show();
+        new Notify({ message: 'Contrato encerrado com sucesso!', type: 'success' }).show();
         this.modal.close()
       }),
       catchError((err) => {

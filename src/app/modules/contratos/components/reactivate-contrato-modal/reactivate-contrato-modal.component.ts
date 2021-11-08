@@ -23,8 +23,21 @@ export class ReactivateContratoModalComponent {
   @Input() register;
 
   subscriptions: Subscription[] = [];
+  isEditable = false;
+  isDisabled = true;
+  newHiringDate;
+
+  currentDate : Date = new Date();
   
   constructor(private service: ContratosService, public modal: NgbActiveModal) { }
+
+  showFieldObservacao() {
+    this.isEditable = true;
+  }
+
+  onChange(event){
+    this.isDisabled = !(event?.length > 0);
+  }
 
   reactivate(){
     this.register.status = 'ACTIVE';
@@ -32,7 +45,11 @@ export class ReactivateContratoModalComponent {
     this.register.programId = this.register.program.id;
     delete this.register.cancellationDate;
     delete this.register.reasonCancellation; 
-    const sb = this.service.reactvateCancelContrato(this.id, this.register).pipe(
+    delete this.register.dateConclusion; 
+    if(this.register.status == 'COMPLETED'){
+      this.register.hiringDate = this.newHiringDate;
+    }
+    const sb = this.service.updateStatusContrato(this.id, this.register).pipe(
       tap(() => {        
         new Notify({ message: 'Contrato reativado com sucesso!', type: 'success' }).show();
         this.modal.close()

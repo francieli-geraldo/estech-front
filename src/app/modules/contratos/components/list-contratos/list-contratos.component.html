@@ -148,8 +148,21 @@
                   class="svg-icon svg-icon-md svg-icon-primary">
                 </span>
               </a>
+
+              <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-3"
+                (click)="cancelContrato(register)">
+                <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-danger">
+                </span>
+              </a>
+
+              <a title="Encerrar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-3"
+                (click)="concluedContrato(register)">
+                <span title="Encerrar contrato"  [inlineSVG]="'./assets/media/svg/icons/Code/Lock-circle.svg'" cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-danger">
+                </span>
+              </a>
             </ng-container>
-            
             <ng-container *ngIf="register.status != 'ACTIVE'">                
               <a title="Exibir" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
@@ -158,15 +171,8 @@
               </a>
             </ng-container>
 
-            <ng-container *ngIf="register.status === 'ACTIVE'">
-              <a title="Cancelar contrato" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                (click)="cancelContrato(register)">
-                <span [inlineSVG]="'./assets/media/svg/icons/Files/Deleted-file.svg'" cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-danger">
-                </span>
-              </a>
-            </ng-container>
-            <ng-container *ngIf="register.status === 'CANCELED'">
+        
+            <ng-container *ngIf="register.status != 'ACTIVE'">
               <a title="Reativar contrato" class="btn btn-icon btn-light btn-hover-success btn-sm"
                 (click)="reactivateContrato(register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/Files/File-done.svg'" cacheSVG="true"

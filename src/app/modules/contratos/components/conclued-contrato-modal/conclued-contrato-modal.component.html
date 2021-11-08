@@ -6,23 +6,22 @@
   </ng-container>
   
   <div class="modal-header">
-    <div class="modal-title h4">Cancelar contrato | {{ nomeCliente }}</div>
+    <div class="modal-title h4">Encerrar contrato | {{ nomeCliente }}</div>
   </div>
   <div class="modal-body">
     <ng-container *ngIf="isLoading">
-      <span>Contrato está sendo cancelado...</span>
+      <span>Contrato está sendo encerrado...</span>
     </ng-container>
   
     <ng-container *ngIf="!isLoading">
-      <span>Tem certeza de que deseja <b>cancelar</b> este contrato permanentemente?</span>    
+      <span>Tem certeza de que deseja <b>encerrar</b> este contrato permanentemente?</span>    
     </ng-container>
 
     <ng-container *ngIf="isEditable">
+      <hr>
+      <label class="mt-4">Data de encerramento </label>
       <input type="date" name="startDate" class="form-control form-control-lg form-control-solid"
-        placeholder="dd/mm/yyyy" max="{{currentDate|date:'yyyy-MM-dd'}}" [(ngModel)]="cancellationDate" (ngModelChange)="onChange($event)"/>
-
-      <textarea type="text" class="form-control form-control-lg form-control-solid mt-5"  [(ngModel)]="reasonCancellation"
-          placeholder="Motivo do cancelamento" autocomplete="off" ></textarea>      
+        placeholder="dd/mm/yyyy" max="{{currentDate|date:'yyyy-MM-dd'}}" [(ngModel)]="dateConclusion" (ngModelChange)="onChange($event)"/>    
     </ng-container>
   </div>
   
@@ -39,7 +38,7 @@
       </ng-container>
             
       <ng-container *ngIf="isEditable">
-        <button type="button" class="btn btn-primary btn-elevate" (click)="cancel()" [disabled]="isDisabled">
+        <button type="button" class="btn btn-primary btn-elevate" (click)="conclude()" [disabled]="isDisabled">
           Salvar
         </button>        
       </ng-container>
