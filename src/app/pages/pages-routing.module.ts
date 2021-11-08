@@ -7,11 +7,11 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('../modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
-      },
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () =>
+      //     import('../modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      // },
       {
         path: 'pacientes',
         loadChildren: () =>
@@ -63,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'lancamentos',
         pathMatch: 'full',
       },
       {
