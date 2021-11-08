@@ -134,8 +134,8 @@ export class RelatoriosComponent implements OnInit {
       report: [this.model.report, Validators.compose([Validators.required])],
       status: [this.model.status, Validators.compose([Validators.required])],
       groupId: [this.model.groupId, Validators.compose([Validators.required])],
-      initialDate: [this.model.initialDate, Validators.nullValidator],
-      finalDate: [this.model.finalDate, Validators.nullValidator],
+      initialDate: [this.model.initialDate, Validators.compose([Validators.required])],
+      finalDate: [this.model.finalDate, Validators.compose([Validators.required])],
       patientId: [this.model.patientId, Validators.nullValidator],
     });
 

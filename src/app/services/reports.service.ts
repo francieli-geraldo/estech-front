@@ -19,6 +19,8 @@ export class ReportsService extends TableService<Relatorio> implements OnDestroy
   }
     
   getReport( { report, params }  ): Observable<any> {    
+    params.page = '0';
+    params.size =  '9999'
     this.loading.next(false);
     return this.http.get(`${this.API_URL}/${report}`, { params } ).pipe( 
       map((response) => {        
