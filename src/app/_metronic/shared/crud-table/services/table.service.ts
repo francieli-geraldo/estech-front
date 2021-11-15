@@ -97,15 +97,14 @@ export abstract class TableService<T> {
     )
   }
 
-  // READ (Returning filtered list of entities)
-    find(tableState): Observable<TableResponseModel<T>> {
-    const url = this.API_URL + '/find';
-    this._errorMessage.next('');
-    return this.http.post<TableResponseModel<T>>(url, tableState).pipe(
-      catchError(err => {
-        this._errorMessage.next(err);
-        console.error('FIND ITEMS', err);
-        return of({ items: [], total: 0 });
+  find(params): Observable<TableResponseModel<T>> {
+    return this.http.get<TableResponseModel<T>[]>(this.API_URL, {params})
+    .pipe(
+      map(({ data, meta }: any) => {        
+        return {
+          items: data || [] ,
+          total: meta?.page?.elements || 0
+        };
       })
     );
   }
