@@ -3,7 +3,7 @@
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Cooking/Kitchen-scale'"
-                [Description]="'Acumulador de peso'"
+                [Description]="'ACUMULADOR DE PESO (Mês / Total)'"
                 [baseColor]="'success'"
                 [data]="_data['totalWeightMonth']+' / '+ _data['totalWeight']"           
             ></app-card-default>
@@ -12,7 +12,7 @@
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Code/Info-circle'"
-                [Description]="'Acumulador de lançamentos'"
+                [Description]="'ACUMULADOR DE LANÇAMENTOS (Semana / Mês)'"
                 [baseColor]="'warning'"
                 [data]="_data['totalReleasesWeek']+' / '+ _data['totalReleasesMonth']" 
             ></app-card-default>
@@ -21,7 +21,7 @@
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Files/File-done'"
-                [Description]="'Novos contratos'"
+                [Description]="'NOVOS CONTRATOS  (Mês / Total)'"
                 [baseColor]="'info'"
                 [data]="_data['totalNewContractsMonth']+' / '+ _data['totalNewContracts']"           
             ></app-card-default>
@@ -30,7 +30,7 @@
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Files/File-minus'"
-                [Description]="'Contratos encerrados'"
+                [Description]="'CONTRATOS ENCERRADOS encerrados  (Mês / Total)'"
                 [baseColor]="'danger'"
                 [data]="_data['totalCompletedContractsMonth']+' / '+ _data['totalCompletedContracts']"
             ></app-card-default>
