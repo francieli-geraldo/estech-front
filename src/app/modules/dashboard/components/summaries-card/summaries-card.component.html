@@ -1,0 +1,42 @@
+<div class="row">        
+    <ng-container *ngIf="result$ | async as _data">
+        <div class="col-md-3 col-sm-6 col-6 ">
+            <app-card-default
+                [svg]="'Cooking/Kitchen-scale'"
+                [Description]="'Acumulador de peso'"
+                [baseColor]="'success'"
+                [data]="_data['totalWeightMonth']+' / '+ _data['totalWeight']"           
+            ></app-card-default>
+        </div> 
+    
+        <div class="col-md-3 col-sm-6 col-6 ">
+            <app-card-default
+                [svg]="'Code/Info-circle'"
+                [Description]="'Acumulador de lançamentos'"
+                [baseColor]="'warning'"
+                [data]="_data['totalReleasesWeek']+' / '+ _data['totalReleasesMonth']" 
+            ></app-card-default>
+        </div> 
+    
+        <div class="col-md-3 col-sm-6 col-6 ">
+            <app-card-default
+                [svg]="'Files/File-done'"
+                [Description]="'Novos contratos'"
+                [baseColor]="'info'"
+                [data]="_data['totalNewContractsMonth']+' / '+ _data['totalNewContracts']"           
+            ></app-card-default>
+        </div> 
+
+        <div class="col-md-3 col-sm-6 col-6 ">
+            <app-card-default
+                [svg]="'Files/File-minus'"
+                [Description]="'Contratos encerrados'"
+                [baseColor]="'danger'"
+                [data]="_data['totalCompletedContractsMonth']+' / '+ _data['totalCompletedContracts']"
+            ></app-card-default>
+        </div>
+    </ng-container> 
+
+    
+
+</div>

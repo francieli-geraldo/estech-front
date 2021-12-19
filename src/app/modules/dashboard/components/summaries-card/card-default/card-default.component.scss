@@ -1,0 +1,34 @@
+.layout-card-resume {
+    display: grid;
+	grid-template-areas:
+		"image description"
+		"image value"
+		;
+    color: #fff;
+}
+
+.card-resume-image {
+    grid-area: image;
+    display: flex;
+    align-items: center;
+    color: #fff !important;
+}
+
+.card-resume-value {
+    grid-area: value;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: right;
+    color: #fff !important;
+}
+
+.card-resume-description {
+    grid-area: description;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: right;
+    color: #fff !important;
+}
+

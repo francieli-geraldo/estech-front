@@ -10,11 +10,8 @@ import { DailiesChartGroupComponent } from './components/card-charts/dailies-cha
 import { DailiesChartComponent } from './components/card-charts/dailies-chart/dailies-chart.component';
 import { CardChartsComponent } from './components/card-charts/card-charts.component';
 import { DailiesTableComponent } from './components/dailies-table/dailies-table.component';
-import { CardResumesComponent } from './components/card-resumes/card-resumes.component';
-import { CardNewContractsComponent } from './components/card-resumes/card-new-contracts/card-new-contracts.component';
-import { CardCompletedContractsComponent } from './components/card-resumes/card-completed-contracts/card-completed-contracts.component';
-import { CardReleasesComponent } from './components/card-resumes/card-releases/card-releases.component';
-import { CardWeightComponent } from './components/card-resumes/card-weight/card-weight.component';
+import { SummariesCardComponent } from './components/summaries-card/summaries-card.component';
+import { CardDefaultComponent } from './components/summaries-card/card-default/card-default.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +20,8 @@ import { CardWeightComponent } from './components/card-resumes/card-weight/card-
     DailiesChartComponent,
     CardChartsComponent,
     DailiesTableComponent,
-    CardResumesComponent,
-    CardNewContractsComponent,
-    CardCompletedContractsComponent,
-    CardReleasesComponent,
-    CardWeightComponent,
+    SummariesCardComponent,
+    CardDefaultComponent,
   ],
   exports: [ DashboardComponent ],
   imports: [
