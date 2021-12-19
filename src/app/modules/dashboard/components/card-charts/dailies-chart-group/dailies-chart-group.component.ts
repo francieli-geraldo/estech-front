@@ -65,7 +65,7 @@ export class DailiesChartGroupComponent implements OnInit {
       legend: {
         show: false,
       },      
-      colors: ['#1BC5BD', '#F64E60'],
+      colors: ['#6993ff', '#F64E60'],
     };
   }
 

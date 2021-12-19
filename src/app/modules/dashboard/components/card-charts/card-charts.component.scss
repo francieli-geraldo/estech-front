@@ -1,4 +1,6 @@
-
+.content-charts {
+    flex-direction: row;
+}
 
 .container-chart {    
     justify-content: center;
@@ -13,7 +15,12 @@
     min-width: 100%;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 769px) {
+
+    .content-charts {
+        flex-direction: column;
+    }
+
     .container-chart{
         min-width: 100%;
     }
@@ -21,4 +28,36 @@
     .linha-vertical{
         margin-bottom: 19px;
     }
+}
+
+.legend-chart-color {    
+    height: 12px;
+    width: 12px;
+    left: 0px;
+    top: 0px;
+    border-width: 0px;
+    border-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 3px;
+    border-style: solid;
+}
+
+.legend-chart-text {
+    color: rgb(55, 61, 63); 
+    font-size: 12px; 
+    font-weight: 400; 
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.legend-chart{
+    display: flex;
+}
+
+.legend-chart-item{
+    display: flex;
+    margin: 2px 5px;    
+    align-items: center;
 }

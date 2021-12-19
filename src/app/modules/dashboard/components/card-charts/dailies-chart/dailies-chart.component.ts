@@ -26,7 +26,7 @@ export class DailiesChartComponent {
         type: "pie",        
       },
       labels: ["Pendentes", "Lançados"],
-      colors:[ '#F64E60','#1BC5BD'],
+      colors:[ '#F64E60','#6993ff'],
       legend: {
         show: false,
       }

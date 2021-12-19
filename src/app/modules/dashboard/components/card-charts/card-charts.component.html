@@ -1,9 +1,24 @@
 <div class="card card-custom card-stretch gutter-b">
   <div class="card-header border-0 pt-5">
-    <h3 class="card-title font-weight-bolder">Lançamntos Diários</h3>    
+    <h3 class="card-title font-weight-bolder">Lançamntos Diários</h3>
+
+    <div class="legend-chart">
+      <div class="legend-chart-item">
+        <span class="legend-chart-color" 
+          style=" background: #6993ff !important; color: #6993ff;"
+        ></span>
+        <span class="legend-chart-text">Lançados</span>
+      </div>
+      <div class="legend-chart-item">
+        <span class="legend-chart-color" 
+          style=" background: #F64E60 !important; color: #F64E60;"
+        ></span>
+        <span class="legend-chart-text">Pendentes</span>
+      </div>
+    </div>
   </div>
 
-  <div class="card-body d-flex">    
+  <div class="card-body d-flex content-charts">
     <div class="container-chart">
       <app-dailies-chart></app-dailies-chart>
     </div>
