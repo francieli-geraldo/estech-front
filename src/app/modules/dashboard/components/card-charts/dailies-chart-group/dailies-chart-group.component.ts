@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dailies-chart-group',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DailiesChartGroupComponent implements OnInit {
-  
+   
+  @Input()
+  data: any[];
+
   chartOptions: any = {};
   isHide: boolean = true;
 
@@ -23,12 +26,11 @@ export class DailiesChartGroupComponent implements OnInit {
       series: [
         {
           name: "Lançados",
-          data: [44, 55, 41, 64, 22, 43, 21]
+          data: this.getValuesBy('totalLaunched')
         },
         {
           name: "Pendentes",
-
-          data: [53, 32, 33, 52, 13, 44, 32]
+          data: this.getValuesBy('totalPending')
         }
       ],
       chart: {
@@ -60,7 +62,7 @@ export class DailiesChartGroupComponent implements OnInit {
         colors: ["#fff"]
       },
       xaxis: {
-        categories: ['Grupo 1', 'Grupo 2','Grupo 3','Grupo 4','Grupo 6','Grupo 7','Grupo 8',]
+        categories: this.getValuesBy('groupName')
       },      
       legend: {
         show: false,
@@ -69,6 +71,11 @@ export class DailiesChartGroupComponent implements OnInit {
     };
   }
 
+  getValuesBy(e){
+    return this.data.map(function(elem){
+      return  elem[e];
+    })
+  }
   
   hideTable(result) {
     this.isHide = result;    

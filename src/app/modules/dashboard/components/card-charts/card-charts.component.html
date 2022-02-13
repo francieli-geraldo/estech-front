@@ -19,12 +19,15 @@
   </div>
 
   <div class="card-body d-flex content-charts">
-    <div class="container-chart">
-      <app-dailies-chart></app-dailies-chart>
-    </div>
-
-    <div class="container-chart">
-      <app-dailies-chart-group></app-dailies-chart-group>
-    </div>
+    <ng-container *ngIf="launchedPending$ | async as _data">
+      <div class="container-chart">
+        <app-dailies-chart [data]="_data"></app-dailies-chart>
+      </div>
+  
+      <div class="container-chart">
+        <app-dailies-chart-group [data]="_data"></app-dailies-chart-group>
+      </div>
+    </ng-container>
+    
   </div>
 </div>

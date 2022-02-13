@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dailies-chart',
@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class DailiesChartComponent {
   
+  @Input()
+  data: any[];
+
   chartOptions: any = {};
   isHide: boolean = true;
 
@@ -18,8 +21,14 @@ export class DailiesChartComponent {
   }
 
   getChartOptions() {
+    let totalLaunched = this.getTotalValuesBy('totalLaunched')
+    let totalPending = this.getTotalValuesBy('totalPending')
+    let total = totalLaunched + totalPending;    
+    let percentagePending = this.roundTo((100*totalPending)/total, 2)
+    let percentageLaunched = this.roundTo((100*totalLaunched)/total, 2)
+     
     return {
-      series: [44, 55],
+      series: [percentagePending, percentageLaunched],
       chart: {
         width: '100%',
         maxHeight: '50vh',
@@ -37,4 +46,13 @@ export class DailiesChartComponent {
     this.isHide = result;    
     console.log(result);    
   }
+
+  getTotalValuesBy(e){
+    return  this.data.reduce((partialSum, elem) => partialSum + elem[e], 0);
+  }
+
+  roundTo(num: number, places: number) {
+    const factor = 10 ** places;
+    return Math.round(num * factor) / factor;
+  }  
 }

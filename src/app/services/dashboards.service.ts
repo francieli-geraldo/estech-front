@@ -30,4 +30,21 @@ export class DashboardsService {
       })
     )
   }
+
+  getLaunchedPending(): Observable<any> {    
+    var d= new Date();
+    d.getFullYear()
+    d.getMonth()
+    d.getDate()
+    let params = {date: '2022-02-05'}
+    return this.http.get(`${this.API_URL}/launched-pending`, { params }).pipe( 
+      map((response) => {        
+        return response['data']
+      }),     
+      catchError((err) => {
+        return of(undefined);
+      })
+    )
+  }
+
 }
