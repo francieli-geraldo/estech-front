@@ -15,7 +15,7 @@ export class DashboardsService {
   API_URL = `${environment.apiUrl}/dashboards`;
   
   http: HttpClient;
-  
+
   constructor(@Inject(HttpClient) http) {
     this.http = http;
   }
@@ -31,12 +31,8 @@ export class DashboardsService {
     )
   }
 
-  getLaunchedPending(): Observable<any> {    
-    var d= new Date();
-    d.getFullYear()
-    d.getMonth()
-    d.getDate()
-    let params = {date: '2022-02-05'}
+  getLaunchedPending(): Observable<any> {
+    let params = { date: this.getCurrentDate()}
     return this.http.get(`${this.API_URL}/launched-pending`, { params }).pipe( 
       map((response) => {        
         return response['data']
@@ -45,6 +41,26 @@ export class DashboardsService {
         return of(undefined);
       })
     )
+  }
+
+  getDailyPostingPending(groupId): Observable<any> {
+    let params = {
+      date: this.getCurrentDate(),
+      groupId: groupId
+    }
+    return this.http.get(`${this.API_URL}/daily-posting-pending`, { params }).pipe( 
+      map((response) => {        
+        return response['data']
+      }),     
+      catchError((err) => {
+        return of(undefined);
+      })
+    )
+  }
+
+  getCurrentDate(){
+    var today = new Date();
+    return today.getFullYear()+'-'+(("00"+today.getMonth()+1).slice(-2))+'-'+(("00"+today.getDate()).slice(-2));
   }
 
 }

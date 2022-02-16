@@ -1,11 +1,12 @@
 <div class="card card-custom card-stretch gutter-b">
   <div class="card-header border-0 pt-5">
     <div class="input-filter-group w-100">
-      <select class="form-control cursor-pointer w-100" name="grupoId" formControlName="grupoId" placeholder="">
-        <option value="" disabled selected hidden>Grupo</option>
-        <!-- <option *ngFor="let register of gruposService.items$ | async" value="{{register.id}}">
-          {{register.name}}
-        </option> -->
+      <select class="form-control cursor-pointer w-100" 
+        name="grupoId" 
+        formControlName="grupoId" 
+        placeholder="Selecione"  
+        (change)="generateGrid($event.target.value)">
+        <option *ngFor="let register of listGroups$ | async" value="{{register.id}}">{{register.name}}</option>
       </select>
     </div>
   </div>
@@ -23,45 +24,31 @@
                 <th>
                   <span class="text-dark-75">Paciente</span>
                 </th>
-                <th>Grupo</th>
-                <th>Contrato</th>
-                <th>status</th>
+                <th>Programa</th>
               </tr>
             </thead>
             <tbody style="grid-area: body-scrollable; max-height: 50vh;  overflow-y: auto; overflow-x: hidden;">
-              <tr style="display: grid; grid-template-columns: auto 100px 100px 100px;">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">Brad
-                        Simmons</a>
-                      <span class="text-muted font-weight-bold d-block">+55 (41) 9 8456-8688</span>
+              
+              <ng-container *ngIf="listDailyPostingPending$ | async as _data">
+                <tr style="display: grid; grid-template-columns: auto 100px 100px 100px;" *ngFor="let data of _data">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                          {{ data.patientName }}
+                        </a>
+                        <span class="text-muted font-weight-bold d-block">{{ data?.patientPhone }}</span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                    Grupo 1
-                  </span>
-                </td>
-                <td>
-                  <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                    1
-                  </span>
-                </td>
-                <td data-field="Status" aria-label="5" class="datatable-cell">
-                  <span style="width: 137px;">
-                    <span class="label label-lg font-weight-bold label-light-success label-inline d-none">
-                      Lançado
+                  </td>
+                  <td>
+                    <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                      {{ data?.programName }}
                     </span>
-
-                    <span class="label label-lg font-weight-bold label-light-danger label-inline">
-                      Pendente
-                    </span>
-
-                  </span>
-                </td>
-              </tr>
+                  </td>                
+                </tr>
+                <div *ngIf="_data.length == 0" class="d-flex justify-content-center pt-3">Nenhum valor encontrado</div>
+              </ng-container>
             </tbody>
           </table>
         </div>
