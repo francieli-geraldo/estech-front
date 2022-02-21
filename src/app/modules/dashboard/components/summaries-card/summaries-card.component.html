@@ -3,37 +3,49 @@
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Cooking/Kitchen-scale'"
-                [Description]="'ACUMULADOR DE PESO'"
+                [title]="'KILOS PERDIDOS'"
                 [baseColor]="'success'"
-                [data]="_data['totalWeightMonth']+' / '+ _data['totalWeight']"           
+                [firstDescription]="_data['totalWeightMonth']"
+                [firstTooltip]="'Mês'"
+                [secondDescription]="_data['totalWeight']"
+                [secondTooltip]="'Total'"
             ></app-card-default>
         </div> 
     
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Code/Info-circle'"
-                [Description]="'ACUMULADOR DE LANÇAMENTOS'"
+                [title]="'LANÇAMENTOS'"
                 [baseColor]="'warning'"
-                [data]="_data['totalReleasesWeek']+' / '+ _data['totalReleasesMonth']" 
-            ></app-card-default>
+                [firstDescription]="_data['totalReleasesWeek']"
+                [firstTooltip]="'Semana'"
+                [secondDescription]="_data['totalReleasesMonth']"
+                [secondTooltip]="'Mês'"
+                ></app-card-default>
         </div> 
     
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Files/File-done'"
-                [Description]="'NOVOS CONTRATOS'"
+                [title]="'NOVOS CONTRATOS'"
                 [baseColor]="'info'"
-                [data]="_data['totalNewContractsMonth']+' / '+ _data['totalNewContracts']"           
-            ></app-card-default>
+                [firstDescription]="_data['totalNewContractsMonth']"
+                [firstTooltip]="'Mês'"
+                [secondDescription]="_data['totalNewContracts']"    
+                [secondTooltip]="'Total'"
+                ></app-card-default>
         </div> 
 
         <div class="col-md-3 col-sm-6 col-6 ">
             <app-card-default
                 [svg]="'Files/File-minus'"
-                [Description]="'CONTRATOS ENCERRADOS'"
+                [title]="'CONTRATOS ENCERRADOS'"
                 [baseColor]="'danger'"
-                [data]="_data['totalCompletedContractsMonth']+' / '+ _data['totalCompletedContracts']"
-            ></app-card-default>
+                [firstDescription]="_data['totalCompletedContractsMonth']"
+                [firstTooltip]="'Mês'"
+                [secondDescription]="_data['totalCompletedContracts']"
+                [secondTooltip]="'Total'"
+                ></app-card-default>
         </div>
     </ng-container>
 </div>

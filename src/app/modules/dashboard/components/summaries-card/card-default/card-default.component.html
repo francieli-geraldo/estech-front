@@ -1,13 +1,16 @@
 <div [class]="cssClass" style="height: 150px ">
-  <div class="card-body layout-card-resume">
+  <div class="card-body layout-card-resume">    
+    <div class="text-muted text-hover-primary font-weight-bold font-size-lg mt-1 card-resume-description">
+      {{ title }}
+    </div>
     <span
       [inlineSVG]="'./assets/media/svg/icons/'+ svg +'.svg'"
       [class]="'svg-icon svg-icon-5x card-resume-image svg-icon-white'"
       [ngClass]="svgCSSClass"
     ></span>
-    <div class="text-muted text-hover-primary font-weight-bold font-size-lg mt-1 card-resume-description">
-      {{ Description }}
-    </div>
-    <div class="text-dark font-weight-bolder font-size-h2 mt-3 card-resume-value">{{ data }}</div> 
+    <div class="text-dark font-weight-bolder font-size-h2 mt-3 card-resume-value">
+      <span  ngbTooltip="{{ firstTooltip }}">{{firstDescription}}</span>
+      {{separate}}      
+      <span  ngbTooltip="{{ secondTooltip }}">{{secondDescription}}</span>
   </div>
 </div>

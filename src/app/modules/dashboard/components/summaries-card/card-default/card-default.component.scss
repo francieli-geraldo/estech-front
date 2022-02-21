@@ -1,7 +1,7 @@
 .layout-card-resume {
     display: grid;
 	grid-template-areas:
-		"image description"
+		"description description"
 		"image value";
     color: #fff;
 }
@@ -20,6 +20,7 @@
     width: 100%;
     text-align: right;
     color: #fff !important;
+    cursor: pointer;
 }
 
 .card-resume-description {

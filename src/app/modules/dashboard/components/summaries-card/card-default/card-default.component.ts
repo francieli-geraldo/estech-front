@@ -11,9 +11,14 @@ export class CardDefaultComponent implements OnInit {
   @Input() widgetHeight = '150px';
   @Input() iconColor = 'success';
   @Input() svg = 'Communication/Group';
-  @Input() Description = 'Communication/Group';
+  @Input() title = 'Communication/Group';
   @Input() baseColor = 'success';
+  @Input() separate = '/';
+  @Input() firstTooltip = '';
+  @Input() secondTooltip = '';
   
+  @Input() firstDescription: Observable<any>;
+  @Input() secondDescription: Observable<any>;
   @Input() data: Observable<any>;
 
   svgCSSClass;
