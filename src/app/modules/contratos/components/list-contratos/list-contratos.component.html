@@ -8,8 +8,8 @@
           <div class="col-lg-4">
             <small class="form-text text-muted">Situação</small>
             <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">              
-              <option  value="">Todos</option>
-              <option value="ACTIVE">Ativo</option>
+              <option value="">Todos</option>
+              <option value="ACTIVE" >Ativo</option>
               <option value="COMPLETED">Concluído</option>
               <option value="CANCELED">Cancelado</option>
             </select>
@@ -18,7 +18,7 @@
             <small class="form-text text-muted">Programa</small>
             <select class="form-control" placeholder="Filtro por Programa" name="programId" formControlName="programId">
               <option value="">Todos</option>              
-              <option *ngFor="let register of this.listProgramas$ | async" value="{{register.id}}">{{register.name}}</option>
+              <option *ngFor="let register of listProgramas$ | async" value="{{register.id}}">{{register.name}}</option>
             </select>
           </div>
 

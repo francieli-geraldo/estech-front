@@ -251,8 +251,10 @@ export abstract class TableService<T> {
 
   // Base Methods
   public patchState(patch: Partial<any>) {
-    if(patch?.hasOwnProperty('filter')){
-      this._tableState$.value.paginator.page = 0; 
+    if(patch?.hasOwnProperty('filter')){      
+      let paginatorValue = { paginator: this._tableState$.value.paginator.setPage(1) }
+      this.patchStateWithoutFetch(paginatorValue);
+      this.resolveParams(Object.keys(paginatorValue)[0])
     }      
     this.patchStateWithoutFetch(patch);
     this.resolveParams(Object.keys(patch)[0])
@@ -288,8 +290,8 @@ export abstract class TableService<T> {
         })
         break;
     }
-
   }
+
   public patchStateWithoutFetch(patch: Partial<any>) {
     const newState = Object.assign(this._tableState$.value, patch);
     this._tableState$.next(newState);

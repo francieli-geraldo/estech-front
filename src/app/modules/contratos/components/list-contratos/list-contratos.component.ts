@@ -50,7 +50,7 @@ export class ListContratosComponent
 
   ngOnInit(): void {
     this.service.setDefaults();
-    this.service.fetch();
+    this.service.patchState({ filter: { status: 'ACTIVE' } })
     this.grouping = this.service.grouping;
     this.paginator = this.service.paginator;
     this.sorting = this.service.sorting;
@@ -76,7 +76,7 @@ export class ListContratosComponent
   // filtration
   filterForm() {
     this.filterGroup = this.fb.group({
-      status: [""],
+      status: ["ACTIVE"],
       programId: [""],
       patientId: [""]
     });
@@ -140,7 +140,7 @@ export class ListContratosComponent
     this.service.patchState({ paginator });
   }
 
-  // // form actions
+  // form actions
   create() {
     this.edit(undefined);
   }

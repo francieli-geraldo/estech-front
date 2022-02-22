@@ -17,6 +17,11 @@ export class PaginatorState implements IPaginatorState {
     this.total = total;
     return this;
   }
+
+  setPage(page: number): PaginatorState {
+    this.page = page;
+    return this;
+  }
 }
 
 export interface IPaginatorView {

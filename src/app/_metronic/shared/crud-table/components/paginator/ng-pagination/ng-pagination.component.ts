@@ -315,7 +315,7 @@ export class NgPagination implements OnChanges {
     const prevPageNo = this.page;
     this.page = getValueInRange(newPageNo, this.pageCount, 1);
 
-    if (this.page !== prevPageNo && isNumber(this.collectionSize)) {
+    if (prevPageNo !== 0 && this.page !== prevPageNo && isNumber(this.collectionSize)) {
       this.pageChange.emit(this.page);
     }
   }
