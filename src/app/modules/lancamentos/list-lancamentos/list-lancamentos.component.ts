@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbDateAdapter, NgbDateParserFormatter, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Observable, Subject, Subscription } from "rxjs";
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../_metronic/shared/crud-table";
+import { Observable, Subscription } from "rxjs";
+import { tap } from "rxjs/operators";
+import { GroupingState, PaginatorState, SortState } from "../../../_metronic/shared/crud-table";
 import { GruposService } from "src/app/services/grupos.service";
 import { LancamentosService } from "src/app/services/lancamentos.service";
 import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
@@ -38,7 +38,20 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
 
   listLancamentos$: Observable<Lancamento[]>;
 
-  listGrupos$: Observable<Grupo[]>;
+  listGrupos$: Observable<Grupo[]> = this.gruposService.findParams({ 
+    params: {
+      page: '0',
+      size: '9999',
+    }
+  }).pipe(
+    tap((groups) => {
+      if(groups){
+        this.setfilterGroup(groups[0].id);
+      }
+    })
+  );
+
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -53,16 +66,8 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
     
     this.service.setDefaults();
 
-    this.listGrupos$ = this.gruposService.findParams({ 
-      params: {
-        page: '0',
-        size: '9999',
-      }
-    });
-
     this.pacientesService.fetch();
-    this.filterForm();
-    this.filter();
+    this.defineFilterGroup()
   }
 
   changeWeight(event){ 
@@ -92,10 +97,14 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
 
-  filterForm() {
+  setfilterGroup(grupoId) {
+    this.filterGroup.get("grupoId").setValue(grupoId);
+  }
+
+  defineFilterGroup() {
     this.filterGroup = this.fb.group({
       dateFilter: [this.todayDatepicker(new Date())],
-      grupoId: ["1"]
+      grupoId: [""]
     });
     this.subscriptions.push(
       this.filterGroup.controls.dateFilter.valueChanges.subscribe(() =>

@@ -50,8 +50,8 @@ export class FormGruposModalComponent implements OnInit {
 
   loadRegister() {
     if (!this.id) {
-      this.register = EMPTY;
-    }
+      this.register = Object.assign({}, EMPTY);
+    }     
     this.loadForm();
   }
 

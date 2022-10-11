@@ -160,8 +160,6 @@ export class EditPacienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('Cadastrar paciente destruido');
-    
     this.subscriptions.forEach(sb => sb.unsubscribe());
   }
 

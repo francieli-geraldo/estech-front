@@ -3,5 +3,5 @@ export const environment = {
   appVersion: 'v726demo2',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
-  apiUrl: 'https://your-domain.com/api'
+  apiUrl: 'https://api-estech.scsoftware.link/v1'
 };

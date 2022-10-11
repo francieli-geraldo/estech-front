@@ -40,7 +40,8 @@ import { CoreModule } from 'src/app/_metronic/core';
     NgbDatepickerModule,
     ExportAsModule,
     NgbDropdownModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgbTooltipModule,
   ],
   entryComponents: [
   ]

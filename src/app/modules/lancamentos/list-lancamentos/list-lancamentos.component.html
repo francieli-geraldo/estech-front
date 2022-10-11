@@ -1,7 +1,7 @@
 <div class="mt-5">
 
   <!-- begin: Filtration form -->
-  <div class="form form-label-right" *ngIf="!paciente">
+  <div class="form form-label-right" *ngIf="listGrupos$ | async as grupos">
     <div class="form-group row">
       <div class="col-lg-12">
         <div class="row" [formGroup]="filterGroup">
@@ -13,10 +13,9 @@
                   placeholder="dd/mm/yyyy" 
                   max="{{currentDate|date:'yyyy-MM-dd'}}"                  
                   formControlName="dateFilter"/>
-            <!-- <date-input [InputMaxDate]="maxDate" [InputFormControlName]="'dateFilter'"></date-input> -->
           </div>
 
-          <div class="col-lg-6">
+          <div class="col-lg-6" >
             <label for="typeahead-focus">Grupo</label>
             <select class="form-control cursor-pointer" placeholder="Grupo" name="grupoId" formControlName="grupoId">
               <option *ngFor="let register of listGrupos$ | async" value="{{register.id}}">{{register.name}}
@@ -36,13 +35,13 @@
       <thead>
         <th *ngIf="!paciente" class="text-left">PACIENTE</th>
         <th *ngIf="!!paciente">DATA</th>
-        <th>C</th>
-        <th>LM</th>
-        <th>A</th>
-        <th>LT</th>
-        <th>J</th>
-        <th>H</th>
-        <th>B</th>
+        <th><span ngbTooltip="Café da manhã">C</span></th>
+        <th><span ngbTooltip="Lanche da manhã">LM</span></th>
+        <th><span ngbTooltip="Almoço">A</span></th>
+        <th><span ngbTooltip="Lanche da tarde">LT</span></th>
+        <th><span ngbTooltip="Jantar">J</span></th>
+        <th><span ngbTooltip="Hiit">H</span></th>
+        <th><span ngbTooltip="Balança">B</span></th>
         <th>Peso anterior</th>
         <th>Peso atual</th>
         <th>Evolução</th>
@@ -128,7 +127,7 @@
             </ng-container>
           </td>
           <td>{{ ((register?.balance?.currentWeight || register?.balance?.previousWeight || 0) - (register?.balance?.previousWeight || 0)) | maskWeight }}</td>
-          <td>{{ showAccumulatedEvolution(register.balance.currentWeight, register) }}</td>
+          <td>{{ showAccumulatedEvolution(register.balance.currentWeight, register) | maskWeight }}</td>
           <td style="display: flex;">
 
             <a *ngIf="!register.editable" title="Alterar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
