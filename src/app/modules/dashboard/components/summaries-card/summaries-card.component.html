@@ -5,10 +5,10 @@
                 [svg]="'Cooking/Kitchen-scale'"
                 [title]="'KILOS PERDIDOS'"
                 [baseColor]="'success'"
-                [firstDescription]="_data['totalWeightMonth']"
-                [firstTooltip]="'Mês'"
-                [secondDescription]="_data['totalWeight']"
-                [secondTooltip]="'Total'"
+                [firstDescription]="_data['totalWeightMonth'] | maskWeight"
+                [firstTooltip]="'No mês'"
+                [secondDescription]="_data['totalWeight'] | maskWeight"
+                [secondTooltip]="'No total'"
             ></app-card-default>
         </div> 
     
@@ -17,10 +17,10 @@
                 [svg]="'Code/Info-circle'"
                 [title]="'LANÇAMENTOS'"
                 [baseColor]="'warning'"
-                [firstDescription]="_data['totalReleasesWeek']"
-                [firstTooltip]="'Semana'"
-                [secondDescription]="_data['totalReleasesMonth']"
-                [secondTooltip]="'Mês'"
+                [firstDescription]="(_data['totalReleasesWeek'] | maskWeight).replace(',000', '')"
+                [firstTooltip]="'Na semana'"
+                [secondDescription]="(_data['totalReleasesMonth'] | maskWeight).replace(',000', '')"
+                [secondTooltip]="'No mês'"
                 ></app-card-default>
         </div> 
     
@@ -29,10 +29,10 @@
                 [svg]="'Files/File-done'"
                 [title]="'NOVOS CONTRATOS'"
                 [baseColor]="'info'"
-                [firstDescription]="_data['totalNewContractsMonth']"
-                [firstTooltip]="'Mês'"
-                [secondDescription]="_data['totalNewContracts']"    
-                [secondTooltip]="'Total'"
+                [firstDescription]="(_data['totalNewContractsMonth'] | maskWeight).replace(',000', '')"
+                [firstTooltip]="'No mês'"
+                [secondDescription]="(_data['totalNewContracts'] | maskWeight).replace(',000', '')"    
+                [secondTooltip]="'No total'"
                 ></app-card-default>
         </div> 
 
@@ -41,10 +41,10 @@
                 [svg]="'Files/File-minus'"
                 [title]="'CONTRATOS ENCERRADOS'"
                 [baseColor]="'danger'"
-                [firstDescription]="_data['totalCompletedContractsMonth']"
-                [firstTooltip]="'Mês'"
-                [secondDescription]="_data['totalCompletedContracts']"
-                [secondTooltip]="'Total'"
+                [firstDescription]="(_data['totalCompletedContractsMonth'] | maskWeight).replace(',000', '')"
+                [firstTooltip]="'No mês'"
+                [secondDescription]="(_data['totalCompletedContracts'] | maskWeight).replace(',000', '')"
+                [secondTooltip]="'No total'"
                 ></app-card-default>
         </div>
     </ng-container>

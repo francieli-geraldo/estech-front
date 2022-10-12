@@ -1,27 +1,32 @@
 <table class="table" id="tablerelatorio">
-    
-    <thead class="bg-default">
-        <tr>
-            <th colspan="10">Relatório de Evolução Total</th>
-        </tr>
-        <tr>
-            <th>Grupo</th>
-            <th>Paciente</th>
-            <th>Programa</th>
-            <th>Situação</th>
-            <th>% Postagens</th>
-            <th>% Balança</th>
-            <th>Evolução Total</th>
-            <th>Objetivo</th>
-            <th>% Objetivo</th>
-            <th>Observações</th>
-        </tr>
-    </thead>
+  
+  <thead class="bg-default">
+      <tr>
+          <th colspan="10" class="menu-text">Relatório de Evolução Total
+            <br>
+            {{ groupNameSelected }}
+        </th>
+      </tr>
+      <tr>
+          <!-- <th class="menu-text text-left">Grupo</th> -->
+          <th class="menu-text text-left">Paciente</th>
+          <th class="menu-text text-left">Programa</th>
+          <th class="menu-text">Situação</th>
+          <th class="menu-text">% Postagens</th>
+          <th class="menu-text">% Balança</th>
+          <th class="menu-text">Evolução Total</th>
+          <th class="menu-text">Objetivo</th>
+          <th class="menu-text">% Objetivo</th>
+          <th class="menu-text">Observações</th>
+      </tr>
+  </thead>
+  
     <tbody>
-          <tr *ngFor="let report of service$ | async">
-            <td>{{ report.groupName }}</td>
-            <td>{{ report.patientName }}</td>
-            <td>{{ report.programName }}</td>
+      <ng-container *ngIf="service$ | async as _data">
+          <tr *ngFor="let report of _data">
+            <!-- <td class="text-left">{{ report.groupName }}</td> -->
+            <td class="text-left">{{ report.patientName }}</td>
+            <td class="text-left">{{ report.programName }}</td>
             <td>{{ getStatus(report.status) }}</td>
             <td>{{ report.postingPercentage | maskPercentage }}</td>
             <td>{{ report.balancePercentage | maskPercentage }}</td>
@@ -29,11 +34,24 @@
             <td>{{ report.goal | maskWeight }}</td>
             <td>{{ report.goalPercentage | maskPercentage }}</td>
             <td>{{ report.notesTotal }}</td>
-          </tr>   
-    </tbody>
-    <!-- <tfoot>
-        <tr>
-          <td>Impresso por: Samuel Cruz</td>
+          </tr>
+
+        </ng-container>
+        <!-- <tr *ngIf="isLoading" class="text-center">
+          <td colspan="9">Carregando resultado do relatório...</td>
+        </tr> -->
+        <tr *ngIf="isEmpty" class="text-center">
+          <td colspan="9">Não existem dados a serem exibidos</td>
         </tr>
-      </tfoot> -->
+    </tbody>
+    <tfoot>
+      <ng-container *ngIf="service$ | async">
+        <ng-container *ngIf="!isEmpty">
+          <tr>
+            <td colspan="5" class="nav-link pl-3 pr-0 text-left"><a href="https://site.scsoftware.link" target="_blank">eSTech - SC Software</a></td>
+            <td colspan="9" class="text-right">Impresso por: {{ getUsername() }} em {{ getDateAndTime() }}</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+      </tfoot>
 </table>

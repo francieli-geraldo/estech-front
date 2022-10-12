@@ -22,7 +22,7 @@
                         <label class="form-label">Nome</label>
                         <input type="text" class="form-control form-control-lg form-control-solid" name="name"
                             placeholder="Nome do grupo" autocomplete="off" [class.is-invalid]="isControlInvalid('name')"
-                            [class.is-valid]="isControlValid('name')" formControlName="name" />
+                            [class.is-valid]="isControlValid('name')" formControlName="name"  minlength="0" maxlength="60"/>
                     </div>
                 </div>
 
@@ -30,8 +30,8 @@
                     <div class="col-lg">
                         <label class="form-label">Descrição</label>
                         <textarea rows="2" class="form-control form-control-lg form-control-solid" name="description"
-                        placeholder="Descrição sobre o programa" autocomplete="off" [class.is-invalid]="isControlInvalid('description')"
-                        [class.is-valid]="isControlValid('description')" formControlName="description"></textarea>
+                        placeholder="Descrição sobre o grupo" autocomplete="off" [class.is-invalid]="isControlInvalid('description')"
+                        [class.is-valid]="isControlValid('description')" formControlName="description"  minlength="0" maxlength="255"></textarea>
                     </div>
                 </div>
             </form>

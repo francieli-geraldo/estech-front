@@ -39,31 +39,10 @@
   </div>
   <!-- end: Filtration form -->
 
-  <!-- begin: Grouping -->
-  <!-- <ng-container *ngIf="grouping.getSelectedRowsCount()">
-    <div class="form">
-      <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-        <div class="col-xl-12">
-          <div class="form-group form-group-inline">
-            <div class="form-label form-label-no-wrap">
-              <label class="font-bold font-danger"><span>Total de registros selecionados:
-                  <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container> -->
-  <!-- end: Grouping -->
-
   <!-- begin:Table -->
   <div class="table-responsive angular-bootstrap-table">
     <table class="table table-head-custom table-vertical-center overflow-hidden">
       <thead>
-        <!-- <th class="selection-cell-header" data-row-selection="true">
-          <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
-              [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-        </th> -->
         <th>
           PACIENTE
           <app-sort-icon column="patient" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
@@ -108,21 +87,10 @@
           OBJETIVO
           <app-sort-icon column="objetivo" [activeColumn]="sorting.column"></app-sort-icon>
         </th>
-        <!-- <th>
-          PLUS
-          <app-sort-icon column="dt_contratacao_plus" [activeColumn]="sorting.column"
-            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-        </th> -->
 
       </thead>
       <tbody>
         <tr *ngFor="let register of service.items$ | async">
-          <!-- <td class="selection-cell">
-            <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(register.id)"
-                [checked]="grouping.isRowSelected(register.id)" />
-              <span></span>
-            </label>
-          </td> -->
           <td>{{ register?.patient?.name || '*' }}</td>
           <td>
             <span class="label label-lg label-inline w-100" [class.label-light-danger]="register.status === 'CANCELED'"
@@ -139,7 +107,6 @@
           <td>{{ register.startingWeight | maskWeight }}</td>
           <td>{{ register.goal | maskWeight }}</td>
           <td>{{ (register.goal - register.startingWeight) | maskWeight }}</td>
-          <!-- <td>{{ register.dateConclusion }}</td> -->
           <td style="display: flex;">
             <ng-container *ngIf="register.status === 'ACTIVE'">                
               <a title="Alterar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">

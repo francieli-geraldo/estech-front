@@ -12,6 +12,7 @@ import { CardChartsComponent } from './components/card-charts/card-charts.compon
 import { DailiesTableComponent } from './components/dailies-table/dailies-table.component';
 import { SummariesCardComponent } from './components/summaries-card/summaries-card.component';
 import { CardDefaultComponent } from './components/summaries-card/card-default/card-default.component';
+import { CoreModule } from 'src/app/_metronic/core';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CardDefaultComponent } from './components/summaries-card/card-default/c
   ],
   exports: [ DashboardComponent ],
   imports: [
+    CoreModule,
     CommonModule,
     DropdownMenusModule,
     InlineSVGModule,

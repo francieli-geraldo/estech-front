@@ -14,6 +14,15 @@ export class MaskWeightPipe implements PipeTransform {
    * @param value: any
    */
   transform(value: any): any {
-    return (value !== '' && !!value) ? parseFloat(value).toFixed(3).replace('.',',') : '0,000';
+   if(!(value !== '' && !!value)) {
+    return '0,000';
+   }
+
+   return (value).toLocaleString('pt-BR', {
+      currency: 'BRL',
+      minimumFractionDigits: 3
+    });
   }
+
+  
 }

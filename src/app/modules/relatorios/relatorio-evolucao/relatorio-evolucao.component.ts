@@ -1,7 +1,9 @@
+import { formatDate } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { FullReport } from 'src/app/models/relatorio.model';
 import { ReportsService } from 'src/app/services/reports.service';
+import { AuthService } from '../../auth';
 
 
 @Component({
@@ -17,7 +19,17 @@ export class RelatorioEvolucaoComponent implements OnInit {
   service: FullReport[];
   service$: Observable<FullReport[]>;
 
-  constructor(private reportsService: ReportsService) { }
+  isEmpty: boolean;
+  isLoading: boolean;
+  groupNameSelected: string;
+
+  private _isEmpty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _groupNameSelected: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  private subscriptions: Subscription[] = [];
+
+  constructor(private reportsService: ReportsService, private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -31,23 +43,40 @@ export class RelatorioEvolucaoComponent implements OnInit {
     delete params["initialDate"];
     delete params["finalDate"];
 
-    this.service$ = this.reportsService.getReport({ report, params })
+    this._isLoading.next(true)
+    this.service$ = this.reportsService.getReport({ report, params });
+    this.service$.subscribe((res) => {
+      const isEmpty = res?.length == 0 || res == undefined;
+      this._isEmpty.next(isEmpty)
+      this._groupNameSelected.next(isEmpty ? '' : 'Grupo: ' + res[0].groupName)
+    });
+    this.service$.subscribe(() => this._isLoading.next(false));
 
+    this.subscriptions
+      .push(
+          this._isEmpty.subscribe((isEmpty: boolean) => this.isEmpty = isEmpty),
+          this._isLoading.subscribe((isLoading: boolean) => this.isLoading = isLoading),
+          this._groupNameSelected.subscribe((groupNameSelected: string) => this.groupNameSelected = groupNameSelected)
+      );
   }
 
+  getDateAndTime() {
+    return formatDate(new Date(), 'dd/MM/yyyy - HH:mm:ss', 'pt-BR')
+  }
+
+  getUsername() {
+    return this.authService.getUserFromLocalStorage().name;
+  }
+  
   getStatus(value) {
     switch (value) {
       case "ACTIVE":
-        console.log(value);            
         return 'Ativo';
       case "COMPLETED":
-        console.log(value);
         return 'Concluído';
       case "CANCELED":
-        console.log(value);
         return 'Cancelado';
       default:
-        console.log(value);
         return '';
     }
   }

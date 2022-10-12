@@ -1,31 +1,35 @@
 <table class="table" id="tablerelatorio">    
     <thead class="bg-default">
         <tr>
-            <th colspan="18">Relatório de Contratos Concluído</th>
+            <th class="menu-text" colspan="18">Relatório de Contratos Concluídos
+                <br>
+                {{ groupNameSelected }}
+            </th>
         </tr>
         <tr>
-            <th>Paciente</th>
-            <th>Programa</th>
-            <th>Início</th>
-            <th>Conclusão</th>
-            <th>C</th>
-            <th>LM</th>
-            <th>A</th>
-            <th>LT</th>
-            <th>J</th>
-            <th>H</th>
-            <th>% Postagens</th>
-            <th>Balança</th>
-            <th>% Balança</th>
-            <th>Evolução</th>
-            <th>Objetivo</th>
-            <th>Observações</th>
+            <th class="menu-text text-left">Paciente</th>
+            <th class="menu-text text-left">Programa</th>
+            <th class="menu-text">Início</th>
+            <th class="menu-text">Conclusão</th>
+            <th class="menu-text">C</th>
+            <th class="menu-text">LM</th>
+            <th class="menu-text">A</th>
+            <th class="menu-text">LT</th>
+            <th class="menu-text">J</th>
+            <th class="menu-text">H</th>
+            <th class="menu-text">% Postagens</th>
+            <th class="menu-text">Balança</th>
+            <th class="menu-text">% Balança</th>
+            <th class="menu-text">Evolução</th>
+            <th class="menu-text">Objetivo</th>
+            <th class="menu-text">Observações</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let report of service$ | async">
-            <td>{{ report.patientName  }}</td>
-            <td>{{ report.programName  }}</td>
+        <ng-container *ngIf="service$ | async as _data">
+        <tr *ngFor="let report of _data">
+            <td class="text-left">{{ report.patientName  }}</td>
+            <td class="text-left">{{ report.programName  }}</td>
             <td>{{ report.startDate | date:'dd/MM/yyyy' }}</td>
             <td>{{ report.dateConclusion | date:'dd/MM/yyyy' }}</td>
             <td>{{ report.breakfastTotal  }}</td>
@@ -41,5 +45,22 @@
             <td>{{ report.goal | maskWeight }}</td>
             <td>{{ report.notesTotal  }}</td>
         </tr> 
+        </ng-container>
+        <!-- <tr *ngIf="isLoading" class="text-center">
+            <td colspan="18">Carregando resultado do relatório...</td>
+        </tr> -->
+        <tr *ngIf="isEmpty" class="text-center">
+            <td colspan="18">Não existem dados a serem exibidos</td>
+        </tr>
     </tbody>
+    <tfoot>
+    <ng-container *ngIf="service$ | async">
+        <ng-container *ngIf="!isEmpty">
+        <tr>
+            <td colspan="5" class="nav-link pl-3 pr-0 text-left"><a href="https://site.scsoftware.link" target="_blank">eSTech - SC Software</a></td>
+            <td colspan="18" class="text-right">Impresso por: {{ getUsername() }} em {{ getDateAndTime() }}</td>
+        </tr>
+        </ng-container>
+    </ng-container>
+    </tfoot>
 </table>

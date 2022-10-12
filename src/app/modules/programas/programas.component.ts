@@ -159,15 +159,4 @@ private subscriptions: Subscription[] = [];
     );
   }
 
-
-
-  getProgramas(){
-    return [
-      {id: 1, description: "Emagrece você"},
-      {id: 2, description: "Engorda você"},
-      {id: 3, description: "Casa você"},
-      {id: 4, description: "Separa você"},
-    ]
-  }
-
 }

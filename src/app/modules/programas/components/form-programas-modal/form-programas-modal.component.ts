@@ -51,8 +51,8 @@ export class FormProgramasModalComponent implements OnInit {
 
   loadForm() {
     this.formGroup = this.fb.group({
-      name: [this.register.name, Validators.compose([Validators.nullValidator])],
-      description: [this.register.description, Validators.compose([Validators.nullValidator])],
+      name: [this.register.name, Validators.compose([Validators.required])],
+      description: [this.register.description, Validators.compose([Validators.required])],
     });
   }
 
