@@ -10,8 +10,13 @@
             <select class="form-control" name="status" placeholder="Filtro por status" formControlName="status">              
               <option value="">Todos</option>
               <option value="ACTIVE" >Ativo</option>
+              <option value="OVERDUE">Vencido</option>
+              <option value="OVERDUE_LESS_7">Vencendo em até 7 dias</option>
+              <option value="OVERDUE_LESS_15">Vencendo em até 15 dias</option>
+              <option value="OVERDUE_LESS_30">Vencendo em até 30 dias</option>
               <option value="COMPLETED">Concluído</option>
               <option value="CANCELED">Cancelado</option>
+
             </select>
           </div>
           <div class="col-lg-4">
@@ -93,11 +98,15 @@
         <tr *ngFor="let register of service.items$ | async">
           <td>{{ register?.patient?.name || '*' }}</td>
           <td>
-            <span class="label label-lg label-inline w-100" [class.label-light-danger]="register.status === 'CANCELED'"
+            <span class="label label-lg label-inline w-100" [class.label-light-danger]="statusInAlert(register.status)"
               [class.label-light-success]="register.status === 'ACTIVE'" [class.label-light-info]="register.status === 'COMPLETED'">
               <ng-container *ngIf="register.status === 'ACTIVE'">Ativo</ng-container>
               <ng-container *ngIf="register.status === 'COMPLETED'">Concluído</ng-container>
               <ng-container *ngIf="register.status === 'CANCELED'">Cancelado</ng-container>
+              <ng-container *ngIf="register.status === 'OVERDUE'">Vencido</ng-container>
+              <ng-container *ngIf="register.status === 'OVERDUE_LESS_7'">Venc. 7d</ng-container>
+              <ng-container *ngIf="register.status === 'OVERDUE_LESS_15'">Venc. 15d</ng-container>
+              <ng-container *ngIf="register.status === 'OVERDUE_LESS_30'">Venc. 30d</ng-container>
             </span>
           </td>
           <td>{{ register.program.name }}</td>
@@ -108,7 +117,7 @@
           <td>{{ register.goal | maskWeight }}</td>
           <td>{{ (register.goal - register.startingWeight) | maskWeight }}</td>
           <td style="display: flex;">
-            <ng-container *ngIf="register.status === 'ACTIVE'">                
+            <ng-container *ngIf="isOpened(register.status)">     
               <a title="Alterar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
@@ -129,7 +138,7 @@
                 </span>
               </a>
             </ng-container>
-            <ng-container *ngIf="register.status != 'ACTIVE'">                
+            <ng-container *ngIf="!isOpened(register.status)">
               <a title="Visualizar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
                   class="svg-icon svg-icon-md svg-icon-primary">
@@ -138,7 +147,7 @@
             </ng-container>
 
         
-            <ng-container *ngIf="register.status != 'ACTIVE'">
+            <ng-container *ngIf="!isOpened(register.status)">
               <a title="Reativar" class="btn btn-icon btn-light btn-hover-success btn-sm"
                 (click)="reactivateContrato(register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/General/Unlock.svg'" cacheSVG="true"

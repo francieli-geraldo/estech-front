@@ -76,6 +76,14 @@ export class RelatorioEvolucaoComponent implements OnInit {
         return 'Concluído';
       case "CANCELED":
         return 'Cancelado';
+      case "OVERDUE":
+        return 'Vencido';
+      case "OVERDUE_LESS_7":
+        return 'Venc. 7d';
+      case "OVERDUE_LESS_15":
+        return 'Venc. 15d';
+      case "OVERDUE_LESS_30":
+        return 'Venc. 30d';
       default:
         return '';
     }

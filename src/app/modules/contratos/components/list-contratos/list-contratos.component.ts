@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "../../../../_metronic/shared/crud-table";
+import { GroupingState, ICreateAction, IEditAction, IFilterView, IGroupingView, ISortView, PaginatorState, SortState } from "../../../../_metronic/shared/crud-table";
 import { ContratosService } from "../../../../services/contratos.service";
 import { CancelContratoModalComponent } from "../cancel-contrato-modal/cancel-contrato-modal.component";
 import { ConcluedContratoModalComponent } from "../conclued-contrato-modal/conclued-contrato-modal.component";
@@ -258,5 +258,12 @@ export class ListContratosComponent
     );                 
   }
 
+  isOpened(status: string) {
+    return ['ACTIVE', 'OVERDUE', 'OVERDUE_LESS_7', 'OVERDUE_LESS_15', 'OVERDUE_LESS_30'].includes(status);
+  }
+
+  statusInAlert(status: string) {
+    return ['CANCELED', 'OVERDUE', 'OVERDUE_LESS_7', 'OVERDUE_LESS_15', 'OVERDUE_LESS_30'].includes(status);
+  }
 
 }
