@@ -2,7 +2,7 @@
   <div class="modal-header">
     <div class="modal-title h4" id="example-modal-sizes-title-lg">
       <ng-container *ngIf="register">
-        <ng-container *ngIf="register.id && register.status == 'ACTIVE'">Alterar</ng-container>
+        <ng-container *ngIf="register.id && isOpened(register.status)">Alterar</ng-container>
         <ng-container *ngIf="!register.id">Cadastrar</ng-container>    
         <ng-container *ngIf="register.status == 'COMPLETED' || register.status == 'CANCELED'">Visualizar</ng-container>        
 
@@ -190,7 +190,7 @@
       </button>
     </ng-container> -->
 
-    <ng-container *ngIf="register && register.status == 'ACTIVE'">
+    <ng-container *ngIf="register && isOpened(register.status)">
       <button type="submit" class="btn btn-success btn-elevate" (click)="save()" [disabled]="formContrato.invalid">
         Salvar
       </button>

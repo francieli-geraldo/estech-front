@@ -137,91 +137,91 @@ export class FormContratoModalComponent implements OnInit {
       patientId: [
         {
           value: this.register?.patient?.id || this.register.patientId,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],
       programId: [
         {
           value: this.register?.program?.id || this.register.programId,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],
       groupId: [
         {
           value: this.register?.group?.id || this.register.groupId, 
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator])
       ],
       status: [
         {
-          value: this.register.status, 
-          disabled: this.register.status != "ACTIVE"
+          value: this.isOpened(this.register.status) ? 'ACTIVE' : this.register.status,
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator])
       ],
       startingWeight: [
         {
           value: this.setValueAroud(this.register.startingWeight),
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],
       goal: [
         {
           value: this.setValueAroud(this.register.goal), 
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator])
       ], 
       hiringDate: [
         {
           value: this.register.hiringDate,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],     
       startDate: [
         {
           value: this.register.startDate,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],           
       dateConclusion: [
         {
           value: this.register.dateConclusion,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],           
       cancellationDate: [
         {
           value: this.register.cancellationDate,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],           
       reasonCancellation: [
         {
           value: this.register.reasonCancellation,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],           
       notes: [
         {
           value: this.register.notes,
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ],
       objetivo: [
         {
           value: ((this.register.goal || 0) - (this.register?.startingWeight || 0)).toFixed(3),
-          disabled: this.register.status != "ACTIVE"
+          disabled: !this.isOpened(this.register.status)
         },
         Validators.compose([Validators.nullValidator]),
       ]
@@ -242,6 +242,8 @@ export class FormContratoModalComponent implements OnInit {
   }
 
   edit() {
+    this.register.status = this.isOpened(this.register.status) ? 'ACTIVE' : this.register.status
+
     const sbUpdate = this.registersService
       .update(this.register)
       .pipe(
@@ -349,6 +351,10 @@ export class FormContratoModalComponent implements OnInit {
     if(event.target.value !== ''){
       event.target.value = parseFloat(event.target.value).toFixed(3);
     }
+  }
+
+  isOpened(status: string) {
+    return ['ACTIVE', 'OVERDUE', 'OVERDUE_LESS_7', 'OVERDUE_LESS_15', 'OVERDUE_LESS_30'].includes(status);
   }
 
 }
