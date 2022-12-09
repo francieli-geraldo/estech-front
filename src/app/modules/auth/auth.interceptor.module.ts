@@ -21,7 +21,9 @@ export class HttpsAuthInterceptor implements HttpInterceptor {
   intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
     const auth = this.auth.getAuthFromLocalStorage();
     const dupReq = req.clone({
-      headers: req.headers.set('authorization', (auth?.token) ? 'Bearer ' + auth.token : ''),
+      headers: req.headers
+        .set('authorization', (auth?.token) ? 'Bearer ' + auth.token : '')
+        .set("Service-Id", "estech")
     });
     return next.handle(dupReq);
   }
