@@ -19,7 +19,7 @@ export class MonitorFinalProgramaComponent implements OnInit {
   @Output() output = new EventEmitter();
 
   service: CompletedReport[];
-  service$: Observable<CompletedReport[]>;
+  service$: Observable<CompletedReport>;
   isEmpty: boolean;
   isLoading: boolean;
   programNameSelected: string;
