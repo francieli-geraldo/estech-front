@@ -17,9 +17,9 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
 
   find(params): Observable<TableResponseModel<Contrato>> {
     return this.http.get<Contrato[]>(this.API_URL, { params }).pipe(
-      map(({ data, meta }: any) => {        
+      map(({ data, meta }: any) => {
         return {
-          items: data || [] ,
+          items: data || [],
           total: meta?.page?.elements || 0
         };
       })
@@ -34,8 +34,19 @@ export class ContratosService extends TableService<Contrato> implements OnDestro
     return forkJoin(tasks$);
   }
 
-  updateStatusContrato(id: number, register) {     
+  updateStatusContrato(id: number, register) {
     return this.http.put<any>(`${this.API_URL}/${id}`, register);
+  }
+
+  getProgramMonitoring(agreementId: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/${agreementId}/program-monitoring-form`).pipe(
+      map((response) => {
+        return response['data']
+      }),
+      catchError((err) => {
+        return of(undefined);
+      })
+    )
   }
 
   ngOnDestroy() {

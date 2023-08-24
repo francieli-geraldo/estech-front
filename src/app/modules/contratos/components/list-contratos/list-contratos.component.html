@@ -117,6 +117,12 @@
           <td>{{ register.goal | maskWeight }}</td>
           <td>{{ (register.goal - register.startingWeight) | maskWeight }}</td>
           <td style="display: flex;">
+            <a title="Ficha final do Programa" class="btn btn-icon btn-light btn-hover-success btn-sm"
+              (click)="getProgramMonitoring(register)">
+              <span [inlineSVG]="'./assets/media/svg/icons/General/Clipboard.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-success">
+              </span>
+            </a>
             <ng-container *ngIf="isOpened(register.status)">     
               <a title="Alterar" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="editRegister(register.id, register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
@@ -146,16 +152,14 @@
               </a>
             </ng-container>
 
-        
             <ng-container *ngIf="!isOpened(register.status)">
               <a title="Reativar" class="btn btn-icon btn-light btn-hover-success btn-sm"
                 (click)="reactivateContrato(register)">
                 <span [inlineSVG]="'./assets/media/svg/icons/General/Unlock.svg'" cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-success">
+                  class="svg-icon svg-icon-md svg-icon-primary">
                 </span>
               </a>
             </ng-container>
-           
           </td>
         </tr>
       </tbody>

@@ -1,0 +1,78 @@
+<ng-container *ngIf="isLoading">
+  <div class="progress progress-modal">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
+      style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+</ng-container>
+
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4 menu-text">
+      <a class=" h4 menu-text text-right">{{getagreementId()}} - Ficha final do Programa {{ programNameSelected }} </a>
+    </div>
+  </div>
+  <div class="modal-body" >
+    <table class="table" id="tablerelatorio">    
+        <thead class="bg-default">
+            <ng-container *ngIf="service$ | async as _data">
+              <tr class="bg-group">
+                <th colspan="18">Monitoramento de Paciente</th>
+              </tr>
+              <tr>
+                  <th class="menu-text text-left" colspan="5">Paciente: {{ _data.patientName }}</th>
+                  <th class="menu-text text-left" colspan="3">Início: {{ _data.startDate | date:'dd/MM/yyyy' }}</th>
+                  <th class="menu-text text-left" colspan="3">Término: {{ _data.dateConclusion | date:'dd/MM/yyyy' }}</th>
+                  <th class="menu-text text-left" colspan="3">Grupo: {{ _data.groupName}}</th>
+                  <th class="menu-text text-left" colspan="5">Status: {{getStatus(_data.status)}}</th>
+              </tr>
+              <tr>
+                  <th class="menu-text text-left" colspan="2">Peso Inicial: {{ _data.startingWeight | maskWeight }}</th>
+                  <th class="menu-text text-left" colspan="2">Peso Atual: {{ _data.currentWeight | maskWeight }}</th>
+                  <th class="menu-text text-left" colspan="3">Meta: {{ _data.startingWeight + _data.goal | maskWeight }}</th>
+                  <th class="menu-text text-left" colspan="3">Total Eliminado: {{ _data.accumulatedEvolution | maskWeight }} ({{(_data.accumulatedEvolution / _data.goal) * 100.00 | maskPercentage }}%)</th>
+                  <th class="menu-text text-left" colspan="4">Objetivo: {{ _data.goal | maskWeight }}</th>
+                  <th class="menu-text text-left" colspan="5">Postagens: {{ _data.postingPercentage | maskPercentage }}%</th>
+              </tr>
+      
+              <tr class="bg-group">
+                  <th class="menu-text" colspan="2">Cafés enviados</th>
+                  <th class="menu-text" colspan="2">Lanche da manhã</th>
+                  <th class="menu-text" colspan="2">Almoço</th>
+                  <th class="menu-text" colspan="4">Lanche da Tarde</th>
+                  <th class="menu-text" colspan="2">Janta</th>
+                  <th class="menu-text" colspan="2">HIIT</th>
+                  <th class="menu-text" colspan="3">Balança</th>
+              </tr>
+              <tr>
+                  <th class="text-center" colspan="2">{{ _data.breakfastTotal}}</th>
+                  <th class="text-center" colspan="2">{{ _data.morningSnackTotal}}</th>
+                  <th class="text-center" colspan="2">{{ _data.lunchTotal}}</th>
+                  <th class="text-center" colspan="4">{{ _data.afternoonSnackTotal}}</th>
+                  <th class="text-center" colspan="2">{{ _data.dinnerTotal}}</th>
+                  <th class="text-center" colspan="2">{{ _data.hiitTotal}}</th>
+                  <th class="text-center" colspan="3">{{ _data.balanceTotal}} ({{ _data.balancePercentage | maskPercentage }}%)</th>
+              </tr>
+      
+              <tr class="bg-group">
+                  <th colspan="18">Evolução do Paciente </th>
+              </tr>
+            </ng-container>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="service$ | async as _data">
+            <tr>
+              <td colspan="18"><app-grafico-evolucao class="container-chart" [dataSeries]="_data.dailyPosting"></app-grafico-evolucao></td>
+            </tr>
+          </ng-container>
+            <tr *ngIf="isEmpty" class="text-center">
+              <td colspan="18">Não existem dados a serem exibidos</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">
+      Fechar
+    </button>
+  </div>
+</div>

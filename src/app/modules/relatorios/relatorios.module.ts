@@ -20,7 +20,7 @@ import { InputsModule } from 'src/app/_metronic/shared/inputs';
     RelatoriosComponent, 
     RelatorioSemanalComponent, 
     RelatorioEvolucaoComponent, 
-    RelatorioConcluidoComponent
+    RelatorioConcluidoComponent,
   ],  
   imports: [
     CoreModule,
@@ -36,7 +36,7 @@ import { InputsModule } from 'src/app/_metronic/shared/inputs';
     NgbDatepickerModule,
     NgbDropdownModule,
     ExportAsModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
   ],
 })
 export class RelatoriosModule { }

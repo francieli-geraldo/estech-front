@@ -14,7 +14,9 @@ import { ContratosRoutingModule } from './contratos-routing.module';
 import { ListContratosComponent } from './components/list-contratos/list-contratos.component';
 import { ReactivateContratoModalComponent } from './components/reactivate-contrato-modal/reactivate-contrato-modal.component';
 import { ConcluedContratoModalComponent } from './components/conclued-contrato-modal/conclued-contrato-modal.component';
-
+import { MonitorFinalProgramaComponent } from './components/monitor-final-programa/monitor-final-programa.component';
+import { GraficoEvolucaoComponent } from './components/monitor-final-programa/grafico-evolucao/grafico-evolucao.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({  
   exports:[
@@ -24,7 +26,9 @@ import { ConcluedContratoModalComponent } from './components/conclued-contrato-m
     CancelContratoModalComponent,
     ConcluedContratoModalComponent,
     ReactivateContratoModalComponent,
-    ListContratosComponent 
+    ListContratosComponent,
+    MonitorFinalProgramaComponent,
+    GraficoEvolucaoComponent,
   ],
   declarations: [
     ContratosComponent,
@@ -33,7 +37,9 @@ import { ConcluedContratoModalComponent } from './components/conclued-contrato-m
     CancelContratoModalComponent,
     ConcluedContratoModalComponent,
     ReactivateContratoModalComponent,
-    ListContratosComponent   
+    ListContratosComponent,
+    MonitorFinalProgramaComponent,
+    GraficoEvolucaoComponent,
   ],
   imports: [
     CoreModule,
@@ -46,7 +52,8 @@ import { ConcluedContratoModalComponent } from './components/conclued-contrato-m
     CRUDTableModule,
     NgbModalModule,
     NgbDatepickerModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    NgApexchartsModule,
   ],
   entryComponents: [
     FormContratoModalComponent,
@@ -54,7 +61,9 @@ import { ConcluedContratoModalComponent } from './components/conclued-contrato-m
     CancelContratoModalComponent,
     ConcluedContratoModalComponent,
     ReactivateContratoModalComponent,
-    ListContratosComponent
+    ListContratosComponent,
+    MonitorFinalProgramaComponent,
+    GraficoEvolucaoComponent,
   ]
 })
 export class ContratosModule {}

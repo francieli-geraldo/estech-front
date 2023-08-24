@@ -13,6 +13,7 @@ import { ProgramasService } from "src/app/services/programas.service";
 import { PacientesService } from "src/app/services/pacientes.service";
 import { ReactivateContratoModalComponent } from "../reactivate-contrato-modal/reactivate-contrato-modal.component";
 import { Programa } from "src/app/models/programa.model";
+import { MonitorFinalProgramaComponent } from "../monitor-final-programa/monitor-final-programa.component";
 
 @Component({
   selector: "app-list-contratos",
@@ -223,6 +224,17 @@ export class ListContratosComponent
   updateStatusForSelected() {
     const modalRef = this.modalService.open(DeleteContratoModalComponent);
     modalRef.componentInstance.ids = this.grouping.getSelectedRows();
+    modalRef.result.then(
+      () => this.service.fetch(),
+      () => {}
+    );
+  }
+
+  getProgramMonitoring(register) {
+    const modalRef = this.modalService.open(MonitorFinalProgramaComponent, {
+      size: "xl",
+    });
+    modalRef.componentInstance.agreementId = register.id;
     modalRef.result.then(
       () => this.service.fetch(),
       () => {}

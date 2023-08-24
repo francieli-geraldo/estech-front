@@ -1,10 +1,9 @@
 import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
 import { TableService } from '../_metronic/shared/crud-table';
 import { environment } from '../../environments/environment';
-import { Lancamento } from '../models/Lancamento.model';
+import { Lancamento } from '../models/lancamento.model';
 
 @Injectable({
   providedIn: 'root'

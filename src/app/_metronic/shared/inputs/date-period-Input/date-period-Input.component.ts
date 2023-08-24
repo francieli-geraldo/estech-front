@@ -5,8 +5,8 @@ import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core
 
 @Component({
   selector: "date-period-input",
-  templateUrl: "./date-period-input.component.html",
-  styleUrls: ["./date-period-input.component.scss"],
+  templateUrl: "./date-period-Input.component.html",
+  styleUrls: ["./date-period-Input.component.scss"],
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],

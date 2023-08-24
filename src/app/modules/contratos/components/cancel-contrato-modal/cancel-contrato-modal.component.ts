@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, of, Subject, Subscription } from 'rxjs';
-import { catchError, delay, finalize, map, tap } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { ContratosService } from 'src/app/services/contratos.service';
 import { CustomAdapter, CustomDateParserFormatter } from 'src/app/_metronic/core';
 

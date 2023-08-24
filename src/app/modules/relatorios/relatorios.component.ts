@@ -1,19 +1,16 @@
-import { AfterViewInit, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef, } from "@angular/core";
+import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { Relatorio } from "src/app/models/relatorio.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 import { ReportsService } from "src/app/services/reports.service";
-import { ActivatedRoute, Router } from "@angular/router";
 import { ExportAsConfig, ExportAsService, SupportedExtensions } from "ngx-export-as";
 import { GruposService } from "src/app/services/grupos.service";
-import KTDialog from '../../../assets/js/components/dialog';
-import { catchError, debounceTime, distinctUntilChanged, switchMap, tap } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { RelatorioSemanalComponent } from "./relatorio-semanal/relatorio-semanal.component";
 import { RelatorioEvolucaoComponent } from "./relatorio-evolucao/relatorio-evolucao.component";
 import { RelatorioConcluidoComponent } from "./relatorio-concluido/relatorio-concluido.component";
 import { PacientesService } from "src/app/services/pacientes.service";
 import { Grupo } from "src/app/models/grupo.model";
-
 
 @Component({
   selector: "app-relatorios",

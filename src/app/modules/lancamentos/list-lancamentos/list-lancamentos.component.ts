@@ -8,7 +8,7 @@ import { GruposService } from "src/app/services/grupos.service";
 import { LancamentosService } from "src/app/services/lancamentos.service";
 import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
 import { PacientesService } from "src/app/services/pacientes.service";
-import { Lancamento } from "src/app/models/Lancamento.model";
+import { Lancamento } from "src/app/models/lancamento.model";
 import { HttpClient } from "@angular/common/http";
 import { Grupo } from "src/app/models/grupo.model";
 
