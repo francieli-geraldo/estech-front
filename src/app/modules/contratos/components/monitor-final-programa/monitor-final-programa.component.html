@@ -11,7 +11,7 @@
       <a class=" h4 menu-text text-right">{{getagreementId()}} - Ficha final do Programa {{ programNameSelected }} </a>
     </div>
   </div>
-  <div class="modal-body" >
+  <div class="modal-body overflow-auto" >
     <table class="table" id="tablerelatorio">    
         <thead class="bg-default">
             <ng-container *ngIf="service$ | async as _data">
