@@ -101,8 +101,8 @@ export class AuthService implements OnDestroy {
     this.isLoadingSubject.next(true);
     return this.authHttpService.getUserPicture(this.currentUserSubject.value.id).pipe(
       map((res: any) => {
-        if (res?.avatar) {
-          this.currentUserSubject.value.pic = `${res?.avatar}`;
+        if (res?.data?.avatar) {
+          this.currentUserSubject.value.pic = `${res?.data?.avatar}`;
           this.setUserFromLocalStorage(this.currentUserSubject.value);
         } else {
           this.getImageBase64('./assets/media/users/default.jpg');
