@@ -150,7 +150,8 @@ export class ListLancamentosComponent  implements OnInit, OnDestroy {
       "lunch": register.lunch,
       "afternoonSnack": register.afternoonSnack, 
       "dinner": register.dinner,
-      "hiit": register.hiit    
+      "hiit": register.hiit,    
+      "mentorship": register.mentorship 
     };
     
     this.service.editLancamento({

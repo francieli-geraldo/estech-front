@@ -41,6 +41,7 @@
         <th><span ngbTooltip="Lanche da tarde">LT</span></th>
         <th><span ngbTooltip="Jantar">J</span></th>
         <th><span ngbTooltip="Atividade Física">AF</span></th>
+        <th><span ngbTooltip="Mentoria">M</span></th>
         <th><span ngbTooltip="Balança">B</span></th>
         <th>Peso anterior</th>
         <th>Peso atual</th>
@@ -54,61 +55,69 @@
           </td>          
           <td *ngIf="!!paciente">{{ register.date | date:'dd/MM/yyyy' }}</td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.breakfast === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.breakfast !== true"
               [class.label-light-success]="register.breakfast === true"
               [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'breakfast') : false">
-              <ng-container *ngIf="register.breakfast === false">X</ng-container>
+              <ng-container *ngIf="register.breakfast !== true">X</ng-container>
               <ng-container *ngIf="register.breakfast === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.morningSnack === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.morningSnack !== true"
               [class.label-light-success]="register.morningSnack === true"
               [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'morningSnack') : false">
-              <ng-container *ngIf="register.morningSnack === false">X</ng-container>
+              <ng-container *ngIf="register.morningSnack !== true">X</ng-container>
               <ng-container *ngIf="register.morningSnack === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.lunch === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.lunch !== true"
               [class.label-light-success]="register.lunch === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'lunch') : false">
-              <ng-container *ngIf="register.lunch === false">X</ng-container>
+              <ng-container *ngIf="register.lunch !== true">X</ng-container>
               <ng-container *ngIf="register.lunch === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.afternoonSnack === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.afternoonSnack !== true"
               [class.label-light-success]="register.afternoonSnack === true"
               [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'afternoonSnack') : false">
-              <ng-container *ngIf="register.afternoonSnack === false">X</ng-container>
+              <ng-container *ngIf="register.afternoonSnack !== true">X</ng-container>
               <ng-container *ngIf="register.afternoonSnack === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.dinner === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.dinner !== true"
               [class.label-light-success]="register.dinner === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'dinner') : false">
-              <ng-container *ngIf="register.dinner === false">X</ng-container>
+              <ng-container *ngIf="register.dinner !== true">X</ng-container>
               <ng-container *ngIf="register.dinner === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.hiit === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.hiit !== true"
               [class.label-light-success]="register.hiit === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register,'hiit') : false">
-              <ng-container *ngIf="register.hiit === false">X</ng-container>
+              <ng-container *ngIf="register.hiit !== true">X</ng-container>
               <ng-container *ngIf="register.hiit === true">✔</ng-container>
             </span>
           </td>
           <td>
-            <span class="label label-lg label-inline" [class.label-light-danger]="register.balance.informed === false"
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.mentorship !== true"
+              [class.label-light-success]="register.mentorship === true" [class.cursor-pointer]="register.editable === true"
+              (click)="register.editable ? changeValueRegister(register,'mentorship') : false">
+              <ng-container *ngIf="register.mentorship !== true">X</ng-container>
+              <ng-container *ngIf="register.mentorship === true">✔</ng-container>
+            </span>
+          </td>
+          <td>
+            <span class="label label-lg label-inline" [class.label-light-danger]="register.balance.informed !== true"
               [class.label-light-success]="register.balance.informed === true" [class.cursor-pointer]="register.editable === true"
               (click)="register.editable ? changeValueRegister(register.balance,'informed') : false">
-              <ng-container *ngIf="register.balance.informed === false">X</ng-container>
+              <ng-container *ngIf="register.balance.informed !== true">X</ng-container>
               <ng-container *ngIf="register.balance.informed === true">✔</ng-container>
             </span>
           </td>
