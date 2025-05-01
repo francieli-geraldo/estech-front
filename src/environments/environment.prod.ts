@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   appVersion: 'v726demo2',
-  USERDATA_KEY: 'authf649fc9a5f55',
+  USERDATA_KEY: '',
   isMockEnabled: true,
-  apiUrl: 'https://api.scsoftware.com.br/v1'
+  apiUrl: ''
 };
