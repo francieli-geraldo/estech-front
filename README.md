@@ -1,14 +1,3 @@
-Certainly, Francieli! Based on the provided information and the structure of your Estech Frontend project, here's a comprehensive `README.md` file that includes:
-
-- A clear description of the frontend application
-- Instructions for setting up and running the project
-- Guidance on configuring the environment to connect with the backend ([3 Aplikasi Schematic Lokal Teknisi HP dan 2 Situs Download Skema Gratis ...](https://www.elppas.com/2023/03/3-aplikasi-schematic-untuk-teknisi-hp.html?utm_source=chatgpt.com))
-
----
-
-## 📄 `README.md` for Estech Frontend
-
-```markdown
 # Estech Front
 
 Estech Front is the **frontend application** for the Estech platform, tailored for weight-loss and aesthetic clinics. It provides an intuitive user interface for managing patients, tracking progress, and overseeing contracts and programs. This application consumes the RESTful API provided by the [Estech Backend](https://github.com/francieli-geraldo/estech-back).
