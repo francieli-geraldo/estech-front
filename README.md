@@ -1,27 +1,114 @@
-# Demo2App
+Certainly, Francieli! Based on the provided information and the structure of your Estech Frontend project, here's a comprehensive `README.md` file that includes:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
+- A clear description of the frontend application
+- Instructions for setting up and running the project
+- Guidance on configuring the environment to connect with the backend ([3 Aplikasi Schematic Lokal Teknisi HP dan 2 Situs Download Skema Gratis ...](https://www.elppas.com/2023/03/3-aplikasi-schematic-untuk-teknisi-hp.html?utm_source=chatgpt.com))
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 📄 `README.md` for Estech Frontend
 
-## Code scaffolding
+```markdown
+# Estech Front
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Estech Front is the **frontend application** for the Estech platform, tailored for weight-loss and aesthetic clinics. It provides an intuitive user interface for managing patients, tracking progress, and overseeing contracts and programs. This application consumes the RESTful API provided by the [Estech Backend](https://github.com/francieli-geraldo/estech-back).
 
-## Build
+## 🖥️ Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- **Dashboard Overview**: Visual representation of key metrics such as weight loss progress, contract statuses, and group performance.
+- **Patient Management**: Detailed views for individual patient records, including personal information, assigned programs, and progress charts.
+- **Contract Oversight**: Tools to monitor contract details, statuses, and adherence.
+- **Program Configuration**: Ability to manage and assign various treatment programs to patients.
+- **Group Structuring**: Organize patients into groups for comparative analysis and reporting.
+- **Reporting Tools**: Generate and export reports in PDF or image formats for documentation and review.
 
-## Running unit tests
+## 🚀 Technologies Used
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Angular 9.1.9
+- TypeScript
+- RxJS
+- Angular Material
+- SCSS
 
-## Running end-to-end tests
+## 📋 Prerequisites
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Ensure you have the following installed:
 
-## Further help
+- [Node.js](https://nodejs.org/) (version 12 or above)
+- [Angular CLI](https://angular.io/cli) (version 9.1.9 or compatible)
+- [Git](https://git-scm.com/)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## ⚙️ Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/francieli-geraldo/estech-front.git
+   cd estech-front
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**:
+
+   - Navigate to the `src/environments/` directory.
+   - Open the `environment.ts` file.
+   - Update the `apiUrl` to point to your backend server:
+
+     ```typescript
+     export const environment = {
+       production: false,
+       apiUrl: 'http://localhost:8080/api' // Replace with your backend URL
+     };
+     ```
+
+   - For production builds, ensure `environment.prod.ts` is also configured accordingly.
+
+## ▶️ Running the Application
+
+To start the development server:
+
+```bash
+ng serve
+```
+
+Navigate to `http://localhost:4200/` in your browser. The application will automatically reload if you make changes to the source files.
+
+## 🛠️ Building for Production
+
+To build the project for production:
+
+```bash
+ng build --prod
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## 🧪 Running Tests
+
+To execute unit tests via [Karma](https://karma-runner.github.io):
+
+```bash
+ng test
+```
+
+## 🤝 Contributing
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`.
+3. Make your changes and commit them: `git commit -m 'feat: add your feature'`.
+4. Push to the branch: `git push origin feature/your-feature-name`.
+5. Open a pull request.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+```
+
+---
+
+Feel free to customize this `README.md` further to match any additional specifics of your project. If you need assistance with deploying the application or setting up CI/CD pipelines, let me know! 
