@@ -84,20 +84,3 @@ To execute unit tests via [Karma](https://karma-runner.github.io):
 ```bash
 ng test
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/your-feature-name`.
-3. Make your changes and commit them: `git commit -m 'feat: add your feature'`.
-4. Push to the branch: `git push origin feature/your-feature-name`.
-5. Open a pull request.
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-```
-
----
-
-Feel free to customize this `README.md` further to match any additional specifics of your project. If you need assistance with deploying the application or setting up CI/CD pipelines, let me know! 
